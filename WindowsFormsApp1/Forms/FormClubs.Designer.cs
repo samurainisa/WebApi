@@ -33,13 +33,16 @@
             this.button3 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.btnGetClubs = new System.Windows.Forms.Button();
+            this.listView1 = new System.Windows.Forms.ListView();
+            this.columnId = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnName = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.SuspendLayout();
             // 
             // label1
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F);
-            this.label1.Location = new System.Drawing.Point(46, 19);
+            this.label1.Location = new System.Drawing.Point(252, 24);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(70, 26);
             this.label1.TabIndex = 17;
@@ -88,7 +91,30 @@
             this.btnGetClubs.TabIndex = 20;
             this.btnGetClubs.Text = "GetClubs";
             this.btnGetClubs.UseVisualStyleBackColor = true;
-            this.btnGetClubs.Click += new System.EventHandler(this.button1_Click);
+            this.btnGetClubs.Click += new System.EventHandler(this.btnGetClubs_Click);
+            // 
+            // listView1
+            // 
+            this.listView1.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.columnId,
+            this.columnName});
+            this.listView1.HideSelection = false;
+            this.listView1.Location = new System.Drawing.Point(257, 67);
+            this.listView1.Name = "listView1";
+            this.listView1.Size = new System.Drawing.Size(503, 408);
+            this.listView1.TabIndex = 24;
+            this.listView1.UseCompatibleStateImageBehavior = false;
+            this.listView1.View = System.Windows.Forms.View.Details;
+            // 
+            // columnId
+            // 
+            this.columnId.Text = "Id";
+            this.columnId.Width = 250;
+            // 
+            // columnName
+            // 
+            this.columnName.Text = "Name";
+            this.columnName.Width = 250;
             // 
             // FormClubs
             // 
@@ -98,6 +124,7 @@
             this.AutoSize = true;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.ClientSize = new System.Drawing.Size(997, 504);
+            this.Controls.Add(this.listView1);
             this.Controls.Add(this.button4);
             this.Controls.Add(this.button3);
             this.Controls.Add(this.button2);
@@ -118,5 +145,8 @@
         private System.Windows.Forms.Button button3;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Button btnGetClubs;
+        private System.Windows.Forms.ListView listView1;
+        private System.Windows.Forms.ColumnHeader columnId;
+        private System.Windows.Forms.ColumnHeader columnName;
     }
 }

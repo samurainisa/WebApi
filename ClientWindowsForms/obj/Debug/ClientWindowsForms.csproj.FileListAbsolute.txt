@@ -1,0 +1,11 @@
+C:\Users\Nik\Desktop\Laba4\ClientWindowsForms\bin\Debug\ClientWindowsForms.exe.config
+C:\Users\Nik\Desktop\Laba4\ClientWindowsForms\bin\Debug\ClientWindowsForms.exe
+C:\Users\Nik\Desktop\Laba4\ClientWindowsForms\bin\Debug\ClientWindowsForms.pdb
+C:\Users\Nik\Desktop\Laba4\ClientWindowsForms\obj\Debug\ClientWindowsForms.csproj.AssemblyReference.cache
+C:\Users\Nik\Desktop\Laba4\ClientWindowsForms\obj\Debug\ClientWindowsForms.csproj.SuggestedBindingRedirects.cache
+C:\Users\Nik\Desktop\Laba4\ClientWindowsForms\obj\Debug\ClientWindowsForms.Form1.resources
+C:\Users\Nik\Desktop\Laba4\ClientWindowsForms\obj\Debug\ClientWindowsForms.Properties.Resources.resources
+C:\Users\Nik\Desktop\Laba4\ClientWindowsForms\obj\Debug\ClientWindowsForms.csproj.GenerateResource.cache
+C:\Users\Nik\Desktop\Laba4\ClientWindowsForms\obj\Debug\ClientWindowsForms.csproj.CoreCompileInputs.cache
+C:\Users\Nik\Desktop\Laba4\ClientWindowsForms\obj\Debug\ClientWindowsForms.exe
+C:\Users\Nik\Desktop\Laba4\ClientWindowsForms\obj\Debug\ClientWindowsForms.pdb

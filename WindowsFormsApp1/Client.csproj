@@ -89,11 +89,11 @@
     <Compile Include="Forms\FormTreners.Designer.cs">
       <DependentUpon>FormTreners.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\ClubUserControl.cs">
-      <SubType>UserControl</SubType>
+    <Compile Include="Forms\ModalClubView.cs">
+      <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\ClubUserControl.Designer.cs">
-      <DependentUpon>ClubUserControl.cs</DependentUpon>
+    <Compile Include="Forms\ModalClubView.Designer.cs">
+      <DependentUpon>ModalClubView.cs</DependentUpon>
     </Compile>
     <Compile Include="Models\Club.cs" />
     <Compile Include="Models\Sport.cs" />
@@ -117,9 +117,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\FormTreners.resx">
       <DependentUpon>FormTreners.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\ClubUserControl.resx">
-      <DependentUpon>ClubUserControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -145,7 +142,9 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Datastore\" />
+  </ItemGroup>
   <ItemGroup>
     <None Include="Source\cross-out %282%29.png" />
   </ItemGroup>

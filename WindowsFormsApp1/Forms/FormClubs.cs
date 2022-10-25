@@ -11,6 +11,9 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using WindowsFormsApp1.Models;
+using System.IO;
+using System.Xml.Serialization;
+using System.Threading;
 
 namespace WindowsFormsApp1.Forms
 {
@@ -19,6 +22,14 @@ namespace WindowsFormsApp1.Forms
         public FormClubs()
         {
             InitializeComponent();
+        }
+
+        public static IEnumerable<Club> ValueName { get; set; }
+
+        public FormClubs(IEnumerable<Club> Name)
+        {
+            InitializeComponent();
+            ValueName = Name;
         }
 
         private void LoadTheme()
@@ -33,6 +44,7 @@ namespace WindowsFormsApp1.Forms
                     btn.FlatAppearance.BorderColor = ThemeColor.SecondaryColor;
                 }
             }
+
             label1.ForeColor = ThemeColor.SecondaryColor;
         }
 
@@ -41,43 +53,51 @@ namespace WindowsFormsApp1.Forms
             LoadTheme();
         }
 
-        private void listView1_SelectedIndexChanged(object sender, EventArgs e)
+        //serialization data from listViewClub to file
+        private void SarializationData(ListView listViewClub)
         {
+            var clubs = new List<Club>();
+            foreach (ListViewItem item in listViewClub.Items)
+            {
+                clubs.Add(new Club
+                {
+                    Name = item.Text,
+                });
+            }
 
+            var serializer = new XmlSerializer(typeof(List<Club>));
+            using (var stream =
+                   new FileStream("C:\\Users\\Nik\\Desktop\\WebApplication2\\WindowsFormsApp1\\Datastore\\club.xml",
+                       FileMode.Create))
+            {
+                serializer.Serialize(stream, clubs);
+            }
+
+            if (File.Exists("/Datastore/club.xml"))
+            {
+                MessageBox.Show("Serialization is done");
+            }
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        //deserialization data from file to listViewClub
+        private void DeserializationData(ListView listViewClub)
         {
-            //
-            
-            LoadData();
+            var serializer = new XmlSerializer(typeof(List<Club>));
+            using (var stream =
+                   new FileStream("C:\\Users\\Nik\\Desktop\\WebApplication2\\WindowsFormsApp1\\Datastore\\club.xml",
+                       FileMode.Open))
+            {
+                var clubs = (List<Club>)serializer.Deserialize(stream);
+                foreach (var club in clubs)
+                {
+                    listViewClub.Items.Add(club.Name);
+                }
+            }
         }
 
         public async void LoadData()
         {
-            // using (HttpClient client = new HttpClient())
-            // {
-            //     client.BaseAddress = new Uri("https://localhost:7059/");
-            //     client.DefaultRequestHeaders.Accept.Clear();
-            //     client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-            //
-            //     HttpResponseMessage response;
-            //
-            //     response = await client.GetAsync("api/Sports");
-            //
-            //
-            //     if (response.IsSuccessStatusCode)
-            //     {
-            //         var sports = await response.Content.ReadAsAsync<IEnumerable<Sport>>();
-            //         foreach (var sport in sports)
-            //         {
-            //             clubUserControl1.label4.Text = sport.Name;
-            //             clubUserControl1.label2.Text = sport.Name;
-            //
-            //         }
-            //     }
-            //     
-            //     
+
 
             using (HttpClient client = new HttpClient())
             {
@@ -88,21 +108,24 @@ namespace WindowsFormsApp1.Forms
                 HttpResponseMessage response;
 
                 response = await client.GetAsync("api/Clubs");
-
-                //динамически создаем объект класса ClubUserControl  и добавляем его в панель и скроллим вертикально
-                if (response.IsSuccessStatusCode)
-                {
-                    var clubs = await response.Content.ReadAsAsync<IEnumerable<Club>>();
-                    foreach (var club in clubs)
-                    {
-                        ClubUserControl clubUserControl = new ClubUserControl();
-                        clubUserControl.label4.Text = club.Name;
-                        clubUserControl.label2.Text = club.Name;
-                    }
-                }
-
             }
         }
-    }
 
+        private void btnGetClubs_Click(object sender, EventArgs e)
+        {
+            ModalClubView modalClubView = new ModalClubView();
+            modalClubView.ShowDialog();
+            listView1.Items.Clear();
+
+            //асинхронный цикл
+            Thread thread = new Thread(() =>
+            {
+                foreach (var club in ValueName)
+                {
+                    listView1.Invoke(new Action(() => { listView1.Items.Add(club.Name); }));
+                }
+            });
+            thread.Start();
+        }
+    }
 }

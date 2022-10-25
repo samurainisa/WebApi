@@ -39,10 +39,10 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.panelTitleBar = new System.Windows.Forms.Panel();
-            this.lblTitle = new System.Windows.Forms.Label();
-            this.panelDesktopPanel = new System.Windows.Forms.Panel();
             this.btnClose = new System.Windows.Forms.Button();
             this.btnCloseChildForm = new System.Windows.Forms.Button();
+            this.lblTitle = new System.Windows.Forms.Label();
+            this.panelDesktopPanel = new System.Windows.Forms.Panel();
             this.panelMenu.SuspendLayout();
             this.panelLogo.SuspendLayout();
             this.panelTitleBar.SuspendLayout();
@@ -135,17 +135,6 @@
             this.panelTitleBar.Name = "panelTitleBar";
             this.panelTitleBar.MouseDown += new System.Windows.Forms.MouseEventHandler(this.panelTitleBar_MouseDown);
             // 
-            // lblTitle
-            // 
-            resources.ApplyResources(this.lblTitle, "lblTitle");
-            this.lblTitle.ForeColor = System.Drawing.Color.White;
-            this.lblTitle.Name = "lblTitle";
-            // 
-            // panelDesktopPanel
-            // 
-            resources.ApplyResources(this.panelDesktopPanel, "panelDesktopPanel");
-            this.panelDesktopPanel.Name = "panelDesktopPanel";
-            // 
             // btnClose
             // 
             this.btnClose.FlatAppearance.BorderSize = 0;
@@ -163,6 +152,17 @@
             this.btnCloseChildForm.Name = "btnCloseChildForm";
             this.btnCloseChildForm.UseVisualStyleBackColor = true;
             this.btnCloseChildForm.Click += new System.EventHandler(this.btnCloseChildForm_Click);
+            // 
+            // lblTitle
+            // 
+            resources.ApplyResources(this.lblTitle, "lblTitle");
+            this.lblTitle.ForeColor = System.Drawing.Color.White;
+            this.lblTitle.Name = "lblTitle";
+            // 
+            // panelDesktopPanel
+            // 
+            resources.ApplyResources(this.panelDesktopPanel, "panelDesktopPanel");
+            this.panelDesktopPanel.Name = "panelDesktopPanel";
             // 
             // Form1
             // 
