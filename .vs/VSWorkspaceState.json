@@ -1,6 +1,7 @@
 {
   "ExpandedNodes": [
     "",
+    "\\ClientWindowsForms",
     "\\WebApplication2",
     "\\WebApplication2\\Data",
     "\\WebApplication2\\Migrations",
@@ -8,6 +9,6 @@
     "\\WindowsFormsApp1",
     "\\WindowsFormsApp1\\Forms"
   ],
-  "SelectedNode": "\\WindowsFormsApp1\\Forms\\FormClubs.cs",
+  "SelectedNode": "\\ClientWindowsForms\\Form1.cs",
   "PreviewInSolutionExplorer": false
 }
