@@ -77,6 +77,7 @@
             this.авторизацияToolStripMenuItem.Name = "авторизацияToolStripMenuItem";
             this.авторизацияToolStripMenuItem.Size = new System.Drawing.Size(90, 20);
             this.авторизацияToolStripMenuItem.Text = "Авторизация";
+            this.авторизацияToolStripMenuItem.Click += new System.EventHandler(this.авторизацияToolStripMenuItem_Click);
             // 
             // Form1
             // 

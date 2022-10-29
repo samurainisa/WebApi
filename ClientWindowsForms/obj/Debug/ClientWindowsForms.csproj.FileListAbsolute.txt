@@ -12,3 +12,4 @@ C:\Users\Nik\Desktop\Laba4\ClientWindowsForms\obj\Debug\ClientWindowsForms.pdb
 C:\Users\Nik\Desktop\Laba4\ClientWindowsForms\bin\Debug\Newtonsoft.Json.dll
 C:\Users\Nik\Desktop\Laba4\ClientWindowsForms\bin\Debug\Newtonsoft.Json.xml
 C:\Users\Nik\Desktop\Laba4\ClientWindowsForms\obj\Debug\ClientWindowsForms.csproj.CopyComplete
+C:\Users\Nik\Desktop\Laba4\ClientWindowsForms\obj\Debug\ClientWindowsForms.Forms.AuthForm.resources

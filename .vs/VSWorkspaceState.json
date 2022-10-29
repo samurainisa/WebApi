@@ -3,12 +3,13 @@
     "",
     "\\ClientWindowsForms",
     "\\WebApplication2",
+    "\\WebApplication2\\Controllers",
     "\\WebApplication2\\Data",
     "\\WebApplication2\\Migrations",
     "\\WebApplication2\\Models",
     "\\WindowsFormsApp1",
     "\\WindowsFormsApp1\\Forms"
   ],
-  "SelectedNode": "\\ClientWindowsForms\\Form1.cs",
+  "SelectedNode": "\\WebApplication2\\Controllers\\AuthController.cs",
   "PreviewInSolutionExplorer": false
 }

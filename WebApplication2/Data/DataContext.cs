@@ -23,5 +23,7 @@ namespace Server.Data
         public DbSet<Trener> Trener { get; set; }
 
         public DbSet<SportPlace> SportPlaces { get; set; }
+
+        public DbSet<User> Users { get; set; }
     }
 }

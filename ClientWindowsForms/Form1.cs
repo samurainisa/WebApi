@@ -10,6 +10,7 @@ using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using ClientWindowsForms.Forms;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
@@ -17,10 +18,17 @@ namespace ClientWindowsForms
 {
     public partial class Form1 : Form
     {
+
         public Form1()
         {
             InitializeComponent();
         }
+
+        public Form1(string token)
+        {
+            InitializeComponent();
+        }
+
 
         private void button1_Click(object sender, EventArgs e)
         {
@@ -72,10 +80,9 @@ namespace ClientWindowsForms
             //десериализация данных
             var json = JToken.Parse(data);
             var result = json.ToObject<ClubStructure[]>();
-        
+
             return result;
         }
-
 
 
         public TreeNode[] ClubStructuresToTreeNodes(ClubStructure[] structures)
@@ -98,6 +105,13 @@ namespace ClientWindowsForms
             }
 
             return result.ToArray();
+        }
+
+        private void авторизацияToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            //open auth form
+            AuthForm form2 = new AuthForm();
+            form2.Show();
         }
     }
 }
