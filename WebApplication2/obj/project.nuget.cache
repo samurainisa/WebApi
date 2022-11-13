@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "UmHttz5CgTPv7KS4tHm13UtH2rQ+q9gacfTQ9/egEHq6EoNbzMECteBWejL9a/mIsTRvcj3g502KRDv03B/b4A==",
+  "dgSpecHash": "a+qfqoK2v7kNVxy87fHg2eJClM6oMi6w2+xol8d5aPqPEcCVhLZPHS2LZJ71OoxaQGt6FyAgKEoX39Nqq6YgIQ==",
   "success": true,
-  "projectFilePath": "C:\\Users\\Nik\\Desktop\\Laba4\\WebApplication2\\Server.csproj",
+  "projectFilePath": "C:\\Users\\Nik\\source\\repos\\WebApi\\WebApplication2\\Server.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Nik\\.nuget\\packages\\automapper\\12.0.0\\automapper.12.0.0.nupkg.sha512",
     "C:\\Users\\Nik\\.nuget\\packages\\humanizer.core\\2.8.26\\humanizer.core.2.8.26.nupkg.sha512",
@@ -108,6 +108,7 @@
     "C:\\Users\\Nik\\.nuget\\packages\\nuget.projectmodel\\5.11.0\\nuget.projectmodel.5.11.0.nupkg.sha512",
     "C:\\Users\\Nik\\.nuget\\packages\\nuget.protocol\\5.11.0\\nuget.protocol.5.11.0.nupkg.sha512",
     "C:\\Users\\Nik\\.nuget\\packages\\nuget.versioning\\6.2.1\\nuget.versioning.6.2.1.nupkg.sha512",
+    "C:\\Users\\Nik\\.nuget\\packages\\portable.bouncycastle\\1.9.0\\portable.bouncycastle.1.9.0.nupkg.sha512",
     "C:\\Users\\Nik\\.nuget\\packages\\runtime.debian.8-x64.runtime.native.system.security.cryptography.openssl\\4.3.0\\runtime.debian.8-x64.runtime.native.system.security.cryptography.openssl.4.3.0.nupkg.sha512",
     "C:\\Users\\Nik\\.nuget\\packages\\runtime.fedora.23-x64.runtime.native.system.security.cryptography.openssl\\4.3.0\\runtime.fedora.23-x64.runtime.native.system.security.cryptography.openssl.4.3.0.nupkg.sha512",
     "C:\\Users\\Nik\\.nuget\\packages\\runtime.fedora.24-x64.runtime.native.system.security.cryptography.openssl\\4.3.0\\runtime.fedora.24-x64.runtime.native.system.security.cryptography.openssl.4.3.0.nupkg.sha512",

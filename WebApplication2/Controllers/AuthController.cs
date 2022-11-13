@@ -2,11 +2,13 @@
 using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Text;
-using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Cryptography.KeyDerivation;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 using Server.Data;
+using Server.DTOs;
 using Server.Models;
+
 
 namespace Server.Controllers
 {
@@ -23,126 +25,99 @@ namespace Server.Controllers
             _context = context;
         }
 
-        // public AuthController(DataContext context)
-        // {
-        //     _context = context;
-        // }
-
-
-        [HttpPost("register")]
-        public async Task<ActionResult<User>> Register(UserRegisterRequest request)
+        [HttpPost("/login")]
+        public async Task<ActionResult<AuthResponseDto>> Token(ParameterLoginDto data)
         {
-            if (_context.Users.Any(x => x.Email == request.Email))
+            var identity = GetIdentity(data.Email, data.Password);
+
+            if (identity == null)
             {
-                return Unauthorized("User already exist.");
+                return BadRequest(new { errorText = "Invalid username or password." });
             }
 
-            CreatePasswordHash(request.Password, out byte[] passwordHash, out byte[] passwordSalt);
+            var now = DateTime.UtcNow;
+            // создаем JWT-токен
+            var jwt = new JwtSecurityToken(
+                issuer: AuthOptions.ISSUER,
+                audience: AuthOptions.AUDIENCE,
+                notBefore: now,
+                claims: identity.Claims,
+                expires: now.Add(TimeSpan.FromMinutes(AuthOptions.LIFETIME)),
+                signingCredentials: new SigningCredentials(AuthOptions.GetSymmetricSecurityKey(),
+                    SecurityAlgorithms.HmacSha256));
+            //add secret to token response
+            var encodedJwt = new JwtSecurityTokenHandler().WriteToken(jwt);
 
+            var response = new AuthResponseDto
+            {
+                access_token = encodedJwt,
+                email = identity.Name,
+                role = identity.Claims.Where(c => c.Type == "Role")
+                    .Select(c => c.Value).FirstOrDefault(),
+                userID = identity.Claims.Where(c => c.Type == "Id")
+                    .Select(c => c.Value).FirstOrDefault()
+            };
+
+            return Ok(response);
+        }
+
+
+        [HttpPost("/signin")]
+        public async Task<ActionResult<CreateUserLoginDto>> Register(ClientModel request)
+        {
             var user = new User
             {
                 Email = request.Email,
-                PasswordHash = passwordHash,
-                PasswordSalt = passwordSalt,
-                VerificationToken = CreateRandomToken()
+            };
+            var userLogin = new UserLogin
+            {
+                Email = user.Email,
+                Password = request.Password,
+                Role = request.Role,
+                User = user
             };
 
+            var userlogindto = new CreateUserLoginDto
+            {
+                Id = userLogin.UserId,
+                Email = userLogin.Email,
+                Password = userLogin.Password,
+                Role = userLogin.Role,
+            };
 
             _context.Users.Add(user);
-            await _context.SaveChangesAsync();
-
-
-            return Ok("User created.");
-        }
-
-        private string CreateRandomToken()
-        {
-            return Convert.ToHexString(RandomNumberGenerator.GetBytes(64));
-        }
-
-        [HttpPost("login")]
-        public async Task<IActionResult> Login(UserLoginRequest request)
-        {
-            var user = await _context.Users.SingleOrDefaultAsync(x => x.Email == request.Email);
-
-            if (user == null)
-            {
-                return Unauthorized("Invalid email.");
-            }
-
-            if (!VerifyPasswordHash(request.Password, user.PasswordHash, user.PasswordSalt))
-            {
-                return Unauthorized("Invalid password.");
-            }
-
-            if (user.VerifiedAt == null)
-            {
-                return Unauthorized("User is not verified.");
-            }
-
-
-            return Ok($"{user.Email} is logged in.");
-        }
-
-        [HttpPost("verify")]
-        public async Task<IActionResult> Verify(string token)
-        {
-            var user = await _context.Users.SingleOrDefaultAsync(x => x.VerificationToken == token);
-
-            if (user == null)
-            {
-                return Unauthorized("Invalid token.");
-            }
-
-            user.VerifiedAt = DateTime.UtcNow;
+            _context.UserLogins.Add(userLogin);
 
             await _context.SaveChangesAsync();
 
-            return Ok($"User {user.Email} is verified!");
+            return Ok(userlogindto);
         }
 
-        //method getToken returns token
-        [HttpPost("token")]
-        public async Task<IActionResult> GetToken(UserLoginRequest request)
+
+
+
+
+        private ClaimsIdentity GetIdentity(string email, string password)
         {
-            var token = CreateRandomToken();
-
-            var user = await _context.Users.SingleOrDefaultAsync(x => x.Email == request.Email);
-
-            if (user == null)
+            // UserLogin person = _context.UserLogins.FirstOrDefault(x => x.Email == email && x.Password == password);
+            UserLogin person = _context.UserLogins.FirstOrDefault(x => x.Email == email);
+            if (person != null)
             {
-                return Unauthorized("Invalid email.");
+                var claims = new List<Claim>
+                {
+                    new(ClaimsIdentity.DefaultNameClaimType, person.Email),
+                    new(ClaimsIdentity.DefaultRoleClaimType, person.Role),
+                    new("Role", person.Role),
+                    new("Id", person.UserId.ToString())
+                };
+                ClaimsIdentity claimsIdentity =
+                    new ClaimsIdentity(claims, "Token", ClaimsIdentity.DefaultNameClaimType,
+                        ClaimsIdentity.DefaultRoleClaimType);
+                return claimsIdentity;
             }
 
-            if (!VerifyPasswordHash(request.Password, user.PasswordHash, user.PasswordSalt))
-            {
-                return Unauthorized("Invalid password.");
-            }
-
-            if (user.VerifiedAt == null)
-            {
-                return Unauthorized("User is not verified.");
-            }
-
-            return Ok(token);
-        }
-
-        private bool VerifyPasswordHash(string password, byte[] passwordHash, byte[] passwordSalt)
-        {
-            using (var hmac = new HMACSHA512(passwordSalt))
-            {
-                var computedHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(password));
-                return computedHash.SequenceEqual(passwordHash);
-            }
-        }
-
-        private void CreatePasswordHash(string password, out byte[] passwordHash, out byte[] passwordSalt)
-        {
-            using (var hmac = new HMACSHA512())
-            {
-                passwordSalt = hmac.Key;
-                passwordHash = hmac.ComputeHash(System.Text.Encoding.UTF8.GetBytes(password));
-            }
+            // если пользователя не найдено
+            return null;
         }
     }
 }

@@ -1,15 +1,9 @@
 {
   "ExpandedNodes": [
     "",
-    "\\ClientWindowsForms",
-    "\\WebApplication2",
-    "\\WebApplication2\\Controllers",
-    "\\WebApplication2\\Data",
-    "\\WebApplication2\\Migrations",
-    "\\WebApplication2\\Models",
-    "\\WindowsFormsApp1",
-    "\\WindowsFormsApp1\\Forms"
+    "\\packages",
+    "\\WebApplication2\\Controllers"
   ],
-  "SelectedNode": "\\WebApplication2\\Controllers\\AuthController.cs",
+  "SelectedNode": "\\WebApiAspNet.sln",
   "PreviewInSolutionExplorer": false
 }
