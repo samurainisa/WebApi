@@ -49,9 +49,19 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Data\FetchData.cs" />
+    <Compile Include="Data\DataForms\ClubsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Data\DataForms\ClubsForm.Designer.cs">
+      <DependentUpon>ClubsForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Data\Enums\ListTables.cs" />
+    <Compile Include="Data\Service\DataUseCases.cs" />
+    <Compile Include="Data\Transfer\FetchData.cs" />
     <Compile Include="Data\Models\AuthInfo.cs" />
+    <Compile Include="Data\Models\Club.cs" />
     <Compile Include="Data\Service\UserUseCases.cs" />
+    <Compile Include="Data\Transfer\UploadData.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -84,6 +94,9 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="Data\DataForms\ClubsForm.resx">
+      <DependentUpon>ClubsForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\AdminForm.resx">
       <DependentUpon>AdminForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -92,6 +105,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\SignInForm.resx">
       <DependentUpon>SignInForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\UserForm.resx">
+      <DependentUpon>UserForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -117,7 +133,9 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <None Include="Resources\free-icon-refresh-4701365.png" />
+  </ItemGroup>
   <ItemGroup>
     <None Include="Resources\user-solid.png" />
   </ItemGroup>

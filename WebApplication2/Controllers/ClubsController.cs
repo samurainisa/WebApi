@@ -1,12 +1,15 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Server.Data;
 using Server.Models;
 using WebApplication2.DTOs;
 
 namespace Server.Controllers
 {
+    
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class ClubsController : ControllerBase
     {
         private readonly DataContext _context;
@@ -36,9 +39,6 @@ namespace Server.Controllers
 
             return club;
         }
-
-        
-
 
         [HttpPatch]
         public async Task<ActionResult<Club>> PatchClub(int id, CreateClubDto clubDto)
@@ -80,7 +80,6 @@ namespace Server.Controllers
         }
 
         // POST: api/Clubs
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
         public async Task<ActionResult<Club>> PostClub(CreateClubDto request)
         {
@@ -88,7 +87,6 @@ namespace Server.Controllers
             {
                 Name = request.Name
             };
-
 
             _context.Clubs.Add(newClub);
             await _context.SaveChangesAsync();

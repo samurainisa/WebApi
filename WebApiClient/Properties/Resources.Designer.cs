@@ -83,6 +83,16 @@ namespace WebApiClient.Properties {
         /// <summary>
         ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap free_icon_refresh_4701365 {
+            get {
+                object obj = ResourceManager.GetObject("free-icon-refresh-4701365", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap lock_solid {
             get {
                 object obj = ResourceManager.GetObject("lock-solid", resourceCulture);

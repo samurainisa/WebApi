@@ -4,6 +4,21 @@
     "C:\\Users\\Nik\\source\\repos\\WebApi\\WebApplication2\\Server.csproj": {}
   },
   "projects": {
+    "C:\\Users\\Nik\\source\\repos\\WebApi\\WebApiClient\\WebApiClient.csproj": {
+      "restore": {
+        "projectUniqueName": "C:\\Users\\Nik\\source\\repos\\WebApi\\WebApiClient\\WebApiClient.csproj",
+        "projectName": "WebApiClient",
+        "projectPath": "C:\\Users\\Nik\\source\\repos\\WebApi\\WebApiClient\\WebApiClient.csproj",
+        "frameworks": {
+          "net472": {
+            "projectReferences": {}
+          }
+        }
+      },
+      "frameworks": {
+        "net472": {}
+      }
+    },
     "C:\\Users\\Nik\\source\\repos\\WebApi\\WebApplication2\\Server.csproj": {
       "version": "1.0.0",
       "restore": {
@@ -31,7 +46,11 @@
         "frameworks": {
           "net6.0": {
             "targetAlias": "net6.0",
-            "projectReferences": {}
+            "projectReferences": {
+              "C:\\Users\\Nik\\source\\repos\\WebApi\\WebApiClient\\WebApiClient.csproj": {
+                "projectPath": "C:\\Users\\Nik\\source\\repos\\WebApi\\WebApiClient\\WebApiClient.csproj"
+              }
+            }
           }
         },
         "warningProperties": {
@@ -44,17 +63,9 @@
         "net6.0": {
           "targetAlias": "net6.0",
           "dependencies": {
-            "AutoMapper": {
-              "target": "Package",
-              "version": "[12.0.0, )"
-            },
             "Microsoft.AspNetCore.Authentication.JwtBearer": {
               "target": "Package",
               "version": "[6.0.10, )"
-            },
-            "Microsoft.AspNetCore.Identity": {
-              "target": "Package",
-              "version": "[2.2.0, )"
             },
             "Microsoft.EntityFrameworkCore": {
               "target": "Package",
@@ -63,10 +74,6 @@
             "Microsoft.EntityFrameworkCore.Design": {
               "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
               "suppressParent": "All",
-              "target": "Package",
-              "version": "[6.0.10, )"
-            },
-            "Microsoft.EntityFrameworkCore.SqlServer": {
               "target": "Package",
               "version": "[6.0.10, )"
             },
@@ -87,10 +94,6 @@
             "Npgsql.EntityFrameworkCore.PostgreSQL": {
               "target": "Package",
               "version": "[6.0.7, )"
-            },
-            "Portable.BouncyCastle": {
-              "target": "Package",
-              "version": "[1.9.0, )"
             },
             "Swashbuckle.AspNetCore": {
               "target": "Package",

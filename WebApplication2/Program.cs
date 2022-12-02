@@ -30,6 +30,7 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             IssuerSigningKey = AuthOptions.GetSymmetricSecurityKey(),
             // валидация ключа безопасности
             ValidateIssuerSigningKey = true,
+            ClockSkew = TimeSpan.FromSeconds(20)
         };
     });
 

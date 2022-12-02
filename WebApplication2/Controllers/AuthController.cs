@@ -42,17 +42,18 @@ namespace Server.Controllers
                 audience: AuthOptions.AUDIENCE,
                 notBefore: now,
                 claims: identity.Claims,
-                expires: now.Add(TimeSpan.FromMinutes(AuthOptions.LIFETIME)),
+                expires: now.Add(TimeSpan.FromSeconds(10)),
                 signingCredentials: new SigningCredentials(AuthOptions.GetSymmetricSecurityKey(),
                     SecurityAlgorithms.HmacSha256));
+
             //add secret to token response
             var encodedJwt = new JwtSecurityTokenHandler().WriteToken(jwt);
 
             var response = new AuthResponseDto
             {
                 access_token = encodedJwt,
-                email = identity.Name,
-                role = identity.Claims.Where(c => c.Type == "Role")
+                Email = identity.Name,
+                Role = identity.Claims.Where(c => c.Type == "Role")
                     .Select(c => c.Value).FirstOrDefault(),
                 userID = identity.Claims.Where(c => c.Type == "Id")
                     .Select(c => c.Value).FirstOrDefault()
@@ -94,13 +95,10 @@ namespace Server.Controllers
         }
 
 
-
-
-
         private ClaimsIdentity GetIdentity(string email, string password)
         {
             // UserLogin person = _context.UserLogins.FirstOrDefault(x => x.Email == email && x.Password == password);
-            UserLogin person = _context.UserLogins.FirstOrDefault(x => x.Email == email);
+            UserLogin person = _context.UserLogins.FirstOrDefault(x => x.Email == email && x.Password == password);
             if (person != null)
             {
                 var claims = new List<Claim>

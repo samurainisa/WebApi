@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using WebApiClient.Data;
 using WebApiClient.Data.Service;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace WebApiClient.Forms
 {
@@ -20,11 +21,11 @@ namespace WebApiClient.Forms
         }
 
         UserUseCases register = new FetchData();
-
-        private async void button1_Click(object sender, EventArgs e)
+        
+        private async void btnLogin_Click(object sender, EventArgs e)
         {
-            var email = textBox1.Text;
-            var password = textBox2.Text;
+            var email = tbUsername.Text;
+            var password = tbPassword.Text;
 
             var res = await register.Register(email, password);
             if (res == "ok")
@@ -32,7 +33,7 @@ namespace WebApiClient.Forms
                 MessageBox.Show("You have successfully registered");
                 AuthForm authForm = new AuthForm();
                 authForm.Show();
-                this.Hide();
+                Hide();
             }
             else
             {

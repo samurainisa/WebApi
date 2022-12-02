@@ -11,7 +11,6 @@ public class AthletesController : ControllerBase
 {
     private readonly DataContext _dataContext;
 
-
     public AthletesController(DataContext dataContext)
     {
         _dataContext = dataContext;

@@ -1,9 +1,13 @@
 {
   "ExpandedNodes": [
     "",
-    "\\packages",
+    "\\WebApiClient",
+    "\\WebApiClient\\Data",
+    "\\WebApiClient\\Data\\DataForms",
+    "\\WebApiClient\\Forms",
+    "\\WebApplication2",
     "\\WebApplication2\\Controllers"
   ],
-  "SelectedNode": "\\WebApiAspNet.sln",
+  "SelectedNode": "\\WebApiClient\\Data\\DataForms\\ClubsForm.cs",
   "PreviewInSolutionExplorer": false
 }

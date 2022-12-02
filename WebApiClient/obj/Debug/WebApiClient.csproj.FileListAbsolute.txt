@@ -13,3 +13,6 @@ C:\Users\Nik\source\repos\WebApi\WebApiClient\bin\Debug\Newtonsoft.Json.dll
 C:\Users\Nik\source\repos\WebApi\WebApiClient\bin\Debug\Newtonsoft.Json.xml
 C:\Users\Nik\source\repos\WebApi\WebApiClient\obj\Debug\WebApiClient.csproj.CopyComplete
 C:\Users\Nik\source\repos\WebApi\WebApiClient\obj\Debug\WebApiClient.Forms.SignInForm.resources
+C:\Users\Nik\Source\Repos\WebApi\WebApiClient\obj\Debug\WebApiClient.Forms.AdminForm.resources
+C:\Users\Nik\Source\Repos\WebApi\WebApiClient\obj\Debug\WebApiClient.Forms.UserForm.resources
+C:\Users\Nik\source\repos\WebApi\WebApiClient\obj\Debug\WebApiClient.Data.DataForms.ClubsForm.resources
