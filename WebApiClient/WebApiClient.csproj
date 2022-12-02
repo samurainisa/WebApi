@@ -62,6 +62,8 @@
       <DependentUpon>SportsForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Data\Enums\ListTables.cs" />
+    <Compile Include="Data\Models\Sport.cs" />
+    <Compile Include="Data\Models\SportPlace.cs" />
     <Compile Include="Data\Service\DataUseCases.cs" />
     <Compile Include="Data\Transfer\FetchData.cs" />
     <Compile Include="Data\Models\AuthInfo.cs" />

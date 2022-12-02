@@ -4,10 +4,11 @@
     "\\WebApiClient",
     "\\WebApiClient\\Data",
     "\\WebApiClient\\Data\\DataForms",
+    "\\WebApiClient\\Data\\Service",
     "\\WebApiClient\\Forms",
     "\\WebApplication2",
     "\\WebApplication2\\Controllers"
   ],
-  "SelectedNode": "\\WebApiAspNet.sln",
+  "SelectedNode": "\\WebApiClient\\Forms\\UserForm.cs",
   "PreviewInSolutionExplorer": false
 }

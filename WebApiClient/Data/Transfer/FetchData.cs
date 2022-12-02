@@ -14,12 +14,12 @@ namespace WebApiClient.Data
     public class FetchData : UserUseCases
     {
         private AuthInfo authInfo;
+
         public async Task<AuthInfo> LogIn(string email, string password)
         {
             string data;
             var baseAddress = new Uri("https://localhost:7059");
             string url = "login";
-
 
             var jsonObject = new
             {
@@ -39,6 +39,7 @@ namespace WebApiClient.Data
                 authInfo = JsonConvert.DeserializeObject<AuthInfo>(data);
                 return authInfo;
             }
+
             MessageBox.Show("Invalid login or password");
             return null;
         }

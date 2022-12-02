@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace WebApiClient.Data
+﻿namespace WebApiClient.Data.Models
 {
     public class AuthInfo
     {

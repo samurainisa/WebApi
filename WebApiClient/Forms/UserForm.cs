@@ -19,9 +19,8 @@ namespace WebApiClient.Forms
 {
     public partial class UserForm : Form
     {
-        private UserUseCases getData = new FetchData();
         private static AuthInfo _authInfo = new AuthInfo();
-        private DataUseCases getClubs = new UploadData();
+        private DataUseCases getData = new UploadData();
 
         public UserForm()
         {
@@ -48,10 +47,11 @@ namespace WebApiClient.Forms
             try
             {
                 Console.WriteLine(_authInfo.access_token);
-                var clubs = await getClubs.GetClubs(_authInfo.access_token);
-                var sports = await getClubs.GetClubs(_authInfo.access_token);
+                
+                var clubs = await getData.GetClubs(_authInfo.access_token);
+                var sports = await getData.GetSports(_authInfo.access_token);
 
-                if (clubs == null)
+                if (clubs == null || sports == null)
                 {
                     MessageBox.Show("Токен истек, пожалуйста, авторизуйтесь заново");
                 }
@@ -66,12 +66,15 @@ namespace WebApiClient.Forms
 
                         clubitem.SubItems.Add(club.Name);
                         listView1.Items.Add(clubitem);
-
                     }
-                    ListViewItem sportitem = new ListViewItem(club.Id.ToString());
-                    sportitem.SubItems.Add()
+                    
+                    foreach (var sport in sports)
+                    {
+                        ListViewItem sportitem = new ListViewItem(sport.Id.ToString());
 
-
+                        sportitem.SubItems.Add(sport.Name);
+                        listView2.Items.Add(sportitem);
+                    }
                 }
             }
             catch (Exception exception)
@@ -142,7 +145,7 @@ namespace WebApiClient.Forms
                 }
 
                 Console.WriteLine(_authInfo.access_token);
-                var clubs = await getClubs.GetClubs(_authInfo.access_token);
+                var clubs = await getData.GetClubs(_authInfo.access_token);
 
                 if (clubs == null)
                 {

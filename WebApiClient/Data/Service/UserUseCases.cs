@@ -8,7 +8,7 @@ using WebApiClient.Data.Models;
 namespace WebApiClient.Data.Service
 {
     public interface UserUseCases
-    {
+    { 
         Task<AuthInfo> LogIn(string login, string password);
         Task<string> Register(string login, string password);
     }

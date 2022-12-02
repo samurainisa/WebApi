@@ -14,13 +14,24 @@ namespace WebApiClient.Data.Transfer
 {
     public class UploadData : DataUseCases
     {
-        public async Task<List<Club>> GetClubs(string token)
+        public async Task<List<Sport>> GetSports(string token)
+        {
+            return await GetData<Sport>(token, "api/Sports");
+        }
+
+        public Task<Sport> PostSport(Sport sport, string token)
+        {
+            return PostData(sport, token, "api/Sports");
+        }
+
+        //universal method for getting data from server
+        public async Task<List<T>> GetData<T>(string token, string url)
         {
             try
             {
                 string data;
                 var baseAddress = new Uri("https://localhost:7059");
-                var url = "api/Clubs";
+
                 using (var client = new HttpClient(new HttpClientHandler()) { BaseAddress = baseAddress })
                 {
                     client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
@@ -30,7 +41,7 @@ namespace WebApiClient.Data.Transfer
                     data = Encoding.UTF8.GetString(bytes, 0, bytes.Length);
                 }
 
-                return JsonConvert.DeserializeObject<List<Club>>(data);
+                return JsonConvert.DeserializeObject<List<T>>(data);
             }
             catch (Exception e)
             {
@@ -39,24 +50,24 @@ namespace WebApiClient.Data.Transfer
             }
         }
 
-        public Task<Club> PostClub(Club club, string token)
+        //universal method for posting data to server
+        public async Task<T> PostData<T>(T data, string token, string url)
         {
             try
             {
                 var baseAddress = new Uri("https://localhost:7059");
-                var url = "api/Clubs";
                 using (var client = new HttpClient(new HttpClientHandler()) { BaseAddress = baseAddress })
                 {
                     client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
                     client.DefaultRequestHeaders.Add("Authorization", $"Bearer {token}");
-                    
-                    var result = client.PostAsync(baseAddress + url,
-                        new StringContent(JsonConvert.SerializeObject(club), Encoding.UTF8, "application/json")).Result;
-                    
-                    var bytes = result.Content.ReadAsByteArrayAsync().Result;
-                    var data = Encoding.UTF8.GetString(bytes, 0, bytes.Length);
-                    
-                    return Task.FromResult(JsonConvert.DeserializeObject<Club>(data));
+
+                    var result = await client.PostAsync(baseAddress + url,
+                        new StringContent(JsonConvert.SerializeObject(data), Encoding.UTF8, "application/json"));
+
+                    var bytes = await result.Content.ReadAsByteArrayAsync();
+                    var dataFromServer = Encoding.UTF8.GetString(bytes, 0, bytes.Length);
+
+                    return JsonConvert.DeserializeObject<T>(dataFromServer);
                 }
             }
             catch (Exception e)
@@ -65,5 +76,42 @@ namespace WebApiClient.Data.Transfer
                 throw;
             }
         }
+
+        public async Task<List<Club>> GetClubs(string token)
+        {
+            return await GetData<Club>(token, "api/Clubs");
         }
+
+        public async Task<Club> PostClub(Club club, string token)
+        {
+            return await PostData(club, token, "api/Clubs");
+        }
+
+        // public Task<Club> PostClub(Club club, string token)
+        // {
+        //     try
+        //     {
+        //         var baseAddress = new Uri("https://localhost:7059");
+        //         var url = "api/Clubs";
+        //         using (var client = new HttpClient(new HttpClientHandler()) { BaseAddress = baseAddress })
+        //         {
+        //             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+        //             client.DefaultRequestHeaders.Add("Authorization", $"Bearer {token}");
+        //
+        //             var result = client.PostAsync(baseAddress + url,
+        //                 new StringContent(JsonConvert.SerializeObject(club), Encoding.UTF8, "application/json")).Result;
+        //
+        //             var bytes = result.Content.ReadAsByteArrayAsync().Result;
+        //             var data = Encoding.UTF8.GetString(bytes, 0, bytes.Length);
+        //
+        //             return Task.FromResult(JsonConvert.DeserializeObject<Club>(data));
+        //         }
+        //     }
+        //     catch (Exception e)
+        //     {
+        //         MessageBox.Show(e.Message);
+        //         throw;
+        //     }
+        // }
     }
+}
