@@ -38,7 +38,7 @@
             // 
             this.label1.AutoSize = true;
             this.label1.ForeColor = System.Drawing.Color.White;
-            this.label1.Location = new System.Drawing.Point(9, 59);
+            this.label1.Location = new System.Drawing.Point(13, 59);
             this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(216, 19);
@@ -50,7 +50,7 @@
             this.panel3.BackColor = System.Drawing.Color.White;
             this.panel3.Location = new System.Drawing.Point(232, 77);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(260, 1);
+            this.panel3.Size = new System.Drawing.Size(220, 1);
             this.panel3.TabIndex = 9;
             // 
             // textBox1
@@ -61,7 +61,7 @@
             this.textBox1.ForeColor = System.Drawing.SystemColors.Info;
             this.textBox1.Location = new System.Drawing.Point(232, 54);
             this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(260, 17);
+            this.textBox1.Size = new System.Drawing.Size(220, 17);
             this.textBox1.TabIndex = 8;
             this.textBox1.Text = "Какой то клуб";
             // 
@@ -72,7 +72,7 @@
             this.btnLogin.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnLogin.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.btnLogin.ForeColor = System.Drawing.Color.DarkTurquoise;
-            this.btnLogin.Location = new System.Drawing.Point(150, 107);
+            this.btnLogin.Location = new System.Drawing.Point(130, 107);
             this.btnLogin.Name = "btnLogin";
             this.btnLogin.Size = new System.Drawing.Size(215, 41);
             this.btnLogin.TabIndex = 10;
@@ -87,16 +87,17 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 19F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
-            this.ClientSize = new System.Drawing.Size(516, 185);
+            this.ClientSize = new System.Drawing.Size(478, 176);
             this.Controls.Add(this.btnLogin);
             this.Controls.Add(this.panel3);
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.label1);
             this.Font = new System.Drawing.Font("JetBrains Mono Medium", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "ClubsForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "ClubsForm";
+            this.Load += new System.EventHandler(this.ClubsForm_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

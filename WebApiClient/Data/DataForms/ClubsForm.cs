@@ -83,5 +83,10 @@ namespace WebApiClient.Data.DataForms
         {
             btnLogin.ForeColor = Color.DarkTurquoise;
         }
+
+        private void ClubsForm_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

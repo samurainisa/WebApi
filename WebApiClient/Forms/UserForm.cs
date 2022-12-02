@@ -49,6 +49,7 @@ namespace WebApiClient.Forms
             {
                 Console.WriteLine(_authInfo.access_token);
                 var clubs = await getClubs.GetClubs(_authInfo.access_token);
+                var sports = await getClubs.GetClubs(_authInfo.access_token);
 
                 if (clubs == null)
                 {
@@ -61,10 +62,16 @@ namespace WebApiClient.Forms
 
                     foreach (var club in clubs)
                     {
-                        ListViewItem item = new ListViewItem(club.Id.ToString());
-                        item.SubItems.Add(club.Name);
-                        listView1.Items.Add(item);
+                        ListViewItem clubitem = new ListViewItem(club.Id.ToString());
+
+                        clubitem.SubItems.Add(club.Name);
+                        listView1.Items.Add(clubitem);
+
                     }
+                    ListViewItem sportitem = new ListViewItem(club.Id.ToString());
+                    sportitem.SubItems.Add()
+
+
                 }
             }
             catch (Exception exception)

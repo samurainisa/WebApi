@@ -16,3 +16,4 @@ C:\Users\Nik\source\repos\WebApi\WebApiClient\obj\Debug\WebApiClient.Forms.SignI
 C:\Users\Nik\Source\Repos\WebApi\WebApiClient\obj\Debug\WebApiClient.Forms.AdminForm.resources
 C:\Users\Nik\Source\Repos\WebApi\WebApiClient\obj\Debug\WebApiClient.Forms.UserForm.resources
 C:\Users\Nik\source\repos\WebApi\WebApiClient\obj\Debug\WebApiClient.Data.DataForms.ClubsForm.resources
+C:\Users\Nik\source\repos\WebApi\WebApiClient\obj\Debug\WebApiClient.Data.DataForms.SportsForm.resources

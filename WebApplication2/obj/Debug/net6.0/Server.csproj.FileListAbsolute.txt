@@ -534,7 +534,6 @@ C:\Users\Nik\Desktop\Laba4\WebApplication2\obj\Debug\net6.0\Server.genruntimecon
 C:\Users\Nik\Desktop\Laba4\WebApplication2\obj\Debug\net6.0\ref\Server.dll
 C:\Users\Nik\Desktop\Laba4\WebApplication2\bin\Debug\net6.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
 C:\Users\Nik\Desktop\Laba4\WebApplication2\bin\Debug\net6.0\Microsoft.IdentityModel.Abstractions.dll
-C:\Users\Nik\Source\Repos\WebApi\WebApplication2\bin\Debug\net6.0\appsettings.Development.json
 C:\Users\Nik\Source\Repos\WebApi\WebApplication2\bin\Debug\net6.0\appsettings.json
 C:\Users\Nik\Source\Repos\WebApi\WebApplication2\bin\Debug\net6.0\Server.exe
 C:\Users\Nik\Source\Repos\WebApi\WebApplication2\bin\Debug\net6.0\Server.deps.json

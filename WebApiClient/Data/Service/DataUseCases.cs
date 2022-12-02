@@ -9,6 +9,7 @@ namespace WebApiClient.Data.Service
 {
     public interface DataUseCases
     {
+        Task<List<Sport>> GetSports(string token);
         Task<List<Club>> GetClubs(string token);
         //post clubs
         Task<Club> PostClub(Club club, string token);
