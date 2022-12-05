@@ -55,6 +55,12 @@
     <Compile Include="Data\DataForms\ClubsForm.Designer.cs">
       <DependentUpon>ClubsForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Data\DataForms\SportPlaceForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Data\DataForms\SportPlaceForm.Designer.cs">
+      <DependentUpon>SportPlaceForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Data\DataForms\SportsForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -62,6 +68,7 @@
       <DependentUpon>SportsForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Data\Enums\ListTables.cs" />
+    <Compile Include="Data\Exceptions\ErrorLogin.cs" />
     <Compile Include="Data\Models\Sport.cs" />
     <Compile Include="Data\Models\SportPlace.cs" />
     <Compile Include="Data\Service\DataUseCases.cs" />
@@ -104,6 +111,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Data\DataForms\ClubsForm.resx">
       <DependentUpon>ClubsForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Data\DataForms\SportPlaceForm.resx">
+      <DependentUpon>SportPlaceForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Data\DataForms\SportsForm.resx">
       <DependentUpon>SportsForm.cs</DependentUpon>
@@ -159,5 +169,6 @@
   <ItemGroup>
     <None Include="Resources\avatar.png" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

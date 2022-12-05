@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace WebApiClient.Data.Models
 {
-    class SportPlaces
+    public class SportPlaces
     {
         public int Id { get; set; }
         public int Capacity { get; set; }

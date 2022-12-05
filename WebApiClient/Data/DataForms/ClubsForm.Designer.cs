@@ -97,7 +97,6 @@
             this.Name = "ClubsForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "ClubsForm";
-            this.Load += new System.EventHandler(this.ClubsForm_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

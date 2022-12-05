@@ -19,6 +19,11 @@ namespace WebApiClient.Data.Transfer
             return await GetData<Sport>(token, "api/Sports");
         }
 
+        public Task<List<SportPlaces>> GetSportPlaces(string token)
+        {
+            return GetData<SportPlaces>(token, "api/SportPlaces");
+        }
+
         public Task<Sport> PostSport(Sport sport, string token)
         {
             return PostData(sport, token, "api/Sports");
@@ -87,31 +92,9 @@ namespace WebApiClient.Data.Transfer
             return await PostData(club, token, "api/Clubs");
         }
 
-        // public Task<Club> PostClub(Club club, string token)
-        // {
-        //     try
-        //     {
-        //         var baseAddress = new Uri("https://localhost:7059");
-        //         var url = "api/Clubs";
-        //         using (var client = new HttpClient(new HttpClientHandler()) { BaseAddress = baseAddress })
-        //         {
-        //             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-        //             client.DefaultRequestHeaders.Add("Authorization", $"Bearer {token}");
-        //
-        //             var result = client.PostAsync(baseAddress + url,
-        //                 new StringContent(JsonConvert.SerializeObject(club), Encoding.UTF8, "application/json")).Result;
-        //
-        //             var bytes = result.Content.ReadAsByteArrayAsync().Result;
-        //             var data = Encoding.UTF8.GetString(bytes, 0, bytes.Length);
-        //
-        //             return Task.FromResult(JsonConvert.DeserializeObject<Club>(data));
-        //         }
-        //     }
-        //     catch (Exception e)
-        //     {
-        //         MessageBox.Show(e.Message);
-        //         throw;
-        //     }
-        // }
+        public Task<SportPlaces> PostSportPlace(SportPlaces sportplace, string token)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

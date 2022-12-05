@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using WebApiClient.Data;
+using WebApiClient.Data.Exceptions;
 using WebApiClient.Data.Models;
 using WebApiClient.Data.Service;
 
@@ -60,24 +61,25 @@ namespace WebApiClient.Forms
 
                 var info = await login.LogIn(username, password);
 
-
-                if (info.Role == "Admin")
+                if (info != null)
                 {
-                    AdminForm adminForm = new AdminForm();
-                    adminForm.Show();
-                    Hide();
-                }
-                else if (info.Role == "User")
-                {
-                    UserForm userForm = new UserForm(info.Email, info.Role, info.access_token);
-                    userForm.Show();
-                    Hide();
+                    if (info.Role == "Admin")
+                    {
+                        AdminForm adminForm = new AdminForm();
+                        adminForm.Show();
+                        Hide();
+                    }
+                    else if (info.Role == "User")
+                    {
+                        UserForm userForm = new UserForm(info.Email, info.Role, info.access_token);
+                        userForm.Show();
+                        Hide();
+                    }
                 }
             }
             catch (Exception exception)
             {
-                Console.WriteLine(exception);
-                throw;
+                MessageBox.Show(exception.Message);
             }
         }
 

@@ -14,14 +14,14 @@ using WebApiClient.Forms;
 
 namespace WebApiClient.Data.DataForms
 {
-    public partial class ClubsForm : Form
+    public partial class SportPlaceForm : Form
     {
-        public ClubsForm()
+        public SportPlaceForm()
         {
             InitializeComponent();
         }
 
-        public ClubsForm(AuthInfo authInfo)
+        public SportPlaceForm(AuthInfo authInfo)
         {
             InitializeComponent();
             _authInfo = authInfo;
@@ -29,45 +29,6 @@ namespace WebApiClient.Data.DataForms
 
         private DataUseCases post = new UploadData();
         private readonly AuthInfo _authInfo;
-        
-
-        private void btnLogin_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                var club = textBox1.Text;
-
-                var clubInfo = new Club
-                {
-                    Name = club
-                    
-                };
-
-                if (clubInfo.Name == "")
-                {
-                    MessageBox.Show("Пожалуйста, заполните все поля");
-                }
-                else
-                {
-                    var res = post.PostClub(clubInfo, _authInfo.access_token);
-                    if (res == null)
-                    {
-                        MessageBox.Show("Токен истек, пожалуйста, авторизуйтесь заново");
-                        Hide();
-                        AuthForm authForm = new AuthForm();
-                        authForm.Show();
-                    }
-                }
-                MessageBox.Show("Клуб успешно добавлен");
-                Hide();
-
-            }
-            catch (Exception exception)
-            {
-                MessageBox.Show(exception.Message);
-                throw;
-            }
-        }
 
         private void btnLogin_MouseEnter(object sender, EventArgs e)
         {
@@ -79,5 +40,52 @@ namespace WebApiClient.Data.DataForms
             btnLogin.ForeColor = Color.DarkTurquoise;
         }
 
+        private void btnLogin_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                var sportplace = textBox1.Text;
+                var capacity = Convert.ToInt32(textBox2.Text);
+                var address = textBox4.Text;
+                var city = textBox3.Text;
+                var country = textBox6.Text;
+                var cover = textBox5.Text;
+
+
+                var sportplaceinfo = new SportPlaces
+                {
+                    Name = sportplace,
+                    Capacity = capacity,
+                    Address = address,
+                    City = city,
+                    Country = country,
+                    CoverType = cover
+                };
+
+                if (sportplaceinfo.Name == "")
+                {
+                    MessageBox.Show("Пожалуйста, заполните все поля");
+                }
+                else
+                {
+                    var res = post.PostSportPlace(sportplaceinfo, _authInfo.access_token);
+                    if (res == null)
+                    {
+                        MessageBox.Show("Токен истек, пожалуйста, авторизуйтесь заново");
+                        Hide();
+                        AuthForm authForm = new AuthForm();
+                        authForm.Show();
+                    }
+                }
+
+                MessageBox.Show("Спортивное сооружение успешно добавлено");
+                Hide();
+            }
+            catch (Exception exception)
+            {
+                MessageBox.Show(exception.Message);
+                throw;
+            }
+        }
     }
 }

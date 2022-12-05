@@ -11,11 +11,13 @@ namespace WebApiClient.Data.Service
     {
         Task<List<Sport>> GetSports(string token);
 
+        Task<List<SportPlaces>> GetSportPlaces(string token);
+
         Task<Sport> PostSport(Sport sport, string token);
 
         Task<List<Club>> GetClubs(string token);
 
-        //post clubs
         Task<Club> PostClub(Club club, string token);
+        Task<SportPlaces> PostSportPlace(SportPlaces sportplace, string token);
     }
 }

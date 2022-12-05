@@ -47,14 +47,16 @@ namespace WebApiClient.Forms
             try
             {
                 Console.WriteLine(_authInfo.access_token);
-                
+
                 var clubs = await getData.GetClubs(_authInfo.access_token);
                 var sports = await getData.GetSports(_authInfo.access_token);
+                var sportplaces = await getData.GetSportPlaces(_authInfo.access_token);
 
-                if (clubs == null || sports == null)
+                if (clubs == null || sports == null || sportplaces == null)
                 {
                     MessageBox.Show("Токен истек, пожалуйста, авторизуйтесь заново");
                 }
+
                 else
                 {
                     listView1.Items.Clear();
@@ -67,13 +69,25 @@ namespace WebApiClient.Forms
                         clubitem.SubItems.Add(club.Name);
                         listView1.Items.Add(clubitem);
                     }
-                    
+
                     foreach (var sport in sports)
                     {
                         ListViewItem sportitem = new ListViewItem(sport.Id.ToString());
 
                         sportitem.SubItems.Add(sport.Name);
                         listView2.Items.Add(sportitem);
+                    }
+
+                    foreach (var sportplace in sportplaces)
+                    {
+                        ListViewItem sportplaceitem = new ListViewItem(sportplace.Id.ToString());
+                        sportplaceitem.SubItems.Add(sportplace.Name);
+                        sportplaceitem.SubItems.Add(sportplace.Capacity.ToString());
+                        sportplaceitem.SubItems.Add(sportplace.Address);
+                        sportplaceitem.SubItems.Add(sportplace.City);
+                        sportplaceitem.SubItems.Add(sportplace.Country);
+                        sportplaceitem.SubItems.Add(sportplace.CoverType);
+                        listView3.Items.Add(sportplaceitem);
                     }
                 }
             }
@@ -94,14 +108,6 @@ namespace WebApiClient.Forms
                 Close();
                 authorizationForm.Show();
             }
-        }
-
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-            //модальное окно для добавления нового клуба в БД
-            ClubsForm clubForm = new ClubsForm(_authInfo);
-            clubForm.ShowDialog();
         }
 
         public static Image RotateImage(Image img, float rotationAngle)
@@ -134,13 +140,20 @@ namespace WebApiClient.Forms
             return bmp;
         }
 
-        private async void pictureBox1_Click(object sender, EventArgs e)
+        private void клубToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            //модальное окно для добавления нового клуба в БД
+            ClubsForm clubForm = new ClubsForm(_authInfo);
+            clubForm.ShowDialog();
+        }
+
+        private async void pictureBox2_Click(object sender, EventArgs e)
         {
             try
             {
                 for (int i = 0; i < 10; i++)
                 {
-                    pictureBox1.Image = RotateImage(pictureBox1.Image, 36);
+                    pictureBox2.Image = RotateImage(pictureBox2.Image, 36);
                     await Task.Delay(10);
                 }
 
@@ -157,7 +170,7 @@ namespace WebApiClient.Forms
                 }
                 else
                 {
-                    listView1.Items.Clear();
+                    listView2.Items.Clear();
                     //выгрузить элементы в listview1
 
                     foreach (var club in clubs)
@@ -173,6 +186,106 @@ namespace WebApiClient.Forms
                 MessageBox.Show(exception.Message);
                 throw;
             }
+        }
+
+        private async void pictureBox1_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                for (int i = 0; i < 10; i++)
+                {
+                    pictureBox1.Image = RotateImage(pictureBox1.Image, 36);
+                    await Task.Delay(10);
+                }
+
+                Console.WriteLine(_authInfo.access_token);
+                var sports = await getData.GetSports(_authInfo.access_token);
+
+                if (sports == null)
+                {
+                    MessageBox.Show("Токен истек, пожалуйста, авторизуйтесь заново");
+                    //разлогинить и закрыть форму
+                    Hide();
+                    AuthForm authorizationForm = new AuthForm();
+                    authorizationForm.Show();
+                }
+                else
+                {
+                    listView2.Items.Clear();
+                    //выгрузить элементы в listview1
+
+                    foreach (var sport in sports)
+                    {
+                        ListViewItem item = new ListViewItem(sport.Id.ToString());
+                        item.SubItems.Add(sport.Name);
+                        listView2.Items.Add(item);
+                    }
+                }
+            }
+            catch (Exception exception)
+            {
+                MessageBox.Show(exception.Message);
+                throw;
+            }
+        }
+
+        private async void pictureBox4_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                for (int i = 0; i < 10; i++)
+                {
+                    pictureBox4.Image = RotateImage(pictureBox4.Image, 36);
+                    await Task.Delay(10);
+                }
+
+                Console.WriteLine(_authInfo.access_token);
+                var sportplePlaces = await getData.GetSportPlaces(_authInfo.access_token);
+
+                if (sportplePlaces == null)
+                {
+                    MessageBox.Show("Токен истек, пожалуйста, авторизуйтесь заново");
+                    //разлогинить и закрыть форму
+                    Hide();
+                    AuthForm authorizationForm = new AuthForm();
+                    authorizationForm.Show();
+                }
+                else
+                {
+                    listView3.Items.Clear();
+                    //выгрузить элементы в listview1
+
+
+                    foreach (var sportplace in sportplePlaces)
+                    {
+                        ListViewItem sportplaceitem = new ListViewItem(sportplace.Id.ToString());
+                        sportplaceitem.SubItems.Add(sportplace.Name);
+                        sportplaceitem.SubItems.Add(sportplace.Capacity.ToString());
+                        sportplaceitem.SubItems.Add(sportplace.Address);
+                        sportplaceitem.SubItems.Add(sportplace.City);
+                        sportplaceitem.SubItems.Add(sportplace.Country);
+                        sportplaceitem.SubItems.Add(sportplace.CoverType);
+                        listView3.Items.Add(sportplaceitem);
+                    }
+                }
+            }
+            catch (Exception exception)
+            {
+                MessageBox.Show(exception.Message);
+                throw;
+            }
+        }
+
+        private void видСпортаToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            //модальное окно для добавления нового клуба в БД
+            SportsForm sportForm = new SportsForm(_authInfo);
+            sportForm.ShowDialog();
+        }
+
+        private void спортивноеСооружениеToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

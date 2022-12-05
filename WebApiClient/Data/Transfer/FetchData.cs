@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
@@ -39,9 +37,11 @@ namespace WebApiClient.Data
                 authInfo = JsonConvert.DeserializeObject<AuthInfo>(data);
                 return authInfo;
             }
-
-            MessageBox.Show("Invalid login or password");
-            return null;
+            else
+            {
+                MessageBox.Show("Invalid login or password");
+                return null;
+            }
         }
 
         public async Task<string> Register(string email, string password)
