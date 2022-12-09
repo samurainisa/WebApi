@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Net.Http.Headers;
+using System.Security.Policy;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -20,7 +21,6 @@ namespace WebClient.Data.Transfer
 
         public Task<List<SportPlaces>> GetSportPlaces(string token)
         {
-            
             return GetData<SportPlaces>(token, "api/SportPlaces");
         }
         //dada
@@ -97,6 +97,16 @@ namespace WebClient.Data.Transfer
         public async Task<SportPlaces> PostSportPlace(SportPlaces sportplace, string token)
         {
             return await PostData(sportplace, token, "api/SportPlaces");
+        }
+
+        public async Task<List<Trener>> GetTreners(string token)
+        {
+            return await GetData<Trener>(token, "api/Treners");
+        }
+
+        public async Task<Trener> PostTrener(Trener trener, string token)
+        {
+            return await PostData(trener, token, "api/Treners");
         }
     }
 }

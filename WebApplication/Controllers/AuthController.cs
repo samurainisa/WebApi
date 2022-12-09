@@ -39,7 +39,7 @@ namespace WebApplication.Controllers
                 audience: AuthOptions.AUDIENCE,
                 notBefore: now,
                 claims: identity.Claims,
-                expires: now.Add(TimeSpan.FromSeconds(10)),
+                expires: now.Add(TimeSpan.FromMinutes(1)),
                 signingCredentials: new SigningCredentials(AuthOptions.GetSymmetricSecurityKey(),
                     SecurityAlgorithms.HmacSha256));
 

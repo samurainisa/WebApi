@@ -92,8 +92,12 @@ namespace WebApplication.Controllers
         [HttpPost]
         public async Task<ActionResult<Trener>> PostTrener(CreateTrenerDto request)
         {
-            var sport = await _context.Sports.FindAsync(request.SportId);
-
+            var sport = await _context.Sports.FirstOrDefaultAsync(x => x.Name == request.sportname);
+            // var sport = await _context.Sports.FindAsync(request.SportId);
+            if (sport == null)
+            {
+                return BadRequest("Sport not found");
+            }
             var newTrener = new Trener
             {
                 FirstName = request.FirstName,

@@ -49,6 +49,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Data\Models\Trener.cs" />
     <Compile Include="Data\Models\SportPlaces.cs" />
     <Compile Include="Data\Models\Sport.cs" />
     <Compile Include="Data\Models\Club.cs" />
@@ -71,6 +72,12 @@
     </Compile>
     <Compile Include="Data\PostForms\SportPlaceForm.Designer.cs">
       <DependentUpon>SportPlaceForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Data\PostForms\TrenersForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Data\PostForms\TrenersForm.Designer.cs">
+      <DependentUpon>TrenersForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\AuthForm.cs">
       <SubType>Form</SubType>
@@ -104,6 +111,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Data\PostForms\SportPlaceForm.resx">
       <DependentUpon>SportPlaceForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Data\PostForms\TrenersForm.resx">
+      <DependentUpon>TrenersForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\AuthForm.resx">
       <DependentUpon>AuthForm.cs</DependentUpon>

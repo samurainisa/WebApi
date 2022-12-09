@@ -79,28 +79,25 @@ public class AthletesController : ControllerBase
     [HttpPost]
     public async Task<ActionResult<Athlete>> Create(CreateAthleteDto request)
     {
-        var club = await _dataContext.Clubs.FindAsync(request.ClubId);
+        var clubname = await _dataContext.Clubs.FirstOrDefaultAsync(x => x.Name == request.ClubName);
+        var sportname = await _dataContext.Sports.FirstOrDefaultAsync(x => x.Name == request.SportName);
+        var trenersname = await _dataContext.Trener.FirstOrDefaultAsync(x => x.FirstName == request.TrenerName);
+        var sportplacename = await _dataContext.SportPlaces.FirstOrDefaultAsync(x => x.Name == request.SportPlaceName);
 
-        var sport = await _dataContext.Sports.FindAsync(request.SportId);
 
-        var trener = await _dataContext.Trener.FindAsync(request.TrenerId);
-
-        var sportplace = await _dataContext.SportPlaces.FindAsync(request.SportPlaceId);
-
-        if (club == null || sport == null || trener == null || sportplace == null)
+        if (clubname == null || sportname == null || trenersname == null || sportplacename == null)
         {
             return NotFound();
         }
-
 
         var newAthlete = new Athlete
         {
             FirstName = request.FirstName,
             LastName = request.LastName,
-            Club = club,
-            Sport = sport,
-            Trener = trener,
-            SportPlace = sportplace
+            Club = clubname,
+            Sport = sportname,
+            Trener = trenersname,
+            SportPlace = sportplacename
         };
 
         _dataContext.Athletes.Add(newAthlete);

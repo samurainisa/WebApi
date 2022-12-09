@@ -39,5 +39,10 @@ namespace WebClient.Forms
                 MessageBox.Show("Something went wrong");
             }
         }
+
+        private void RegisterForm_Load(object sender, EventArgs e)
+        {
+            AcceptButton = btnLogin;
+        }
     }
 }

@@ -46,8 +46,9 @@ namespace WebClient.Forms
                 var clubs = await getData.GetClubs(_authInfo.access_token);
                 var sports = await getData.GetSports(_authInfo.access_token);
                 var sportplaces = await getData.GetSportPlaces(_authInfo.access_token);
+                var trainers = await getData.GetTreners(_authInfo.access_token);
 
-                if (clubs == null || sports == null || sportplaces == null)
+                if (clubs == null || sports == null || sportplaces == null || trainers == null)
                 {
                     MessageBox.Show("Токен истек, пожалуйста, авторизуйтесь заново");
                 }
@@ -65,6 +66,7 @@ namespace WebClient.Forms
                         listView1.Items.Add(clubitem);
                     }
 
+                    listView2.Items.Clear();
                     foreach (var sport in sports)
                     {
                         ListViewItem sportitem = new ListViewItem(sport.Id.ToString());
@@ -73,6 +75,7 @@ namespace WebClient.Forms
                         listView2.Items.Add(sportitem);
                     }
 
+                    listView3.Items.Clear();
                     foreach (var sportplace in sportplaces)
                     {
                         ListViewItem sportplaceitem = new ListViewItem(sportplace.Id.ToString());
@@ -83,6 +86,16 @@ namespace WebClient.Forms
                         sportplaceitem.SubItems.Add(sportplace.Country);
                         sportplaceitem.SubItems.Add(sportplace.CoverType);
                         listView3.Items.Add(sportplaceitem);
+                    }
+
+                    listView4.Items.Clear();
+                    foreach (var trainer in trainers)
+                    {
+                        ListViewItem traineritem = new ListViewItem(trainer.Id.ToString());
+                        traineritem.SubItems.Add(trainer.FirstName);
+                        traineritem.SubItems.Add(trainer.LastName);
+                        traineritem.SubItems.Add(trainer.SportId.ToString());
+                        listView4.Items.Add(traineritem);
                     }
                 }
             }
@@ -180,7 +193,6 @@ namespace WebClient.Forms
                     listView3.Items.Clear();
                     //выгрузить элементы в listview1
 
-
                     foreach (var sportplace in sportplePlaces)
                     {
                         ListViewItem sportplaceitem = new ListViewItem(sportplace.Id.ToString());
@@ -265,7 +277,7 @@ namespace WebClient.Forms
                 }
                 else
                 {
-                    listView2.Items.Clear();
+                    listView1.Items.Clear();
                     //выгрузить элементы в listview1
 
                     foreach (var club in clubs)
@@ -273,6 +285,53 @@ namespace WebClient.Forms
                         ListViewItem item = new ListViewItem(club.Id.ToString());
                         item.SubItems.Add(club.Name);
                         listView1.Items.Add(item);
+                    }
+                }
+            }
+            catch (Exception exception)
+            {
+                MessageBox.Show(exception.Message);
+                throw;
+            }
+        }
+
+        private void тренерToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            TrenersForm trainerForm = new TrenersForm(_authInfo);
+            trainerForm.Show();
+        }
+
+        private async void pictureBox3_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                for (int i = 0; i < 10; i++)
+                {
+                    pictureBox3.Image = RotateImage(pictureBox3.Image, 36);
+                    await Task.Delay(10);
+                }
+
+                Console.WriteLine(_authInfo.access_token);
+                var trainers = await getData.GetTreners(_authInfo.access_token);
+
+                if (trainers == null)
+                {
+                    MessageBox.Show("Токен истек, пожалуйста, авторизуйтесь заново");
+                    //разлогинить и закрыть форму
+                    Hide();
+                    AuthForm authorizationForm = new AuthForm();
+                    authorizationForm.Show();
+                }
+                else
+                {
+                    listView4.Items.Clear();
+                    foreach (var trainer in trainers)
+                    {
+                        ListViewItem traineritem = new ListViewItem(trainer.Id.ToString());
+                        traineritem.SubItems.Add(trainer.FirstName);
+                        traineritem.SubItems.Add(trainer.LastName);
+                        traineritem.SubItems.Add(trainer.SportId.ToString());
+                        listView4.Items.Add(traineritem);
                     }
                 }
             }

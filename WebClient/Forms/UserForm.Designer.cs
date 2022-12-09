@@ -64,6 +64,13 @@
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.pictureBox4 = new System.Windows.Forms.PictureBox();
+            this.tabPage4 = new System.Windows.Forms.TabPage();
+            this.listView4 = new System.Windows.Forms.ListView();
+            this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader4 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader6 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.Sport = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.pictureBox3 = new System.Windows.Forms.PictureBox();
             this.dataControl.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
@@ -73,6 +80,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).BeginInit();
+            this.tabPage4.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
             this.SuspendLayout();
             // 
             // dataControl
@@ -80,6 +89,7 @@
             this.dataControl.Controls.Add(this.tabPage1);
             this.dataControl.Controls.Add(this.tabPage2);
             this.dataControl.Controls.Add(this.tabPage3);
+            this.dataControl.Controls.Add(this.tabPage4);
             this.dataControl.Cursor = System.Windows.Forms.Cursors.AppStarting;
             this.dataControl.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.dataControl.ImeMode = System.Windows.Forms.ImeMode.Off;
@@ -337,6 +347,7 @@
             this.тренерToolStripMenuItem.Name = "тренерToolStripMenuItem";
             this.тренерToolStripMenuItem.Size = new System.Drawing.Size(267, 24);
             this.тренерToolStripMenuItem.Text = "Тренер";
+            this.тренерToolStripMenuItem.Click += new System.EventHandler(this.тренерToolStripMenuItem_Click);
             // 
             // button3
             // 
@@ -375,7 +386,7 @@
             // 
             this.pictureBox2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(193)))), ((int)(((byte)(199)))), ((int)(((byte)(195)))));
             this.pictureBox2.Image = global::WebClient.Properties.Resources.free_icon_refresh_4701365;
-            this.pictureBox2.Location = new System.Drawing.Point(706, 29);
+            this.pictureBox2.Location = new System.Drawing.Point(708, 26);
             this.pictureBox2.Name = "pictureBox2";
             this.pictureBox2.Size = new System.Drawing.Size(33, 33);
             this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -388,7 +399,7 @@
             this.pictureBox1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(193)))), ((int)(((byte)(199)))), ((int)(((byte)(195)))));
             this.pictureBox1.BackgroundImage = global::WebClient.Properties.Resources.free_icon_refresh_4701365;
             this.pictureBox1.Image = global::WebClient.Properties.Resources.free_icon_refresh_4701365;
-            this.pictureBox1.Location = new System.Drawing.Point(706, 29);
+            this.pictureBox1.Location = new System.Drawing.Point(706, 26);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(33, 33);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -400,13 +411,74 @@
             // 
             this.pictureBox4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(193)))), ((int)(((byte)(199)))), ((int)(((byte)(195)))));
             this.pictureBox4.Image = global::WebClient.Properties.Resources.free_icon_refresh_4701365;
-            this.pictureBox4.Location = new System.Drawing.Point(707, 27);
+            this.pictureBox4.Location = new System.Drawing.Point(708, 27);
             this.pictureBox4.Name = "pictureBox4";
             this.pictureBox4.Size = new System.Drawing.Size(33, 33);
             this.pictureBox4.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox4.TabIndex = 4;
             this.pictureBox4.TabStop = false;
             this.pictureBox4.Click += new System.EventHandler(this.pictureBox4_Click);
+            // 
+            // tabPage4
+            // 
+            this.tabPage4.Controls.Add(this.pictureBox3);
+            this.tabPage4.Controls.Add(this.listView4);
+            this.tabPage4.Location = new System.Drawing.Point(4, 29);
+            this.tabPage4.Name = "tabPage4";
+            this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage4.Size = new System.Drawing.Size(764, 332);
+            this.tabPage4.TabIndex = 3;
+            this.tabPage4.Text = "Тренеры";
+            this.tabPage4.UseVisualStyleBackColor = true;
+            // 
+            // listView4
+            // 
+            this.listView4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(193)))), ((int)(((byte)(199)))), ((int)(((byte)(195)))));
+            this.listView4.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.columnHeader3,
+            this.columnHeader4,
+            this.columnHeader6,
+            this.Sport});
+            this.listView4.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold);
+            this.listView4.HideSelection = false;
+            this.listView4.Location = new System.Drawing.Point(-4, -1);
+            this.listView4.Name = "listView4";
+            this.listView4.Size = new System.Drawing.Size(772, 334);
+            this.listView4.TabIndex = 3;
+            this.listView4.UseCompatibleStateImageBehavior = false;
+            this.listView4.View = System.Windows.Forms.View.Details;
+            // 
+            // columnHeader3
+            // 
+            this.columnHeader3.Text = "ID";
+            this.columnHeader3.Width = 50;
+            // 
+            // columnHeader4
+            // 
+            this.columnHeader4.Text = "FirstName";
+            this.columnHeader4.Width = 120;
+            // 
+            // columnHeader6
+            // 
+            this.columnHeader6.Text = "LastName";
+            this.columnHeader6.Width = 120;
+            // 
+            // Sport
+            // 
+            this.Sport.Text = "SportId";
+            this.Sport.Width = 100;
+            // 
+            // pictureBox3
+            // 
+            this.pictureBox3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(193)))), ((int)(((byte)(199)))), ((int)(((byte)(195)))));
+            this.pictureBox3.Image = global::WebClient.Properties.Resources.free_icon_refresh_4701365;
+            this.pictureBox3.Location = new System.Drawing.Point(708, 27);
+            this.pictureBox3.Name = "pictureBox3";
+            this.pictureBox3.Size = new System.Drawing.Size(33, 33);
+            this.pictureBox3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBox3.TabIndex = 5;
+            this.pictureBox3.TabStop = false;
+            this.pictureBox3.Click += new System.EventHandler(this.pictureBox3_Click);
             // 
             // UserForm
             // 
@@ -435,6 +507,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).EndInit();
+            this.tabPage4.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -478,5 +552,12 @@
         private System.Windows.Forms.ToolStripMenuItem спортивноеСооружениеToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem видСпортаToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem тренерToolStripMenuItem;
+        private System.Windows.Forms.TabPage tabPage4;
+        private System.Windows.Forms.PictureBox pictureBox3;
+        private System.Windows.Forms.ListView listView4;
+        private System.Windows.Forms.ColumnHeader columnHeader3;
+        private System.Windows.Forms.ColumnHeader columnHeader4;
+        private System.Windows.Forms.ColumnHeader columnHeader6;
+        private System.Windows.Forms.ColumnHeader Sport;
     }
 }
