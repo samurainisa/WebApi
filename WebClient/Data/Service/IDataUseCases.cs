@@ -18,10 +18,8 @@ namespace WebClient.Data.Service
 
         Task<List<Trener>> GetTreners(string token);
         Task<Trener> PostTrener(Trener trener, string token);
-
-
         
-        // Task<List<Athlete>> GetAthletes(string token);
-        // Task<Athlete> PostAthlete(Athlete athlete, string token);
+        Task<List<Athlete>> GetAthletes(string token);
+        Task<Athlete> PostAthlete(Athlete athlete, string token);
     }
 }

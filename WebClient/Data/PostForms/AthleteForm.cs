@@ -14,62 +14,51 @@ using WebClient.Forms;
 
 namespace WebClient.Data.PostForms
 {
-    public partial class SportPlaceForm : Form
+    public partial class AthleteForm : Form
     {
         private IDataUseCases post = new UploadData();
         private readonly AuthInfo _authInfo;
 
-        public SportPlaceForm()
+        public AthleteForm()
         {
             InitializeComponent();
         }
 
-        public SportPlaceForm(AuthInfo authInfo)
+        public AthleteForm(AuthInfo authInfo)
         {
             InitializeComponent();
             _authInfo = authInfo;
-        }
-
-
-        private void btnLogin_MouseLeave(object sender, EventArgs e)
-        {
-            btnLogin.ForeColor = Color.DarkTurquoise;
-        }
-
-        private void btnLogin_MouseEnter(object sender, EventArgs e)
-        {
-            btnLogin.ForeColor = Color.Black;
         }
 
         private void btnLogin_Click_1(object sender, EventArgs e)
         {
             try
             {
-                var sportplace = textBox1.Text;
-                var capacity = Convert.ToInt32(textBox2.Text);
-                var address = textBox4.Text;
-                var city = textBox3.Text;
-                var country = textBox6.Text;
-                var cover = textBox5.Text;
+                var firstnamee = textBox1.Text;
+                var lastname = textBox2.Text;
+                var clubname = textBox4.Text;
+                var sportname = textBox3.Text;
+                var trenername = textBox6.Text;
+                var sportplacename = textBox5.Text;
 
 
-                var sportplaceinfo = new SportPlaces
+                var athlete = new Athlete
                 {
-                    Name = sportplace,
-                    Capacity = capacity,
-                    Address = address,
-                    City = city,
-                    Country = country,
-                    CoverType = cover
+                    FirstName = firstnamee,
+                    LastName = lastname,
+                    ClubName = clubname,
+                    SportName = sportname,
+                    TrenerName = trenername,
+                    SportPlaceName = sportplacename
                 };
 
-                if (sportplaceinfo.Name == "")
+                if (athlete.FirstName == "")
                 {
                     MessageBox.Show("Пожалуйста, заполните все поля");
                 }
                 else
                 {
-                    var res = post.PostSportPlace(sportplaceinfo, _authInfo.access_token);
+                    var res = post.PostAthlete(athlete, _authInfo.access_token);
                     if (res == null)
                     {
                         MessageBox.Show("Токен истек, пожалуйста, авторизуйтесь заново");
@@ -89,9 +78,15 @@ namespace WebClient.Data.PostForms
             }
         }
 
-        private void SportPlaceForm_Load(object sender, EventArgs e)
+        private void btnLogin_MouseLeave(object sender, EventArgs e)
         {
-
+            btnLogin.ForeColor = Color.DarkTurquoise;
         }
+
+        private void btnLogin_MouseEnter(object sender, EventArgs e)
+        {
+            btnLogin.ForeColor = Color.Black;
+        }
+
     }
 }

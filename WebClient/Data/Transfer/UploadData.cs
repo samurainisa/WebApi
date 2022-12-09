@@ -23,8 +23,6 @@ namespace WebClient.Data.Transfer
         {
             return GetData<SportPlaces>(token, "api/SportPlaces");
         }
-        //dada
-
 
         public Task<Sport> PostSport(Sport sport, string token)
         {
@@ -107,6 +105,16 @@ namespace WebClient.Data.Transfer
         public async Task<Trener> PostTrener(Trener trener, string token)
         {
             return await PostData(trener, token, "api/Treners");
+        }
+
+        public async Task<List<Athlete>> GetAthletes(string token)
+        {
+            return await GetData<Athlete>(token, "api/Athletes");
+        }
+
+        public async Task<Athlete> PostAthlete(Athlete athlete, string token)
+        {
+            return await PostData(athlete, token, "api/Athletes");
         }
     }
 }

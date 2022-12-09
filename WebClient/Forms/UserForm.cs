@@ -47,10 +47,14 @@ namespace WebClient.Forms
                 var sports = await getData.GetSports(_authInfo.access_token);
                 var sportplaces = await getData.GetSportPlaces(_authInfo.access_token);
                 var trainers = await getData.GetTreners(_authInfo.access_token);
+                var athletes = await getData.GetAthletes(_authInfo.access_token);
 
-                if (clubs == null || sports == null || sportplaces == null || trainers == null)
+                if (clubs == null || sports == null || sportplaces == null || trainers == null || athletes == null)
                 {
                     MessageBox.Show("Токен истек, пожалуйста, авторизуйтесь заново");
+                    Hide();
+                    AuthForm authForm = new AuthForm();
+                    authForm.Show();
                 }
 
                 else
@@ -96,6 +100,19 @@ namespace WebClient.Forms
                         traineritem.SubItems.Add(trainer.LastName);
                         traineritem.SubItems.Add(trainer.SportId.ToString());
                         listView4.Items.Add(traineritem);
+                    }
+
+                    listView5.Items.Clear();
+                    foreach (var athlete in athletes)
+                    {
+                        ListViewItem athleteitem = new ListViewItem(athlete.Id.ToString());
+                        athleteitem.SubItems.Add(athlete.FirstName);
+                        athleteitem.SubItems.Add(athlete.LastName);
+                        athleteitem.SubItems.Add(athlete.ClubId.ToString());
+                        athleteitem.SubItems.Add(athlete.SportId.ToString());
+                        athleteitem.SubItems.Add(athlete.TrenerId.ToString());
+                        athleteitem.SubItems.Add(athlete.SportPlaceId.ToString());
+                        listView5.Items.Add(athleteitem);
                     }
                 }
             }
@@ -340,6 +357,56 @@ namespace WebClient.Forms
                 MessageBox.Show(exception.Message);
                 throw;
             }
+        }
+
+        private async void pictureBox5_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                for (int i = 0; i < 10; i++)
+                {
+                    pictureBox5.Image = RotateImage(pictureBox5.Image, 36);
+                    await Task.Delay(10);
+                }
+
+                Console.WriteLine(_authInfo.access_token);
+                var athletes = await getData.GetAthletes(_authInfo.access_token);
+
+                if (athletes == null)
+                {
+                    MessageBox.Show("Токен истек, пожалуйста, авторизуйтесь заново");
+                    //разлогинить и закрыть форму
+                    Hide();
+                    AuthForm authorizationForm = new AuthForm();
+                    authorizationForm.Show();
+                }
+                else
+                {
+                    listView5.Items.Clear();
+                    foreach (var athlete in athletes)
+                    {
+                        ListViewItem athleteitem = new ListViewItem(athlete.Id.ToString());
+                        athleteitem.SubItems.Add(athlete.FirstName);
+                        athleteitem.SubItems.Add(athlete.LastName);
+                        athleteitem.SubItems.Add(athlete.ClubId.ToString());
+                        athleteitem.SubItems.Add(athlete.SportId.ToString());
+                        athleteitem.SubItems.Add(athlete.TrenerId.ToString());
+                        athleteitem.SubItems.Add(athlete.SportPlaceId.ToString());
+                        listView5.Items.Add(athleteitem);
+                    }
+                }
+            }
+            catch (Exception exception)
+            {
+                MessageBox.Show(exception.Message);
+                throw;
+            }
+        }
+
+        private void спортсменToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            AthleteForm athletesForm = new AthleteForm(_authInfo);
+            athletesForm.Show();
         }
     }
 }
