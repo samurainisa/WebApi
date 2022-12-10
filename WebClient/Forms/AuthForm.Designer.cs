@@ -151,7 +151,7 @@
             this.tbPassword.PasswordChar = '*';
             this.tbPassword.Size = new System.Drawing.Size(260, 17);
             this.tbPassword.TabIndex = 7;
-            this.tbPassword.Text = "Str1ng!!@";
+            this.tbPassword.Text = "stix228228228";
             // 
             // panel4
             // 

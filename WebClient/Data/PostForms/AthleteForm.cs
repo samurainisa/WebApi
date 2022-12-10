@@ -1,10 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using WebClient.Data.Models;
@@ -42,7 +37,7 @@ namespace WebClient.Data.PostForms
                 var sportplacename = textBox5.Text;
 
 
-                var athlete = new Athlete
+                var athlete = new AthleteDto
                 {
                     FirstName = firstnamee,
                     LastName = lastname,
@@ -52,29 +47,20 @@ namespace WebClient.Data.PostForms
                     SportPlaceName = sportplacename
                 };
 
-                if (athlete.FirstName == "")
+                var result = post.PostAthleteDto(athlete, _authInfo.access_token);
+
+                if (result != null)
                 {
-                    MessageBox.Show("Пожалуйста, заполните все поля");
-                }
-                else
-                {
-                    var res = post.PostAthlete(athlete, _authInfo.access_token);
-                    if (res == null)
-                    {
-                        MessageBox.Show("Токен истек, пожалуйста, авторизуйтесь заново");
-                        Hide();
-                        AuthForm authForm = new AuthForm();
-                        authForm.Show();
-                    }
+                    MessageBox.Show("Спортсмен добавлен");
                 }
 
-                MessageBox.Show("Спортивное сооружение успешно добавлено");
-                Hide();
             }
             catch (Exception exception)
             {
                 MessageBox.Show(exception.Message);
-                throw;
+                Hide();
+                AuthForm authForm = new AuthForm();
+                authForm.Show();
             }
         }
 
@@ -87,6 +73,5 @@ namespace WebClient.Data.PostForms
         {
             btnLogin.ForeColor = Color.Black;
         }
-
     }
 }

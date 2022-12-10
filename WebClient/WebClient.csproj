@@ -49,8 +49,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Data\Models\AthleteDto.cs" />
     <Compile Include="Data\Models\Athlete.cs" />
     <Compile Include="Data\Models\Trener.cs" />
+    <Compile Include="Data\Models\TrenerDto.cs" />
     <Compile Include="Data\Models\SportPlaces.cs" />
     <Compile Include="Data\Models\Sport.cs" />
     <Compile Include="Data\Models\Club.cs" />

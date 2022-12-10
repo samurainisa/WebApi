@@ -36,11 +36,11 @@ namespace WebClient.Forms
 
         private async void UserForm_Load(object sender, EventArgs e)
         {
-            lblEmail.Text = _authInfo.Email;
-            lblRole.Text = _authInfo.Role;
-
             try
             {
+                lblEmail.Text = _authInfo.Email;
+                lblRole.Text = _authInfo.Role;
+
                 Console.WriteLine(_authInfo.access_token);
 
                 var clubs = await getData.GetClubs(_authInfo.access_token);
@@ -49,77 +49,68 @@ namespace WebClient.Forms
                 var trainers = await getData.GetTreners(_authInfo.access_token);
                 var athletes = await getData.GetAthletes(_authInfo.access_token);
 
-                if (clubs == null || sports == null || sportplaces == null || trainers == null || athletes == null)
+
+                listView1.Items.Clear();
+                //выгрузить элементы в listview1
+
+                foreach (var club in clubs)
                 {
-                    MessageBox.Show("Токен истек, пожалуйста, авторизуйтесь заново");
-                    Hide();
-                    AuthForm authForm = new AuthForm();
-                    authForm.Show();
+                    ListViewItem clubitem = new ListViewItem(club.Id.ToString());
+
+                    clubitem.SubItems.Add(club.Name);
+                    listView1.Items.Add(clubitem);
                 }
 
-                else
+                listView2.Items.Clear();
+                foreach (var sport in sports)
                 {
-                    listView1.Items.Clear();
-                    //выгрузить элементы в listview1
+                    ListViewItem sportitem = new ListViewItem(sport.Id.ToString());
 
-                    foreach (var club in clubs)
-                    {
-                        ListViewItem clubitem = new ListViewItem(club.Id.ToString());
+                    sportitem.SubItems.Add(sport.Name);
+                    listView2.Items.Add(sportitem);
+                }
 
-                        clubitem.SubItems.Add(club.Name);
-                        listView1.Items.Add(clubitem);
-                    }
+                listView3.Items.Clear();
+                foreach (var sportplace in sportplaces)
+                {
+                    ListViewItem sportplaceitem = new ListViewItem(sportplace.Id.ToString());
+                    sportplaceitem.SubItems.Add(sportplace.Name);
+                    sportplaceitem.SubItems.Add(sportplace.Capacity.ToString());
+                    sportplaceitem.SubItems.Add(sportplace.Address);
+                    sportplaceitem.SubItems.Add(sportplace.City);
+                    sportplaceitem.SubItems.Add(sportplace.Country);
+                    sportplaceitem.SubItems.Add(sportplace.CoverType);
+                    listView3.Items.Add(sportplaceitem);
+                }
 
-                    listView2.Items.Clear();
-                    foreach (var sport in sports)
-                    {
-                        ListViewItem sportitem = new ListViewItem(sport.Id.ToString());
+                listView4.Items.Clear();
+                foreach (var trainer in trainers)
+                {
+                    ListViewItem traineritem = new ListViewItem(trainer.Id.ToString());
+                    traineritem.SubItems.Add(trainer.FirstName);
+                    traineritem.SubItems.Add(trainer.LastName);
+                    traineritem.SubItems.Add(trainer.SportId.ToString());
+                    listView4.Items.Add(traineritem);
+                }
 
-                        sportitem.SubItems.Add(sport.Name);
-                        listView2.Items.Add(sportitem);
-                    }
-
-                    listView3.Items.Clear();
-                    foreach (var sportplace in sportplaces)
-                    {
-                        ListViewItem sportplaceitem = new ListViewItem(sportplace.Id.ToString());
-                        sportplaceitem.SubItems.Add(sportplace.Name);
-                        sportplaceitem.SubItems.Add(sportplace.Capacity.ToString());
-                        sportplaceitem.SubItems.Add(sportplace.Address);
-                        sportplaceitem.SubItems.Add(sportplace.City);
-                        sportplaceitem.SubItems.Add(sportplace.Country);
-                        sportplaceitem.SubItems.Add(sportplace.CoverType);
-                        listView3.Items.Add(sportplaceitem);
-                    }
-
-                    listView4.Items.Clear();
-                    foreach (var trainer in trainers)
-                    {
-                        ListViewItem traineritem = new ListViewItem(trainer.Id.ToString());
-                        traineritem.SubItems.Add(trainer.FirstName);
-                        traineritem.SubItems.Add(trainer.LastName);
-                        traineritem.SubItems.Add(trainer.SportId.ToString());
-                        listView4.Items.Add(traineritem);
-                    }
-
-                    listView5.Items.Clear();
-                    foreach (var athlete in athletes)
-                    {
-                        ListViewItem athleteitem = new ListViewItem(athlete.Id.ToString());
-                        athleteitem.SubItems.Add(athlete.FirstName);
-                        athleteitem.SubItems.Add(athlete.LastName);
-                        athleteitem.SubItems.Add(athlete.ClubId.ToString());
-                        athleteitem.SubItems.Add(athlete.SportId.ToString());
-                        athleteitem.SubItems.Add(athlete.TrenerId.ToString());
-                        athleteitem.SubItems.Add(athlete.SportPlaceId.ToString());
-                        listView5.Items.Add(athleteitem);
-                    }
+                listView5.Items.Clear();
+                foreach (var athlete in athletes)
+                {
+                    ListViewItem athleteitem = new ListViewItem(athlete.Id.ToString());
+                    athleteitem.SubItems.Add(athlete.FirstName);
+                    athleteitem.SubItems.Add(athlete.LastName);
+                    athleteitem.SubItems.Add(athlete.ClubId.ToString());
+                    athleteitem.SubItems.Add(athlete.SportId.ToString());
+                    athleteitem.SubItems.Add(athlete.TrenerId.ToString());
+                    athleteitem.SubItems.Add(athlete.SportPlaceId.ToString());
+                    listView5.Items.Add(athleteitem);
                 }
             }
             catch (Exception exception)
             {
                 MessageBox.Show(exception.Message);
-                throw;
+                AuthForm authForm = new AuthForm();
+                authForm.Show();
             }
         }
 

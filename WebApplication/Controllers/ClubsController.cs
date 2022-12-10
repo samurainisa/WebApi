@@ -6,11 +6,10 @@ using WebApplication.Models;
 
 namespace WebApplication.Controllers
 {
-    
     [Route("api/[controller]")]
     [ApiController]
     [Authorize]
-    public class ClubsController : ControllerBase
+    public class ClubsController : Validating
     {
         private readonly DataContext _context;
 
@@ -23,6 +22,12 @@ namespace WebApplication.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Club>>> GetClubs()
         {
+            var token = Request.Headers["Authorization"].ToString().Replace("Bearer ", "");
+            if (ValidateToken(token) == false)
+            {
+                return BadRequest("Token expired, please login again");
+            }
+
             return await _context.Clubs.ToListAsync();
         }
 
@@ -83,6 +88,12 @@ namespace WebApplication.Controllers
         [HttpPost]
         public async Task<ActionResult<Club>> PostClub(CreateClubDto request)
         {
+            var token = Request.Headers["Authorization"].ToString().Replace("Bearer ", "");
+            if (ValidateToken(token) == false)
+            {
+                return BadRequest("Token expired, please login again");
+            }
+
             var newClub = new Club
             {
                 Name = request.Name

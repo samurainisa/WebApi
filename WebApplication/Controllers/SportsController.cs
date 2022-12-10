@@ -15,7 +15,7 @@ namespace WebApplication.Controllers
     [Authorize]
     [Route("api/[controller]")]
     [ApiController]
-    public class SportsController : ControllerBase
+    public class SportsController : Validating
     {
         private readonly DataContext _context;
 
@@ -28,6 +28,11 @@ namespace WebApplication.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Sport>>> GetSport()
         {
+            var token = Request.Headers["Authorization"].ToString().Replace("Bearer ", "");
+            if (ValidateToken(token) == false)
+            {
+                return BadRequest("Token expired, please login again");
+            }
             return await _context.Sports.ToListAsync();
         }
 
@@ -90,6 +95,11 @@ namespace WebApplication.Controllers
         [HttpPost]
         public async Task<ActionResult<Sport>> PostSport(CreateSportDto request)
         {
+            var token = Request.Headers["Authorization"].ToString().Replace("Bearer ", "");
+            if (ValidateToken(token) == false)
+            {
+                return BadRequest("Token expired, please login again");
+            }
             var newSport = new Sport
             {
                 Name = request.Name

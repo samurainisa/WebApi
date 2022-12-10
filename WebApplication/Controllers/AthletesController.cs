@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Linq;
+using Microsoft.AspNetCore.Authorization;
 using WebApplication.Data;
 using WebApplication.DTOs;
 using WebApplication.Models;
@@ -8,7 +9,7 @@ namespace WebApplication.Controllers;
 
 [Route("api/[controller]")]
 [ApiController]
-public class AthletesController : ControllerBase
+public class AthletesController : Validating
 {
     private readonly DataContext _dataContext;
 
@@ -21,6 +22,12 @@ public class AthletesController : ControllerBase
     [HttpGet]
     public IActionResult GetAthletes()
     {
+        var token = Request.Headers["Authorization"].ToString().Replace("Bearer ", "");
+        if (ValidateToken(token) == false)
+        {
+            return BadRequest("Token expired, please login again");
+        }
+
         var athletes = _dataContext.Athletes.ToList();
         return Ok(athletes);
     }
@@ -61,7 +68,7 @@ public class AthletesController : ControllerBase
 
         if (athlete == null)
         {
-            return NotFound();
+            return BadRequest("Athlete not found");
         }
 
         athlete.FirstName = athleteDto.FirstName;
@@ -72,22 +79,26 @@ public class AthletesController : ControllerBase
         athlete.SportPlaceId = athleteDto.SportPlaceId;
 
         await _dataContext.SaveChangesAsync();
-
         return athlete;
     }
 
     [HttpPost]
     public async Task<ActionResult<Athlete>> Create(CreateAthleteDto request)
     {
+        var token = Request.Headers["Authorization"].ToString().Replace("Bearer ", "");
+        if (ValidateToken(token) == false)
+        {
+            return BadRequest("Token expired, please login again");
+        }
+
         var clubname = await _dataContext.Clubs.FirstOrDefaultAsync(x => x.Name == request.ClubName);
         var sportname = await _dataContext.Sports.FirstOrDefaultAsync(x => x.Name == request.SportName);
-        var trenersname = await _dataContext.Trener.FirstOrDefaultAsync(x => x.FirstName == request.TrenerName);
+        var trenersname = await _dataContext.Trener.FirstOrDefaultAsync(x => x.LastName == request.TrenerName);
         var sportplacename = await _dataContext.SportPlaces.FirstOrDefaultAsync(x => x.Name == request.SportPlaceName);
-
 
         if (clubname == null || sportname == null || trenersname == null || sportplacename == null)
         {
-            return NotFound();
+            return BadRequest("Invalid data");
         }
 
         var newAthlete = new Athlete
@@ -103,6 +114,6 @@ public class AthletesController : ControllerBase
         _dataContext.Athletes.Add(newAthlete);
         await _dataContext.SaveChangesAsync();
 
-        return await Get(newAthlete.ClubId);
+        return CreatedAtAction("Get", new { id = newAthlete.Id }, newAthlete);
     }
 }

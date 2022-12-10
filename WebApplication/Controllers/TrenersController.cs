@@ -1,13 +1,19 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using System.IdentityModel.Tokens.Jwt;
+using System.Text;
+using Microsoft.IdentityModel.Tokens;
 using WebApplication.Data;
 using WebApplication.DTOs;
 using WebApplication.Models;
+using System.Net;
+using Microsoft.AspNetCore.Authorization;
 
 namespace WebApplication.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
-    public class TrenersController : ControllerBase
+    public class TrenersController : Validating
     {
         private readonly DataContext _context;
 
@@ -20,6 +26,12 @@ namespace WebApplication.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Trener>>> GetTreners()
         {
+            var token = Request.Headers["Authorization"].ToString().Replace("Bearer ", "");
+            if (ValidateToken(token) == false)
+            {
+                return BadRequest("Token expired, please login again");
+            }
+
             return await _context.Trener.ToListAsync();
         }
 
@@ -92,23 +104,39 @@ namespace WebApplication.Controllers
         [HttpPost]
         public async Task<ActionResult<Trener>> PostTrener(CreateTrenerDto request)
         {
-            var sport = await _context.Sports.FirstOrDefaultAsync(x => x.Name == request.sportname);
-            // var sport = await _context.Sports.FindAsync(request.SportId);
-            if (sport == null)
+            try
             {
-                return BadRequest("Sport not found");
+                var token = Request.Headers["Authorization"].ToString().Replace("Bearer ", "");
+                if (ValidateToken(token) == false)
+                {
+                    return BadRequest("Token expired, please login again");
+                }
+
+                var sport = await _context.Sports.FirstOrDefaultAsync(x => x.Name == request.sportname);
+
+                if (sport == null || sport.Id == 0)
+                {
+                    return BadRequest("Sport not found");
+                }
+
+
+                var newTrener = new Trener
+                {
+                    FirstName = request.FirstName,
+                    LastName = request.LastName,
+                    Sport = sport
+                };
+
+                _context.Trener.Add(newTrener);
+                await _context.SaveChangesAsync();
+
+                return CreatedAtAction("GetTrener", new { id = newTrener.Id }, newTrener);
             }
-            var newTrener = new Trener
+            catch (Exception ex)
             {
-                FirstName = request.FirstName,
-                LastName = request.LastName,
-                Sport = sport
-            };
-
-            _context.Trener.Add(newTrener);
-            await _context.SaveChangesAsync();
-
-            return CreatedAtAction("GetTrener", new { id = newTrener.Id }, newTrener);
+                Console.WriteLine($"ex: {ex.Message}");
+                return StatusCode((int)HttpStatusCode.Forbidden, "Время сеанса вышло. Зайдите в аккаунт заново.");
+            }
         }
 
         // DELETE: api/Treners/5

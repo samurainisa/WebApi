@@ -30,7 +30,7 @@ namespace WebClient.Data.PostForms
             _authInfo = authInfo;
         }
 
-        private void btnLogin_Click(object sender, EventArgs e)
+        private async void btnLogin_Click(object sender, EventArgs e)
         {
             try
             {
@@ -38,37 +38,26 @@ namespace WebClient.Data.PostForms
                 var lastname = textBox2.Text;
                 var sportname = textBox3.Text;
 
-                var trener = new Trener
+                var trener = new TrenerDto
                 {
                     FirstName = firstname,
                     LastName = lastname,
                     sportname = sportname
                 };
 
+                var result = await post.PostTrenerDto(trener, _authInfo.access_token);
 
-                if (trener.FirstName == "")
+                if (result != null)
                 {
-                    MessageBox.Show("Пожалуйста, заполните все поля");
+                    MessageBox.Show("Тренер добавлен");
                 }
-                else
-                {
-                    var res = post.PostTrener(trener, _authInfo.access_token);
-                    if (res == null)
-                    {
-                        MessageBox.Show("Токен истек, пожалуйста, авторизуйтесь заново");
-                        Hide();
-                        AuthForm authForm = new AuthForm();
-                        authForm.Show();
-                    }
-                }
-
-                MessageBox.Show("Тренер успешно добавлен");
-                Hide();
             }
             catch (Exception exception)
             {
                 MessageBox.Show(exception.Message);
-                throw;
+                Hide();
+                AuthForm authForm = new AuthForm();
+                authForm.Show();
             }
         }
 

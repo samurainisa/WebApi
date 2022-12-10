@@ -146,7 +146,7 @@
             this.textBox3.Name = "textBox3";
             this.textBox3.Size = new System.Drawing.Size(200, 17);
             this.textBox3.TabIndex = 18;
-            this.textBox3.Text = "Теннис";
+            this.textBox3.Text = "tennis";
             // 
             // label3
             // 
@@ -177,7 +177,7 @@
             this.textBox4.Name = "textBox4";
             this.textBox4.Size = new System.Drawing.Size(182, 17);
             this.textBox4.TabIndex = 15;
-            this.textBox4.Text = "Адрес";
+            this.textBox4.Text = "Какой то клуб";
             // 
             // label4
             // 
@@ -208,7 +208,7 @@
             this.textBox5.Name = "textBox5";
             this.textBox5.Size = new System.Drawing.Size(315, 17);
             this.textBox5.TabIndex = 24;
-            this.textBox5.Text = "КЕМГУ";
+            this.textBox5.Text = "Какое то спортивное сооружение";
             // 
             // label5
             // 
@@ -239,7 +239,7 @@
             this.textBox6.Name = "textBox6";
             this.textBox6.Size = new System.Drawing.Size(170, 17);
             this.textBox6.TabIndex = 21;
-            this.textBox6.Text = "sdsd";
+            this.textBox6.Text = "Фамилия2";
             // 
             // label6
             // 

@@ -39,7 +39,7 @@ namespace WebApplication.Controllers
                 audience: AuthOptions.AUDIENCE,
                 notBefore: now,
                 claims: identity.Claims,
-                expires: now.Add(TimeSpan.FromMinutes(1)),
+                expires: now.Add(TimeSpan.FromMinutes(AuthOptions.LIFETIME)),
                 signingCredentials: new SigningCredentials(AuthOptions.GetSymmetricSecurityKey(),
                     SecurityAlgorithms.HmacSha256));
 
@@ -103,6 +103,7 @@ namespace WebApplication.Controllers
 
             return Ok(userlogindto);
         }
+
 
         private bool EqualsPassword(string password, string passwordHash, string passwordSalt)
         {

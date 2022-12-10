@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Security.Policy;
@@ -37,22 +38,26 @@ namespace WebClient.Data.Transfer
                 string data;
                 var baseAddress = new Uri("https://localhost:7059");
 
+
                 using (var client = new HttpClient(new HttpClientHandler()) { BaseAddress = baseAddress })
                 {
                     client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
                     client.DefaultRequestHeaders.Add("Authorization", $"Bearer {token}");
+
                     var result = await client.GetAsync(url);
                     var bytes = await result.Content.ReadAsByteArrayAsync();
                     data = Encoding.UTF8.GetString(bytes, 0, bytes.Length);
                 }
 
+                //если десериализация не удалась, то возвращаем null
                 return JsonConvert.DeserializeObject<List<T>>(data);
             }
             catch (Exception e)
             {
                 MessageBox.Show(e.Message);
-                throw;
             }
+
+            return null;
         }
 
         //universal method for posting data to server
@@ -69,16 +74,20 @@ namespace WebClient.Data.Transfer
                     var result = await client.PostAsync(baseAddress + url,
                         new StringContent(JsonConvert.SerializeObject(data), Encoding.UTF8, "application/json"));
 
-                    var bytes = await result.Content.ReadAsByteArrayAsync();
-                    var dataFromServer = Encoding.UTF8.GetString(bytes, 0, bytes.Length);
+                    if (result.IsSuccessStatusCode)
+                    {
+                        var bytes = await result.Content.ReadAsByteArrayAsync();
+                        var dataString = Encoding.UTF8.GetString(bytes, 0, bytes.Length);
+                        return JsonConvert.DeserializeObject<T>(dataString);
+                    }
 
-                    return JsonConvert.DeserializeObject<T>(dataFromServer);
+                    MessageBox.Show("Invalid data");
+                    return default(T);
                 }
             }
-            catch (Exception e)
+            catch
             {
-                MessageBox.Show(e.Message);
-                throw;
+                return default(T);
             }
         }
 
@@ -107,12 +116,27 @@ namespace WebClient.Data.Transfer
             return await PostData(trener, token, "api/Treners");
         }
 
+        public Task<TrenerDto> PostTrenerDto(TrenerDto trener, string token)
+        {
+            return PostData(trener, token, "api/Treners");
+        }
+
+        public async Task<TrenerDto> PostTrener(TrenerDto trener, string token)
+        {
+            return await PostData(trener, token, "api/Treners");
+        }
+
         public async Task<List<Athlete>> GetAthletes(string token)
         {
             return await GetData<Athlete>(token, "api/Athletes");
         }
 
         public async Task<Athlete> PostAthlete(Athlete athlete, string token)
+        {
+            return await PostData(athlete, token, "api/Athletes");
+        }
+
+        public async Task<AthleteDto> PostAthleteDto(AthleteDto athlete, string token)
         {
             return await PostData(athlete, token, "api/Athletes");
         }

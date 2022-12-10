@@ -1,13 +1,15 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using WebApplication.Data;
 using WebApplication.DTOs;
 using WebApplication.Models;
 
 namespace WebApplication.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
-    public class SportPlacesController : ControllerBase
+    public class SportPlacesController : Validating
     {
         private readonly DataContext _context;
 
@@ -20,6 +22,11 @@ namespace WebApplication.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<SportPlace>>> GetSportPlaces()
         {
+            var token = Request.Headers["Authorization"].ToString().Replace("Bearer ", "");
+            if (ValidateToken(token) == false)
+            {
+                return BadRequest("Token expired, please login again");
+            }
             return await _context.SportPlaces.ToListAsync();
         }
 
@@ -74,7 +81,11 @@ namespace WebApplication.Controllers
         public async Task<ActionResult<SportPlace>> PostSportPlace(CreateSportPlaceDto request)
         {
 
-            
+            var token = Request.Headers["Authorization"].ToString().Replace("Bearer ", "");
+            if (ValidateToken(token) == false)
+            {
+                return BadRequest("Token expired, please login again");
+            }
             var sportPlace = new SportPlace
             {
                 Name = request.Name,

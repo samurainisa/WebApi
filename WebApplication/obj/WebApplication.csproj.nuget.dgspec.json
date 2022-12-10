@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Nik\\Source\\Repos\\WebApi\\WebApplication\\WebApplication.csproj": {}
+    "C:\\Users\\Nik\\source\\repos\\WebApi\\WebApplication\\WebApplication.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Nik\\Source\\Repos\\WebApi\\WebApplication\\WebApplication.csproj": {
+    "C:\\Users\\Nik\\source\\repos\\WebApi\\WebApplication\\WebApplication.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Nik\\Source\\Repos\\WebApi\\WebApplication\\WebApplication.csproj",
+        "projectUniqueName": "C:\\Users\\Nik\\source\\repos\\WebApi\\WebApplication\\WebApplication.csproj",
         "projectName": "WebApplication",
-        "projectPath": "C:\\Users\\Nik\\Source\\Repos\\WebApi\\WebApplication\\WebApplication.csproj",
+        "projectPath": "C:\\Users\\Nik\\source\\repos\\WebApi\\WebApplication\\WebApplication.csproj",
         "packagesPath": "C:\\Users\\Nik\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Nik\\Source\\Repos\\WebApi\\WebApplication\\obj\\",
+        "outputPath": "C:\\Users\\Nik\\source\\repos\\WebApi\\WebApplication\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
