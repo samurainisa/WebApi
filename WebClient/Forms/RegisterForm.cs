@@ -14,7 +14,7 @@ namespace WebClient.Forms
 {
     public partial class RegisterForm : Form
     {
-        IUserUseCases register = new FetchData();
+        IUserUseCases register = new AuthorizeData();
 
         public RegisterForm()
         {
@@ -36,7 +36,7 @@ namespace WebClient.Forms
             }
             else
             {
-                MessageBox.Show("Something went wrong");
+                MessageBox.Show("Неверный формат логина");
             }
         }
 

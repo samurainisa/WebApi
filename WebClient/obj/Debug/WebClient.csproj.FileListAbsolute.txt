@@ -29,7 +29,6 @@ C:\Users\Nik\Source\Repos\WebApi\WebClient\obj\Debug\WebClient.Data.PostForms.Sp
 C:\Users\Nik\Source\Repos\WebApi\WebClient\obj\Debug\WebClient.Data.PostForms.SportPlaceForm.resources
 C:\Users\Nik\Source\Repos\WebApi\WebClient\obj\Debug\WebClient.Forms.AuthForm.resources
 C:\Users\Nik\Source\Repos\WebApi\WebClient\obj\Debug\WebClient.Forms.RegisterForm.resources
-C:\Users\Nik\Source\Repos\WebApi\WebClient\obj\Debug\WebClient.Forms.UserForm.resources
 C:\Users\Nik\Source\Repos\WebApi\WebClient\obj\Debug\WebClient.Properties.Resources.resources
 C:\Users\Nik\Source\Repos\WebApi\WebClient\obj\Debug\WebClient.csproj.GenerateResource.cache
 C:\Users\Nik\Source\Repos\WebApi\WebClient\obj\Debug\WebClient.csproj.CoreCompileInputs.cache
@@ -38,3 +37,4 @@ C:\Users\Nik\Source\Repos\WebApi\WebClient\obj\Debug\WebClient.exe
 C:\Users\Nik\Source\Repos\WebApi\WebClient\obj\Debug\WebClient.pdb
 C:\Users\Nik\Source\Repos\WebApi\WebClient\obj\Debug\WebClient.Data.PostForms.TrenersForm.resources
 C:\Users\Nik\Source\Repos\WebApi\WebClient\obj\Debug\WebClient.Data.PostForms.AthleteForm.resources
+C:\Users\Nik\source\repos\WebApi\WebClient\obj\Debug\WebClient.Forms.ClientForm.resources

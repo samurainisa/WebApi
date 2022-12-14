@@ -16,7 +16,7 @@ namespace WebClient.Data.PostForms
 {
     public partial class SportPlaceForm : Form
     {
-        private IDataUseCases post = new UploadData();
+        private IAdminUseCases post = new UploadData();
         private readonly AuthInfo _authInfo;
 
         public SportPlaceForm()

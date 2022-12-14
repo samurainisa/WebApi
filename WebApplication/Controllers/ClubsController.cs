@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 using WebApplication.Data;
 using WebApplication.DTOs;
 using WebApplication.Models;
@@ -8,7 +9,7 @@ namespace WebApplication.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize]
+    // [Authorize]
     public class ClubsController : Validating
     {
         private readonly DataContext _context;
@@ -45,6 +46,7 @@ namespace WebApplication.Controllers
             return club;
         }
 
+        // [Authorize(Roles = "Admin")]
         [HttpPatch]
         public async Task<ActionResult<Club>> PatchClub(int id, CreateClubDto clubDto)
         {
@@ -69,10 +71,12 @@ namespace WebApplication.Controllers
             return await _context.Clubs.ToListAsync();
         }
 
-        [HttpDelete("{id}")]
-        public async Task<ActionResult<Club>> DeleteClub(int id)
+        // [Authorize(Roles = "Admin")]
+        [HttpDelete("{clubname}")]
+        public async Task<ActionResult<string>> DeleteClub(string clubname)
         {
-            var club = await _context.Clubs.FindAsync(id);
+            var club = await _context.Clubs.Where(c => c.Name == clubname).FirstOrDefaultAsync();
+
             if (club == null)
             {
                 return NotFound();
@@ -81,9 +85,23 @@ namespace WebApplication.Controllers
             _context.Clubs.Remove(club);
             await _context.SaveChangesAsync();
 
-            return club;
+            return $"Клуб: '{club.Name}, Id = {club.Id} deleted";
         }
 
+        //Put: api/Clubs
+        [HttpPut]
+        public async Task<ActionResult<Club>> PutClub(CreateClubDto clubDto)
+        {
+            var club = new Club
+            {
+                Name = clubDto.Name
+            };
+
+            _context.Clubs.Add(club);
+            await _context.SaveChangesAsync();
+
+            return club;
+        }
         // POST: api/Clubs
         [HttpPost]
         public async Task<ActionResult<Club>> PostClub(CreateClubDto request)

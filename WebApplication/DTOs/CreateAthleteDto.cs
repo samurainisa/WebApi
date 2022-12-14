@@ -1,4 +1,6 @@
-﻿namespace WebApplication.DTOs
+﻿using System.Text.Json.Serialization;
+
+namespace WebApplication.DTOs
 {
     public class CreateAthleteDto
     {
@@ -8,10 +10,10 @@
         public string SportName { get; set; }
         public string TrenerName { get; set; }
         public string SportPlaceName { get; set; }
-        
-        public int SportId { get; set; }
-        public int SportPlaceId { get; set; }
-        public int ClubId { get; set; }
-        public int TrenerId { get; set; }
+
+        [Newtonsoft.Json.JsonIgnore][JsonIgnore] public int SportId { get; set; }
+        [Newtonsoft.Json.JsonIgnore][JsonIgnore] public int SportPlaceId { get; set; }
+        [Newtonsoft.Json.JsonIgnore][JsonIgnore] public int ClubId { get; set; }
+        [Newtonsoft.Json.JsonIgnore][JsonIgnore] public int TrenerId { get; set; }
     }
 }

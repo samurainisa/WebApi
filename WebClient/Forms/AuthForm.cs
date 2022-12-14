@@ -16,7 +16,7 @@ namespace WebClient.Forms
     public partial class AuthForm : Form
     {
         AuthInfo _authInfo = new AuthInfo();
-        private IUserUseCases login = new FetchData();
+        private IUserUseCases login = new AuthorizeData();
 
         public AuthForm()
         {
@@ -44,23 +44,23 @@ namespace WebClient.Forms
         {
             try
             {
-                
                 var username = tbUsername.Text;
                 var password = tbPassword.Text;
 
                 var info = await login.LogIn(username, password);
 
+
                 if (info != null)
                 {
                     if (info.Role == "Admin")
                     {
-                        // AdminForm adminForm = new AdminForm();
-                        // adminForm.Show();
-                        // Hide();
+                        ClientForm userForm = new ClientForm(info.Email, info.Role, info.access_token);
+                        userForm.Show();
+                        Hide();
                     }
                     else if (info.Role == "User")
                     {
-                        UserForm userForm = new UserForm(info.Email, info.Role, info.access_token);
+                        ClientForm userForm = new ClientForm(info.Email, info.Role, info.access_token);
                         userForm.Show();
                         Hide();
                     }
@@ -91,12 +91,10 @@ namespace WebClient.Forms
             btnLogin.MouseLeave += (s, a) => { btnLogin.ForeColor = Color.DarkTurquoise; };
 
             //пока данные загружаются кнопка блокируется
-            
         }
 
         private void btnLogin_KeyPress(object sender, KeyPressEventArgs e)
         {
-
         }
     }
 }

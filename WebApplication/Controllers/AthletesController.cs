@@ -1,6 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using System.Linq;
-using Microsoft.AspNetCore.Authorization;
 using WebApplication.Data;
 using WebApplication.DTOs;
 using WebApplication.Models;
@@ -20,7 +18,7 @@ public class AthletesController : Validating
 
     //GET: api/Athletes
     [HttpGet]
-    public IActionResult GetAthletes()
+    public async Task<ActionResult<IEnumerable<Athlete>>> GetAthletes()
     {
         var token = Request.Headers["Authorization"].ToString().Replace("Bearer ", "");
         if (ValidateToken(token) == false)
@@ -28,8 +26,8 @@ public class AthletesController : Validating
             return BadRequest("Token expired, please login again");
         }
 
-        var athletes = _dataContext.Athletes.ToList();
-        return Ok(athletes);
+        return await _dataContext.Athletes.ToListAsync();
+
     }
 
     [HttpGet("{id}")]

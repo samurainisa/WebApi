@@ -8,7 +8,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using WebClient.Data.Enums;
 using WebClient.Data.Models;
 using WebClient.Data.PostForms;
 using WebClient.Data.Service;
@@ -16,17 +15,19 @@ using WebClient.Data.Transfer;
 
 namespace WebClient.Forms
 {
-    public partial class UserForm : Form
+    public partial class ClientForm : Form
     {
         private static AuthInfo _authInfo = new AuthInfo();
-        private IDataUseCases getData = new UploadData();
+        private IAdminUseCases getData = new UploadData();
 
-        public UserForm()
+        //конструктор принимающий в себя параметр для настройки tabPage в зависимости от роли пользователя
+
+        public ClientForm()
         {
             InitializeComponent();
         }
 
-        public UserForm(string infoEmail, string infoRole, string token)
+        public ClientForm(string infoEmail, string infoRole, string token)
         {
             InitializeComponent();
             _authInfo.Email = infoEmail;
@@ -49,61 +50,69 @@ namespace WebClient.Forms
                 var trainers = await getData.GetTreners(_authInfo.access_token);
                 var athletes = await getData.GetAthletes(_authInfo.access_token);
 
+                if (_authInfo.Role != "User")
+                {
+                    //create new tabpage in dataControl and add it to dataControl
+                    TabPage tabPage = new TabPage();
+                    tabPage.Text = "Пользователи";
+                    tabPage.Name = "tabUsers";
 
-                listView1.Items.Clear();
+                    dataControl.TabPages.Add(tabPage);
+
+                    //add listview to tabPage 
+                    ListView listView = new ListView();
+                    listView.Name = "listView6";
+                    listView.Dock = DockStyle.Fill;
+                    listView.View = View.Details;
+                    // listView.FullRowSelect = true;
+                    // listView.GridLines = true;
+                    listView.Columns.Add("Id", 50);
+                    listView.Columns.Add("Email", 100);
+                    listView.Columns.Add("Role", 100);
+                    listView.Columns.Add("Password", 100);
+
+                    listView.BackColor = Color.FromArgb(193, 199, 195);
+                    tabPage.Controls.Add(listView);
+
+                    editMeniStripItem.Visible = true;
+                    deleteToolStripMenuItem.Visible = true;
+                }
+
+                dataGridView2.Rows.Clear();
+
                 //выгрузить элементы в listview1
 
-                foreach (var club in clubs)
-                {
-                    ListViewItem clubitem = new ListViewItem(club.Id.ToString());
 
-                    clubitem.SubItems.Add(club.Name);
-                    listView1.Items.Add(clubitem);
-                }
-
-                listView2.Items.Clear();
                 foreach (var sport in sports)
                 {
-                    ListViewItem sportitem = new ListViewItem(sport.Id.ToString());
-
-                    sportitem.SubItems.Add(sport.Name);
-                    listView2.Items.Add(sportitem);
+                    dataGridView2.Rows.Add(sport.Id, sport.Name);
                 }
 
-                listView3.Items.Clear();
+                dataGridView3.Rows.Clear();
                 foreach (var sportplace in sportplaces)
                 {
-                    ListViewItem sportplaceitem = new ListViewItem(sportplace.Id.ToString());
-                    sportplaceitem.SubItems.Add(sportplace.Name);
-                    sportplaceitem.SubItems.Add(sportplace.Capacity.ToString());
-                    sportplaceitem.SubItems.Add(sportplace.Address);
-                    sportplaceitem.SubItems.Add(sportplace.City);
-                    sportplaceitem.SubItems.Add(sportplace.Country);
-                    sportplaceitem.SubItems.Add(sportplace.CoverType);
-                    listView3.Items.Add(sportplaceitem);
+                    dataGridView3.Rows.Add(sportplace.Id, sportplace.Name, sportplace.Capacity
+                        , sportplace.Address, sportplace.City, sportplace.Country, sportplace.CoverType);
                 }
 
-                listView4.Items.Clear();
+                dataGridView4.Rows.Clear();
                 foreach (var trainer in trainers)
                 {
-                    ListViewItem traineritem = new ListViewItem(trainer.Id.ToString());
-                    traineritem.SubItems.Add(trainer.FirstName);
-                    traineritem.SubItems.Add(trainer.LastName);
-                    traineritem.SubItems.Add(trainer.SportId.ToString());
-                    listView4.Items.Add(traineritem);
+                    dataGridView4.Rows.Add(trainer.Id, trainer.FirstName, trainer.LastName, trainer.SportId);
                 }
 
-                listView5.Items.Clear();
+                dataGridView5.Rows.Clear();
                 foreach (var athlete in athletes)
                 {
-                    ListViewItem athleteitem = new ListViewItem(athlete.Id.ToString());
-                    athleteitem.SubItems.Add(athlete.FirstName);
-                    athleteitem.SubItems.Add(athlete.LastName);
-                    athleteitem.SubItems.Add(athlete.ClubId.ToString());
-                    athleteitem.SubItems.Add(athlete.SportId.ToString());
-                    athleteitem.SubItems.Add(athlete.TrenerId.ToString());
-                    athleteitem.SubItems.Add(athlete.SportPlaceId.ToString());
-                    listView5.Items.Add(athleteitem);
+                    dataGridView5.Rows.Add(athlete.Id, athlete.FirstName, athlete.LastName, athlete.ClubId,
+                        athlete.SportId
+                        , athlete.TrenerId, athlete.SportPlaceId);
+                }
+
+                dataGridView1.Rows.Clear();
+                foreach (var club in clubs)
+                {
+                    dataGridView1.Rows.Add(club.Id, club.Name);
                 }
             }
             catch (Exception exception)
@@ -198,19 +207,13 @@ namespace WebClient.Forms
                 }
                 else
                 {
-                    listView3.Items.Clear();
+                    dataGridView3.Rows.Clear();
                     //выгрузить элементы в listview1
 
                     foreach (var sportplace in sportplePlaces)
                     {
-                        ListViewItem sportplaceitem = new ListViewItem(sportplace.Id.ToString());
-                        sportplaceitem.SubItems.Add(sportplace.Name);
-                        sportplaceitem.SubItems.Add(sportplace.Capacity.ToString());
-                        sportplaceitem.SubItems.Add(sportplace.Address);
-                        sportplaceitem.SubItems.Add(sportplace.City);
-                        sportplaceitem.SubItems.Add(sportplace.Country);
-                        sportplaceitem.SubItems.Add(sportplace.CoverType);
-                        listView3.Items.Add(sportplaceitem);
+                        dataGridView3.Rows.Add(sportplace.Id, sportplace.Name, sportplace.Capacity
+                            , sportplace.Address, sportplace.City, sportplace.Country, sportplace.CoverType);
                     }
                 }
             }
@@ -244,14 +247,12 @@ namespace WebClient.Forms
                 }
                 else
                 {
-                    listView2.Items.Clear();
+                    dataGridView2.Rows.Clear();
                     //выгрузить элементы в listview1
 
                     foreach (var sport in sports)
                     {
-                        ListViewItem item = new ListViewItem(sport.Id.ToString());
-                        item.SubItems.Add(sport.Name);
-                        listView2.Items.Add(item);
+                        dataGridView2.Rows.Add(sport.Id, sport.Name);
                     }
                 }
             }
@@ -285,14 +286,12 @@ namespace WebClient.Forms
                 }
                 else
                 {
-                    listView1.Items.Clear();
+                    dataGridView1.Rows.Clear();
                     //выгрузить элементы в listview1
 
                     foreach (var club in clubs)
                     {
-                        ListViewItem item = new ListViewItem(club.Id.ToString());
-                        item.SubItems.Add(club.Name);
-                        listView1.Items.Add(item);
+                        dataGridView1.Rows.Add(club.Id, club.Name);
                     }
                 }
             }
@@ -332,14 +331,10 @@ namespace WebClient.Forms
                 }
                 else
                 {
-                    listView4.Items.Clear();
+                    dataGridView4.Rows.Clear();
                     foreach (var trainer in trainers)
                     {
-                        ListViewItem traineritem = new ListViewItem(trainer.Id.ToString());
-                        traineritem.SubItems.Add(trainer.FirstName);
-                        traineritem.SubItems.Add(trainer.LastName);
-                        traineritem.SubItems.Add(trainer.SportId.ToString());
-                        listView4.Items.Add(traineritem);
+                        dataGridView4.Rows.Add(trainer.Id, trainer.FirstName, trainer.LastName, trainer.SportId);
                     }
                 }
             }
@@ -373,17 +368,12 @@ namespace WebClient.Forms
                 }
                 else
                 {
-                    listView5.Items.Clear();
+                    dataGridView5.Rows.Clear();
                     foreach (var athlete in athletes)
                     {
-                        ListViewItem athleteitem = new ListViewItem(athlete.Id.ToString());
-                        athleteitem.SubItems.Add(athlete.FirstName);
-                        athleteitem.SubItems.Add(athlete.LastName);
-                        athleteitem.SubItems.Add(athlete.ClubId.ToString());
-                        athleteitem.SubItems.Add(athlete.SportId.ToString());
-                        athleteitem.SubItems.Add(athlete.TrenerId.ToString());
-                        athleteitem.SubItems.Add(athlete.SportPlaceId.ToString());
-                        listView5.Items.Add(athleteitem);
+                        dataGridView5.Rows.Add(athlete.Id, athlete.FirstName, athlete.LastName, athlete.ClubId,
+                            athlete.SportId
+                            , athlete.TrenerId, athlete.SportPlaceId);
                     }
                 }
             }
@@ -398,6 +388,20 @@ namespace WebClient.Forms
         {
             AthleteForm athletesForm = new AthleteForm(_authInfo);
             athletesForm.Show();
+        }
+
+        private void клубToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            ClubsForm clubForm = new ClubsForm(_authInfo);
+            clubForm.Show();
+        }
+
+        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex > -1 && e.ColumnIndex == 2)
+            {
+                MessageBox.Show("penis");
+            }
         }
     }
 }

@@ -9,7 +9,7 @@ using WebClient.Data.Service;
 
 namespace WebClient.Data.Transfer
 {
-    public class FetchData : IUserUseCases
+    public class AuthorizeData : IUserUseCases
     {
         private AuthInfo authInfo;
 

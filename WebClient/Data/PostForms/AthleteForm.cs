@@ -11,7 +11,7 @@ namespace WebClient.Data.PostForms
 {
     public partial class AthleteForm : Form
     {
-        private IDataUseCases post = new UploadData();
+        private IAdminUseCases post = new UploadData();
         private readonly AuthInfo _authInfo;
 
         public AthleteForm()
@@ -49,10 +49,6 @@ namespace WebClient.Data.PostForms
 
                 var result = post.PostAthleteDto(athlete, _authInfo.access_token);
 
-                if (result != null)
-                {
-                    MessageBox.Show("Спортсмен добавлен");
-                }
 
             }
             catch (Exception exception)

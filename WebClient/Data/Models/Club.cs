@@ -1,8 +1,11 @@
-﻿namespace WebClient.Data.Models
+﻿using System;
+
+namespace WebClient.Data.Models
 {
     public class Club
     {
         public int Id { get; set; }
+
         public string Name { get; set; }
     }
 }

@@ -13,11 +13,67 @@ using WebClient.Data.Service;
 
 namespace WebClient.Data.Transfer
 {
-    public class UploadData : IDataUseCases
+    public class UploadData : IAdminUseCases
     {
         public async Task<List<Sport>> GetSports(string token)
         {
             return await GetData<Sport>(token, "api/Sports");
+        }
+
+        public async Task<List<Club>> GetClubs(string token)
+        {
+            return await GetData<Club>(token, "api/Clubs");
+        }
+
+        public async Task<Club> PostClub(Club club, string token)
+        {
+            return await PostData(club, token, "api/Clubs");
+        }
+
+        public async Task<SportPlaces> PostSportPlace(SportPlaces sportplace, string token)
+        {
+            return await PostData(sportplace, token, "api/SportPlaces");
+        }
+
+        public async Task<List<Trener>> GetTreners(string token)
+        {
+            return await GetData<Trener>(token, "api/Treners");
+        }
+
+        public async Task<Trener> PostTrener(Trener trener, string token)
+        {
+            return await PostData(trener, token, "api/Treners");
+        }
+
+        public Task<TrenerDto> PostTrenerDto(TrenerDto trener, string token)
+        {
+            return PostData(trener, token, "api/Treners");
+        }
+
+        public async Task<TrenerDto> PostTrener(TrenerDto trener, string token)
+        {
+            return await PostData(trener, token, "api/Treners");
+        }
+
+        public async Task<List<Athlete>> GetAthletes(string token)
+        {
+            return await GetData<Athlete>(token, "api/Athletes");
+        }
+
+        public async Task<Athlete> PostAthlete(Athlete athlete, string token)
+        {
+            return await PostData(athlete, token, "api/Athletes");
+        }
+
+        public async Task<AthleteDto> PostAthleteDto(AthleteDto athlete, string token)
+        {
+            var result = await PostData(athlete, token, "api/Athletes");
+            if (result != null)
+            {
+                MessageBox.Show("Спортсмен добавлен");
+            }
+
+            return result;
         }
 
         public Task<List<SportPlaces>> GetSportPlaces(string token)
@@ -91,54 +147,49 @@ namespace WebClient.Data.Transfer
             }
         }
 
-        public async Task<List<Club>> GetClubs(string token)
+        //universal method for delete data from server
+        public async Task<T> DeleteData<T>(T name, string token, string url)
         {
-            return await GetData<Club>(token, "api/Clubs");
-        }
+            try
+            {
+                var baseAddress = new Uri("https://localhost:7059");
+                using (var client = new HttpClient(new HttpClientHandler()) { BaseAddress = baseAddress })
+                {
+                    client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                    client.DefaultRequestHeaders.Add("Authorization", $"Bearer {token}");
 
-        public async Task<Club> PostClub(Club club, string token)
-        {
-            return await PostData(club, token, "api/Clubs");
-        }
+                    //обратиться к clubname.Name
+                    var result = await client.DeleteAsync(baseAddress + url + name);
+                    
 
-        public async Task<SportPlaces> PostSportPlace(SportPlaces sportplace, string token)
-        {
-            return await PostData(sportplace, token, "api/SportPlaces");
-        }
+                    if (result.IsSuccessStatusCode)
+                    {
+                        MessageBox.Show(baseAddress + url + name);
+                        var bytes = await result.Content.ReadAsByteArrayAsync();
+                        var dataString = Encoding.UTF8.GetString(bytes, 0, bytes.Length);
 
-        public async Task<List<Trener>> GetTreners(string token)
-        {
-            return await GetData<Trener>(token, "api/Treners");
-        }
+                        //запиши ответ сервера в виде строки и передай в messagebox
+                        MessageBox.Show(dataString);
 
-        public async Task<Trener> PostTrener(Trener trener, string token)
-        {
-            return await PostData(trener, token, "api/Treners");
-        }
+                        var data = JsonConvert.DeserializeObject<T>(dataString);
+                        return data;
+                    }
 
-        public Task<TrenerDto> PostTrenerDto(TrenerDto trener, string token)
-        {
-            return PostData(trener, token, "api/Treners");
+                    MessageBox.Show("Invalid data");
+                    return default;
+                }
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message);
+                return default;
+            }
         }
+        
 
-        public async Task<TrenerDto> PostTrener(TrenerDto trener, string token)
+        public async Task<string> DeleteClub(Club clubname, string token)
         {
-            return await PostData(trener, token, "api/Treners");
-        }
-
-        public async Task<List<Athlete>> GetAthletes(string token)
-        {
-            return await GetData<Athlete>(token, "api/Athletes");
-        }
-
-        public async Task<Athlete> PostAthlete(Athlete athlete, string token)
-        {
-            return await PostData(athlete, token, "api/Athletes");
-        }
-
-        public async Task<AthleteDto> PostAthleteDto(AthleteDto athlete, string token)
-        {
-            return await PostData(athlete, token, "api/Athletes");
+            return await DeleteData(clubname.Name, token, "api/Clubs/");
         }
     }
 }

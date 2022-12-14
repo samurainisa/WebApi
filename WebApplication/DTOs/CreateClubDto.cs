@@ -1,4 +1,7 @@
-﻿namespace WebApplication.DTOs
+﻿using Microsoft.AspNetCore.Mvc;
+using WebApplication.Models;
+
+namespace WebApplication.DTOs
 {
     public class CreateClubDto
     {

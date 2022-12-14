@@ -16,17 +16,20 @@ namespace WebClient.Data.PostForms
 {
     public partial class ClubsForm : Form
     {
-        private IDataUseCases post = new UploadData();
+        private IAdminUseCases post = new UploadData();
         private readonly AuthInfo _authInfo;
+
         public ClubsForm()
         {
             InitializeComponent();
         }
+
         public ClubsForm(AuthInfo authInfo)
         {
             InitializeComponent();
             _authInfo = authInfo;
         }
+
         private void btnLogin_Click(object sender, EventArgs e)
         {
             try
@@ -36,7 +39,6 @@ namespace WebClient.Data.PostForms
                 var clubInfo = new Club
                 {
                     Name = club
-
                 };
 
                 if (clubInfo.Name == "")
@@ -54,9 +56,9 @@ namespace WebClient.Data.PostForms
                         authForm.Show();
                     }
                 }
+
                 MessageBox.Show("Клуб успешно добавлен");
                 Hide();
-
             }
             catch (Exception exception)
             {
@@ -73,6 +75,44 @@ namespace WebClient.Data.PostForms
         private void btnLogin_MouseLeave(object sender, EventArgs e)
         {
             btnLogin.ForeColor = Color.DarkTurquoise;
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            //удаление клуба
+            try
+            {
+                var club = textBox1.Text;
+
+                var clubInfo = new Club
+                {
+                    Name = club
+                };
+
+                if (clubInfo.Name == "")
+                {
+                    MessageBox.Show("Пожалуйста, заполните все поля");
+                }
+                else
+                {
+                    var res = post.DeleteClub(clubInfo, _authInfo.access_token);
+                    if (res == null)
+                    {
+                        MessageBox.Show("Токен истек, пожалуйста, авторизуйтесь заново");
+                        Hide();
+                        AuthForm authForm = new AuthForm();
+                        authForm.Show();
+                    }
+                }
+
+                MessageBox.Show("Клуб успешно удален");
+                Hide();
+            }
+            catch (Exception exception)
+            {
+                MessageBox.Show(exception.Message);
+                throw;
+            }
         }
     }
 }

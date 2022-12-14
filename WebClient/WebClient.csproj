@@ -51,13 +51,13 @@
   <ItemGroup>
     <Compile Include="Data\Models\AthleteDto.cs" />
     <Compile Include="Data\Models\Athlete.cs" />
+    <Compile Include="Data\Models\Club.cs" />
     <Compile Include="Data\Models\Trener.cs" />
     <Compile Include="Data\Models\TrenerDto.cs" />
     <Compile Include="Data\Models\SportPlaces.cs" />
     <Compile Include="Data\Models\Sport.cs" />
-    <Compile Include="Data\Models\Club.cs" />
+    <Compile Include="Data\Models\ClubDto.cs" />
     <Compile Include="Data\Models\AuthInfo.cs" />
-    <Compile Include="Data\Enums\ListTables.cs" />
     <Compile Include="Data\PostForms\AthleteForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -88,6 +88,7 @@
     <Compile Include="Data\PostForms\TrenersForm.Designer.cs">
       <DependentUpon>TrenersForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Data\Service\IBaseQuirues.cs" />
     <Compile Include="Forms\AuthForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -100,17 +101,17 @@
     <Compile Include="Forms\RegisterForm.Designer.cs">
       <DependentUpon>RegisterForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\UserForm.cs">
+    <Compile Include="Forms\ClientForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\UserForm.Designer.cs">
-      <DependentUpon>UserForm.cs</DependentUpon>
+    <Compile Include="Forms\ClientForm.Designer.cs">
+      <DependentUpon>ClientForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Data\Service\IUserUseCases.cs" />
-    <Compile Include="Data\Service\IDataUseCases.cs" />
-    <Compile Include="Data\Transfer\FetchData.cs" />
+    <Compile Include="Data\Service\IAdminUseCases.cs" />
+    <Compile Include="Data\Transfer\AuthorizeData.cs" />
     <Compile Include="Data\Transfer\UploadData.cs" />
     <EmbeddedResource Include="Data\PostForms\AthleteForm.resx">
       <DependentUpon>AthleteForm.cs</DependentUpon>
@@ -133,8 +134,8 @@
     <EmbeddedResource Include="Forms\RegisterForm.resx">
       <DependentUpon>RegisterForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\UserForm.resx">
-      <DependentUpon>UserForm.cs</DependentUpon>
+    <EmbeddedResource Include="Forms\ClientForm.resx">
+      <DependentUpon>ClientForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
