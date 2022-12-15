@@ -89,19 +89,23 @@ namespace WebApplication.Controllers
         }
 
         //Put: api/Clubs
-        [HttpPut]
-        public async Task<ActionResult<Club>> PutClub(CreateClubDto clubDto)
+        [HttpPut("{id}")]
+        public async Task<ActionResult<Club>> PutClub(int id, CreateClubDto clubDto)
         {
-            var club = new Club
-            {
-                Name = clubDto.Name
-            };
+            var club = await _context.Clubs.FindAsync(id);
 
-            _context.Clubs.Add(club);
+            if (club == null)
+            {
+                return NotFound();
+            }
+
+            club.Name = clubDto.Name;
+
             await _context.SaveChangesAsync();
 
             return club;
         }
+
         // POST: api/Clubs
         [HttpPost]
         public async Task<ActionResult<Club>> PostClub(CreateClubDto request)

@@ -49,39 +49,21 @@ namespace WebClient.Forms
                 var sportplaces = await getData.GetSportPlaces(_authInfo.access_token);
                 var trainers = await getData.GetTreners(_authInfo.access_token);
                 var athletes = await getData.GetAthletes(_authInfo.access_token);
+                var users = await getData.GetUsers(_authInfo.access_token);
 
-                if (_authInfo.Role != "User")
+                if (_authInfo.Role == "User")
                 {
-                    //create new tabpage in dataControl and add it to dataControl
-                    TabPage tabPage = new TabPage();
-                    tabPage.Text = "Пользователи";
-                    tabPage.Name = "tabUsers";
-
-                    dataControl.TabPages.Add(tabPage);
-
-                    //add listview to tabPage 
-                    ListView listView = new ListView();
-                    listView.Name = "listView6";
-                    listView.Dock = DockStyle.Fill;
-                    listView.View = View.Details;
-                    // listView.FullRowSelect = true;
-                    // listView.GridLines = true;
-                    listView.Columns.Add("Id", 50);
-                    listView.Columns.Add("Email", 100);
-                    listView.Columns.Add("Role", 100);
-                    listView.Columns.Add("Password", 100);
-
-                    listView.BackColor = Color.FromArgb(193, 199, 195);
-                    tabPage.Controls.Add(listView);
-
-                    editMeniStripItem.Visible = true;
-                    deleteToolStripMenuItem.Visible = true;
+                    dataControl.TabPages.Remove(tabPage1);
+                }
+                else
+                {
+                    foreach (var user in users)
+                    {
+                        dataGridView6.Rows.Add(user.UserId, user.Email, user.Role, user.Password);
+                    }
                 }
 
                 dataGridView2.Rows.Clear();
-
-                //выгрузить элементы в listview1
-
 
                 foreach (var sport in sports)
                 {
@@ -145,31 +127,14 @@ namespace WebClient.Forms
 
         public static Image RotateImage(Image img, float rotationAngle)
         {
-            //create an empty Bitmap image
             Bitmap bmp = new Bitmap(img.Width, img.Height);
-
-            //turn the Bitmap into a Graphics object
             Graphics gfx = Graphics.FromImage(bmp);
-
-            //now we set the rotation point to the center of our image
             gfx.TranslateTransform((float)bmp.Width / 2, (float)bmp.Height / 2);
-
-            //now rotate the image
             gfx.RotateTransform(rotationAngle);
-
             gfx.TranslateTransform(-(float)bmp.Width / 2, -(float)bmp.Height / 2);
-
-            //set the InterpolationMode to HighQualityBicubic so to ensure a high
-            //quality image once it is transformed to the specified size
             gfx.InterpolationMode = InterpolationMode.HighQualityBicubic;
-
-            //now draw our new image onto the graphics object
             gfx.DrawImage(img, new Point(0, 0));
-
-            //dispose of our Graphics object
             gfx.Dispose();
-
-            //return the image
             return bmp;
         }
 
@@ -396,11 +361,106 @@ namespace WebClient.Forms
             clubForm.Show();
         }
 
-        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        private async void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex > -1 && e.ColumnIndex == 2)
             {
-                MessageBox.Show("penis");
+                var id = dataGridView1.Rows[e.RowIndex].Cells[0].Value;
+                var name = dataGridView1.Rows[e.RowIndex].Cells[1].Value;
+
+                var club = new Club
+                {
+                    Id = (int)id,
+                    Name = name.ToString()
+                };
+
+                var result = MessageBox.Show($"Вы действительно хотите удалить клуб {name}?", "Удаление клуба",
+                    MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                if (result == DialogResult.Yes)
+                {
+                    var deletedData = await getData.DeleteClub(club, _authInfo.access_token);
+                    dataGridView1.Rows.RemoveAt(e.RowIndex);
+                }
+            }
+
+            //также сделать для кнопки Edit
+            if (e.RowIndex > -1 && e.ColumnIndex == 3)
+            {
+                try
+                {
+                    var id = dataGridView1.Rows[e.RowIndex].Cells[0].Value.ToString();
+                    var name = dataGridView1.Rows[e.RowIndex].Cells[1].Value;
+
+                    var club = new Club
+                    {
+                        Id = Convert.ToInt32(id),
+                        Name = name.ToString()
+                    };
+
+                    var result = MessageBox.Show("Подтвердите изменение клуба?", "Изменение клуба",
+                        MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                    if (result == DialogResult.Yes)
+                    {
+                        await getData.EditClub(club, _authInfo.access_token);
+                        dataGridView1.Rows.RemoveAt(e.RowIndex);
+                    }
+                }
+                catch (Exception exception)
+                {
+                    MessageBox.Show(exception.Message);
+                }
+            }
+        }
+
+        private async void dataGridView2_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex > -1 && e.ColumnIndex == 2)
+            {
+                var id = dataGridView2.Rows[e.RowIndex].Cells[0].Value;
+                var name = dataGridView2.Rows[e.RowIndex].Cells[1].Value;
+
+                var sport = new Sport
+                {
+                    Id = Convert.ToInt32(id),
+                    Name = name.ToString()
+                };
+
+                var result = MessageBox.Show($"Вы действительно хотите удалить вид спорта {name}?",
+                    "Удаление вида спорта",
+                    MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                if (result == DialogResult.Yes)
+                {
+                    await getData.DeleteSport(sport, _authInfo.access_token);
+                    dataGridView2.Rows.RemoveAt(e.RowIndex);
+                }
+            }
+
+            //также сделать для кнопки Edit
+            if (e.RowIndex > -1 && e.ColumnIndex == 3)
+            {
+                try
+                {
+                    var id = dataGridView2.Rows[e.RowIndex].Cells[0].Value.ToString();
+                    var name = dataGridView2.Rows[e.RowIndex].Cells[1].Value;
+
+                    var sport = new Sport
+                    {
+                        Id = Convert.ToInt32(id),
+                        Name = name.ToString()
+                    };
+
+                    var result = MessageBox.Show("Подтвердите изменение вида спорта?", "Изменение вида спорта",
+                        MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                    if (result == DialogResult.Yes)
+                    {
+                        await getData.EditSport(sport, _authInfo.access_token);
+                        dataGridView2.Rows.RemoveAt(e.RowIndex);
+                    }
+                }
+                catch (Exception exception)
+                {
+                    MessageBox.Show(exception.Message);
+                }
             }
         }
     }

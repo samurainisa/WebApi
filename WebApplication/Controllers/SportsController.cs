@@ -27,6 +27,7 @@ namespace WebApplication.Controllers
             {
                 return BadRequest("Token expired, please login again");
             }
+
             return await _context.Sports.ToListAsync();
         }
 
@@ -55,10 +56,10 @@ namespace WebApplication.Controllers
             return sport;
         }
 
-        [HttpDelete("{id}")]
-        public async Task<ActionResult<Sport>> DeleteSport(int id)
+        [HttpDelete("{sportname}")]
+        public async Task<ActionResult<string>> DeleteSport(string sportname)
         {
-            var sport = await _context.Sports.FindAsync(id);
+            var sport = await _context.Sports.Where(s => s.Name == sportname).FirstOrDefaultAsync();
             if (sport == null)
             {
                 return NotFound();
@@ -67,7 +68,7 @@ namespace WebApplication.Controllers
             _context.Sports.Remove(sport);
             await _context.SaveChangesAsync();
 
-            return sport;
+            return $"Вид спорта {sportname}, Id = {sport.Id} удален";
         }
 
         // GET: api/Sports/5
@@ -84,6 +85,22 @@ namespace WebApplication.Controllers
             return sport;
         }
 
+        [HttpPut("{id}")]
+        public async Task<ActionResult<Sport>> PutSport(int id, CreateSportDto sportdto)
+        {
+            var sport = await _context.Sports.FindAsync(id);
+
+            if (sport == null)
+            {
+                return NotFound();
+            }
+
+            sport.Name = sportdto.Name;
+
+            await _context.SaveChangesAsync();
+
+            return sport;
+        }
 
         // POST: api/Sports
         [HttpPost]
@@ -94,6 +111,7 @@ namespace WebApplication.Controllers
             {
                 return BadRequest("Token expired, please login again");
             }
+
             var newSport = new Sport
             {
                 Name = request.Name
@@ -103,12 +121,6 @@ namespace WebApplication.Controllers
             await _context.SaveChangesAsync();
 
             return CreatedAtAction("GetSport", new { id = newSport.Id }, newSport);
-        }
-
-
-        private bool SportExists(int id)
-        {
-            return _context.Sports.Any(e => e.Id == id);
         }
     }
 }

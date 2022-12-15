@@ -27,6 +27,7 @@ namespace WebApplication.Controllers
             {
                 return BadRequest("Token expired, please login again");
             }
+
             return await _context.SportPlaces.ToListAsync();
         }
 
@@ -47,32 +48,25 @@ namespace WebApplication.Controllers
         // PUT: api/SportPlaces/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutSportPlace(int id, SportPlace sportPlace)
+        public async Task<ActionResult<SportPlace>> PutSportPlace(int id, SportPlace sportPlace)
         {
-            if (id != sportPlace.Id)
+            var sportplace = await _context.SportPlaces.FindAsync(id);
+
+            if (sportplace == null)
             {
-                return BadRequest();
+                return NotFound();
             }
 
-            _context.Entry(sportPlace).State = EntityState.Modified;
+            sportplace.Name = sportPlace.Name;
+            sportplace.Address = sportPlace.Address;
+            sportplace.City = sportPlace.City;
+            sportplace.Country = sportPlace.Country;
+            sportplace.Capacity = sportPlace.Capacity;
+            sportplace.CoverType = sportPlace.CoverType;
 
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!SportPlaceExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
+            await _context.SaveChangesAsync();
 
-            return NoContent();
+            return sportplace;
         }
 
         // POST: api/SportPlaces
@@ -80,12 +74,12 @@ namespace WebApplication.Controllers
         [HttpPost]
         public async Task<ActionResult<SportPlace>> PostSportPlace(CreateSportPlaceDto request)
         {
-
             var token = Request.Headers["Authorization"].ToString().Replace("Bearer ", "");
             if (ValidateToken(token) == false)
             {
                 return BadRequest("Token expired, please login again");
             }
+
             var sportPlace = new SportPlace
             {
                 Name = request.Name,

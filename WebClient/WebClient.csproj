@@ -49,6 +49,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Data\Models\UserData.cs" />
     <Compile Include="Data\Models\AthleteDto.cs" />
     <Compile Include="Data\Models\Athlete.cs" />
     <Compile Include="Data\Models\Club.cs" />
