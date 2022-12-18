@@ -114,4 +114,39 @@ public class AthletesController : Validating
 
         return CreatedAtAction("Get", new { id = newAthlete.Id }, newAthlete);
     }
+
+    [HttpPut("{id}")]
+    public async Task<IActionResult> PutAthlete(int id, Athlete request)
+    {
+        if (id != request.Id)
+        {
+            return BadRequest();
+        }
+
+        _dataContext.Entry(request).State = EntityState.Modified;
+
+        try
+        {
+            await _dataContext.SaveChangesAsync();
+        }
+        catch (DbUpdateConcurrencyException)
+        {
+            if (!AthleteExists(id))
+            {
+                return NotFound();
+            }
+            else
+            {
+                throw;
+            }
+        }
+
+        return NoContent();
+
+    }
+
+    private bool AthleteExists(int id)
+    {
+        return _dataContext.Athletes.Any(e => e.Id == id);
+    }
 }

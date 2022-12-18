@@ -96,11 +96,11 @@ namespace WebApplication.Controllers
             return CreatedAtAction("GetSportPlace", new { id = sportPlace.Id }, sportPlace);
         }
 
-        // DELETE: api/SportPlaces/5
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteSportPlace(int id)
+        [HttpDelete("{sportplacename}")]
+        public async Task<ActionResult<SportPlace>> DeleteSportPlace(string sportplacename)
         {
-            var sportPlace = await _context.SportPlaces.FindAsync(id);
+            var sportPlace = await _context.SportPlaces.FirstOrDefaultAsync(x => x.Name == sportplacename);
+
             if (sportPlace == null)
             {
                 return NotFound();
@@ -109,8 +109,10 @@ namespace WebApplication.Controllers
             _context.SportPlaces.Remove(sportPlace);
             await _context.SaveChangesAsync();
 
-            return NoContent();
+            return sportPlace;
         }
+
+
 
         private bool SportPlaceExists(int id)
         {

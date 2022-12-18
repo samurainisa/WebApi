@@ -149,27 +149,22 @@ namespace WebClient.Data.Transfer
 
                     if (result.IsSuccessStatusCode)
                     {
-                        MessageBox.Show(baseAddress + url + name);
                         var bytes = await result.Content.ReadAsByteArrayAsync();
                         var dataString = Encoding.UTF8.GetString(bytes, 0, bytes.Length);
 
-                        //запиши ответ сервера в виде строки и передай в messagebox
-                        MessageBox.Show(dataString);
-
-                        var data = JsonConvert.DeserializeObject<T>(dataString);
-                        return data;
+                        return JsonConvert.DeserializeObject<T>(dataString);
                     }
 
                     MessageBox.Show("Invalid data");
                     return default;
                 }
             }
-            catch (Exception e)
+            catch (JsonReaderException jsonEx)
             {
-                MessageBox.Show(e.Message);
                 return default;
             }
         }
+
         public async Task<string> DeleteClub(Club clubname, string token)
         {
             return await DeleteData(clubname.Name, token, "api/Clubs/");
@@ -212,9 +207,9 @@ namespace WebClient.Data.Transfer
             }
         }
 
-        public Task<string> DeleteSport(Sport sport, string token)
+        public async Task<string> DeleteSport(Sport sport, string token)
         {
-            return DeleteData(sport.Name, token, "api/Sports/");
+            return await DeleteData(sport.Name, token, "api/Sports/");
         }
 
         public async Task<string> EditSport(Sport sport, string token)
@@ -247,6 +242,150 @@ namespace WebClient.Data.Transfer
             {
                 return default;
             }
+        }
+
+        public async Task<string> DeleteSportPlace(SportPlaces sport, string token)
+        {
+            return await DeleteData(sport.Name, token, "api/SportPlaces/");
+        }
+
+        public async Task<string> EditSportPlace(SportPlaces sport, string token)
+        {
+            try
+            {
+                var baseAddress = new Uri("https://localhost:7059");
+                var url = $"{baseAddress}api/SportPlaces/{sport.Id}";
+                using (var client = new HttpClient(new HttpClientHandler()) { BaseAddress = baseAddress })
+                {
+                    client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                    client.DefaultRequestHeaders.Add("Authorization", $"Bearer {token}");
+
+                    var result = await client.PutAsync(url,
+                        new StringContent(JsonConvert.SerializeObject(sport), Encoding.UTF8, "application/json"));
+
+                    if (result.IsSuccessStatusCode)
+                    {
+                        var bytes = await result.Content.ReadAsByteArrayAsync();
+                        var dataString = Encoding.UTF8.GetString(bytes, 0, bytes.Length);
+                        var data = JsonConvert.DeserializeObject<string>(dataString);
+                        return data;
+                    }
+
+                    MessageBox.Show("Invalid data");
+                    return default;
+                }
+            }
+            catch
+            {
+                return default;
+            }
+        }
+
+        public Task<string> DeleteTrener(Trener trener, string token)
+        {
+            return DeleteData(trener.Id.ToString(), token, "api/Treners/");
+        }
+
+        public async Task<string> EditTrener(Trener trener, string token)
+        {
+            try
+            {
+                var baseAddress = new Uri("https://localhost:7059");
+                var url = $"{baseAddress}api/Treners/{trener.Id}";
+                using (var client = new HttpClient(new HttpClientHandler()) { BaseAddress = baseAddress })
+                {
+                    client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                    client.DefaultRequestHeaders.Add("Authorization", $"Bearer {token}");
+
+                    var result = await client.PutAsync(url,
+                        new StringContent(JsonConvert.SerializeObject(trener), Encoding.UTF8, "application/json"));
+
+                    if (result.IsSuccessStatusCode)
+                    {
+                        var bytes = await result.Content.ReadAsByteArrayAsync();
+                        var dataString = Encoding.UTF8.GetString(bytes, 0, bytes.Length);
+                        var data = JsonConvert.DeserializeObject<string>(dataString);
+                        return data;
+                    }
+
+                    MessageBox.Show("Invalid data");
+                    return default;
+                }
+            }
+            catch
+            {
+                return default;
+            }
+        }
+
+        public async Task<string> DeleteAthlete(Athlete athlete, string token)
+        {
+            return await DeleteData(athlete.Id.ToString(), token, "api/Athletes/");
+        }
+
+        public async Task<string> EditAthlete(Athlete athlete, string token)
+        {
+            try
+            {
+                var baseAddress = new Uri("https://localhost:7059");
+                var url = $"{baseAddress}api/Athletes/{athlete.Id}";
+                using (var client = new HttpClient(new HttpClientHandler()) { BaseAddress = baseAddress })
+                {
+                    client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                    client.DefaultRequestHeaders.Add("Authorization", $"Bearer {token}");
+
+                    var result = await client.PutAsync(url,
+                        new StringContent(JsonConvert.SerializeObject(athlete), Encoding.UTF8, "application/json"));
+
+                    if (result.IsSuccessStatusCode)
+                    {
+                        var bytes = await result.Content.ReadAsByteArrayAsync();
+                        var dataString = Encoding.UTF8.GetString(bytes, 0, bytes.Length);
+                        var data = JsonConvert.DeserializeObject<string>(dataString);
+                        return data;
+                    }
+
+                    MessageBox.Show("Invalid data");
+                    return default;
+                }
+            }
+            catch
+            {
+                return default;
+            }
+        }
+
+        public Task<string> DeleteUserLogins(UserData user, string token)
+        {
+            return DeleteData(user.UserId.ToString(), token, "api/UserLogins/");
+        }
+
+        public async Task<UserData> EditUserLogins(UserData user, string token)
+        {
+
+                var baseAddress = new Uri("https://localhost:7059");
+                var url = $"{baseAddress}api/UserLogins/{user.UserId}";
+
+                using (var client = new HttpClient(new HttpClientHandler()) { BaseAddress = baseAddress })
+                {
+                    client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                    client.DefaultRequestHeaders.Add("Authorization", $"Bearer {token}");
+
+                    var result = await client.PutAsync(url,
+                        new StringContent(JsonConvert.SerializeObject(user), Encoding.UTF8, "application/json"));
+
+                    if (result.IsSuccessStatusCode)
+                    {
+                        var bytes = await result.Content.ReadAsByteArrayAsync();
+                        var dataString = Encoding.UTF8.GetString(bytes, 0, bytes.Length);
+                        var data = JsonConvert.DeserializeObject<UserData>(dataString);
+                        return data;
+                    }
+
+                    MessageBox.Show("Invalid data");
+                    return default;
+                }
+
         }
     }
 }

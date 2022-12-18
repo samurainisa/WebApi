@@ -59,7 +59,7 @@ namespace WebClient.Forms
                 {
                     foreach (var user in users)
                     {
-                        dataGridView6.Rows.Add(user.UserId, user.Email, user.Role, user.Password);
+                        dataGridView6.Rows.Add(user.UserId, user.Email, user.Role, user.Password,user.Salt);
                     }
                 }
 
@@ -109,20 +109,20 @@ namespace WebClient.Forms
         {
             //модальное окно для добавления нового клуба в БД
             SportsForm sportForm = new SportsForm(_authInfo);
-            sportForm.ShowDialog();
+            sportForm.Show();
         }
 
         private void спортивноеСооружениеToolStripMenuItem_Click(object sender, EventArgs e)
         {
             SportPlaceForm sportForm = new SportPlaceForm(_authInfo);
-            sportForm.ShowDialog();
+            sportForm.Show();
         }
 
         private void клубToolStripMenuItem_Click(object sender, EventArgs e)
         {
             //модальное окно для добавления нового клуба в БД
             ClubsForm clubForm = new ClubsForm(_authInfo);
-            clubForm.ShowDialog();
+            clubForm.Show();
         }
 
         public static Image RotateImage(Image img, float rotationAngle)
@@ -326,7 +326,6 @@ namespace WebClient.Forms
                 if (athletes == null)
                 {
                     MessageBox.Show("Токен истек, пожалуйста, авторизуйтесь заново");
-                    //разлогинить и закрыть форму
                     Hide();
                     AuthForm authorizationForm = new AuthForm();
                     authorizationForm.Show();
@@ -454,13 +453,349 @@ namespace WebClient.Forms
                     if (result == DialogResult.Yes)
                     {
                         await getData.EditSport(sport, _authInfo.access_token);
-                        dataGridView2.Rows.RemoveAt(e.RowIndex);
                     }
                 }
                 catch (Exception exception)
                 {
                     MessageBox.Show(exception.Message);
                 }
+            }
+        }
+
+        private async void dataGridView3_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex > -1 && e.ColumnIndex == 7)
+            {
+                var id = dataGridView3.Rows[e.RowIndex].Cells[0].Value;
+                var name = dataGridView3.Rows[e.RowIndex].Cells[1].Value;
+                var capacity = dataGridView3.Rows[e.RowIndex].Cells[2].Value;
+                var address = dataGridView3.Rows[e.RowIndex].Cells[3].Value;
+                var city = dataGridView3.Rows[e.RowIndex].Cells[4].Value;
+                var country = dataGridView3.Rows[e.RowIndex].Cells[5].Value;
+                var covertype = dataGridView3.Rows[e.RowIndex].Cells[6].Value;
+
+
+                var sport = new SportPlaces
+                {
+                    Id = Convert.ToInt32(id),
+                    Name = name.ToString(),
+                    Capacity = Convert.ToInt32(capacity),
+                    Address = address.ToString(),
+                    City = city.ToString(),
+                    Country = country.ToString(),
+                    CoverType = covertype.ToString()
+                };
+
+                var result = MessageBox.Show($"Вы действительно хотите удалить спортивное сооружение {name}?",
+                    "Удаление вида спорта",
+                    MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                if (result == DialogResult.Yes)
+                {
+                    await getData.DeleteSportPlace(sport, _authInfo.access_token);
+                    dataGridView3.Rows.RemoveAt(e.RowIndex);
+                }
+            }
+
+            //также сделать для кнопки Edit
+            if (e.RowIndex > -1 && e.ColumnIndex == 8)
+            {
+                try
+                {
+                    var id = dataGridView3.Rows[e.RowIndex].Cells[0].Value;
+                    var name = dataGridView3.Rows[e.RowIndex].Cells[1].Value;
+                    var capacity = dataGridView3.Rows[e.RowIndex].Cells[2].Value;
+                    var address = dataGridView3.Rows[e.RowIndex].Cells[3].Value;
+                    var city = dataGridView3.Rows[e.RowIndex].Cells[4].Value;
+                    var country = dataGridView3.Rows[e.RowIndex].Cells[5].Value;
+                    var covertype = dataGridView3.Rows[e.RowIndex].Cells[6].Value;
+
+
+                    var sport = new SportPlaces
+                    {
+                        Id = Convert.ToInt32(id),
+                        Name = name.ToString(),
+                        Capacity = Convert.ToInt32(capacity),
+                        Address = address.ToString(),
+                        City = city.ToString(),
+                        Country = country.ToString(),
+                        CoverType = covertype.ToString()
+                    };
+
+                    var result = MessageBox.Show("Подтвердите изменение спортивного сооружения?",
+                        "Изменение спортивного сооружения",
+                        MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                    if (result == DialogResult.Yes)
+                    {
+                        await getData.EditSportPlace(sport, _authInfo.access_token);
+                    }
+                }
+                catch (Exception exception)
+                {
+                    MessageBox.Show(exception.Message);
+                }
+            }
+        }
+
+        private async void dataGridView4_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            try
+            {
+                if (e.RowIndex > -1 && e.ColumnIndex == 4)
+                {
+                    var id = dataGridView4.Rows[e.RowIndex].Cells[0].Value;
+                    var firstname = dataGridView4.Rows[e.RowIndex].Cells[1].Value;
+                    var lastname = dataGridView4.Rows[e.RowIndex].Cells[2].Value;
+                    var sportname = dataGridView4.Rows[e.RowIndex].Cells[3].Value;
+
+                    var trener = new Trener
+                    {
+                        Id = Convert.ToInt32(id),
+                        FirstName = firstname.ToString(),
+                        LastName = lastname.ToString(),
+                        SportId = Convert.ToInt32(sportname)
+                    };
+
+                    var result = MessageBox.Show(
+                        $"Вы действительно хотите удалить тренера {firstname}, + {lastname}?",
+                        "Удаление вида спорта",
+                        MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                    if (result == DialogResult.Yes)
+                    {
+                        await getData.DeleteTrener(trener, _authInfo.access_token);
+                        dataGridView4.Rows.RemoveAt(e.RowIndex);
+                    }
+                }
+            }
+            catch (Exception exception)
+            {
+                MessageBox.Show(exception.Message);
+            }
+
+
+            //также сделать для кнопки Edit
+            if (e.RowIndex > -1 && e.ColumnIndex == 5)
+            {
+                try
+                {
+                    var id = dataGridView4.Rows[e.RowIndex].Cells[0].Value;
+                    var firstname = dataGridView4.Rows[e.RowIndex].Cells[1].Value;
+                    var lastname = dataGridView4.Rows[e.RowIndex].Cells[2].Value;
+                    var sportname = dataGridView4.Rows[e.RowIndex].Cells[3].Value;
+
+                    var trener = new Trener
+                    {
+                        Id = Convert.ToInt32(id),
+                        FirstName = firstname.ToString(),
+                        LastName = lastname.ToString(),
+                        SportId = Convert.ToInt32(sportname)
+                    };
+
+                    var result = MessageBox.Show("Подтвердите изменение спортивного сооружения?",
+                        "Изменение спортивного сооружения",
+                        MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                    if (result == DialogResult.Yes)
+                    {
+                        await getData.EditTrener(trener, _authInfo.access_token);
+                    }
+                }
+                catch (Exception exception)
+                {
+                    MessageBox.Show(exception.Message);
+                }
+            }
+        }
+
+        private async void dataGridView5_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            try
+            {
+                if (e.RowIndex > -1 && e.ColumnIndex == 7)
+                {
+                    var id = dataGridView5.Rows[e.RowIndex].Cells[0].Value;
+                    var firstname = dataGridView5.Rows[e.RowIndex].Cells[1].Value;
+                    var lastname = dataGridView5.Rows[e.RowIndex].Cells[2].Value;
+                    var clubname = dataGridView5.Rows[e.RowIndex].Cells[3].Value;
+                    var sportname = dataGridView5.Rows[e.RowIndex].Cells[4].Value;
+                    var trener = dataGridView5.Rows[e.RowIndex].Cells[5].Value;
+                    var sportplace = dataGridView5.Rows[e.RowIndex].Cells[6].Value;
+
+
+                    var athlete = new Athlete
+                    {
+                        Id = Convert.ToInt32(id),
+                        FirstName = firstname.ToString(),
+                        LastName = lastname.ToString(),
+                        ClubId = Convert.ToInt32(clubname),
+                        SportId = Convert.ToInt32(sportname),
+                        TrenerId = Convert.ToInt32(trener),
+                        SportPlaceId = Convert.ToInt32(sportplace)
+                    };
+
+                    var result = MessageBox.Show(
+                        $"Вы действительно хотите удалить спортсмена {firstname} {lastname}?",
+                        "Удаление вида спорта",
+                        MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                    if (result == DialogResult.Yes)
+                    {
+                        await getData.DeleteAthlete(athlete, _authInfo.access_token);
+                        dataGridView5.Rows.RemoveAt(e.RowIndex);
+                    }
+                }
+            }
+            catch (Exception exception)
+            {
+                MessageBox.Show(exception.Message);
+            }
+
+
+            //также сделать для кнопки Edit
+            if (e.RowIndex > -1 && e.ColumnIndex == 8)
+            {
+                try
+                {
+                    var id = dataGridView5.Rows[e.RowIndex].Cells[0].Value;
+                    var firstname = dataGridView5.Rows[e.RowIndex].Cells[1].Value;
+                    var lastname = dataGridView5.Rows[e.RowIndex].Cells[2].Value;
+                    var clubname = dataGridView5.Rows[e.RowIndex].Cells[3].Value;
+                    var sportname = dataGridView5.Rows[e.RowIndex].Cells[4].Value;
+                    var trener = dataGridView5.Rows[e.RowIndex].Cells[5].Value;
+                    var sportplace = dataGridView5.Rows[e.RowIndex].Cells[6].Value;
+
+
+                    var athlete = new Athlete
+                    {
+                        Id = Convert.ToInt32(id),
+                        FirstName = firstname.ToString(),
+                        LastName = lastname.ToString(),
+                        ClubId = Convert.ToInt32(clubname),
+                        SportId = Convert.ToInt32(sportname),
+                        TrenerId = Convert.ToInt32(trener),
+                        SportPlaceId = Convert.ToInt32(sportplace)
+                    };
+
+                    var result = MessageBox.Show("Подтвердите изменение спортсмена?",
+                        "Изменение спортмена",
+                        MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                    if (result == DialogResult.Yes)
+                    {
+                        await getData.EditAthlete(athlete, _authInfo.access_token);
+                    }
+                }
+                catch (Exception exception)
+                {
+                    MessageBox.Show(exception.Message);
+                }
+            }
+        }
+
+        private async void dataGridView6_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            try
+            {
+                if (e.RowIndex > -1 && e.ColumnIndex == 5)
+                {
+                    var id = dataGridView6.Rows[e.RowIndex].Cells[0].Value;
+                    var email = dataGridView6.Rows[e.RowIndex].Cells[1].Value;
+                    var role = dataGridView6.Rows[e.RowIndex].Cells[2].Value;
+                    var password = dataGridView6.Rows[e.RowIndex].Cells[3].Value;
+                    var salt = dataGridView6.Rows[e.RowIndex].Cells[4].Value;
+
+                    var user = new UserData
+                    {
+                        UserId = Convert.ToInt32(id),
+                        Email = email.ToString(),
+                        Role = role.ToString(),
+                        Password = password.ToString(),
+                        Salt = salt.ToString()
+                    };
+
+                    var result = MessageBox.Show(
+                        $"Вы действительно хотите пользователя email:{email}, id:{id}?",
+                        "Удаление пользователя",
+                        MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                    if (result == DialogResult.Yes)
+                    {
+                        await getData.DeleteUserLogins(user, _authInfo.access_token);
+                        dataGridView6.Rows.RemoveAt(e.RowIndex);
+                    }
+                }
+            }
+            catch (Exception exception)
+            {
+                MessageBox.Show(exception.Message);
+            }
+
+
+            //также сделать для кнопки Edit
+            if (e.RowIndex > -1 && e.ColumnIndex == 6)
+            {
+                try
+                {
+                    var id = dataGridView6.Rows[e.RowIndex].Cells[0].Value;
+                    var email = dataGridView6.Rows[e.RowIndex].Cells[1].Value;
+                    var role = dataGridView6.Rows[e.RowIndex].Cells[2].Value;
+                    var password = dataGridView6.Rows[e.RowIndex].Cells[3].Value;
+                    var salt = dataGridView6.Rows[e.RowIndex].Cells[4].Value;
+
+
+                    var user = new UserData
+                    {
+                        UserId = Convert.ToInt32(id),
+                        Email = email.ToString(),
+                        Role = role.ToString(),
+                        Password = password.ToString(),
+                        Salt = salt.ToString()
+                    };
+
+                    var result = MessageBox.Show("Подтвердите изменение пользователя?",
+                        "Изменение пользователя",
+                        MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                    if (result == DialogResult.Yes)
+                    {
+                        await getData.EditUserLogins(user, _authInfo.access_token);
+                    }
+                }
+                catch (Exception exception)
+                {
+                    MessageBox.Show(exception.Message);
+                }
+            }
+        }
+
+        private async void pictureBox6_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                for (int i = 0; i < 10; i++)
+                {
+                    pictureBox6.Image = RotateImage(pictureBox6.Image, 36);
+                    await Task.Delay(10);
+                }
+
+                Console.WriteLine(_authInfo.access_token);
+                var users = await getData.GetUsers(_authInfo.access_token);
+
+                if (users == null)
+                {
+                    MessageBox.Show("Токен истек, пожалуйста, авторизуйтесь заново");
+                    Hide();
+                    AuthForm authorizationForm = new AuthForm();
+                    authorizationForm.Show();
+                }
+                else
+                {
+                    dataGridView6.Rows.Clear();
+                    foreach (var user in users)
+                    {
+                        dataGridView6.Rows.Add(user.UserId, user.Email, user.Role, user.Password, user.Salt, "Delete",
+                            "Edit");
+                    }
+                }
+            }
+            catch (Exception exception)
+            {
+                MessageBox.Show(exception.Message);
+                throw;
             }
         }
     }

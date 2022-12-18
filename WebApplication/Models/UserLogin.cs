@@ -9,10 +9,10 @@ namespace WebApplication.Models
         [DatabaseGenerated(DatabaseGeneratedOption.Identity), Key]
         [ForeignKey("User")]
         public int UserId { get; set; }
-        public string Email { get; set; } = String.Empty;
-        public string Password { get; set; } = String.Empty;
-        public string Salt { get; set; } = String.Empty;
-        public string Role { get; set; } = String.Empty;
+        public string Email { get; set; }
+        public string Password { get; set; }
+        public string Salt { get; set; }
+        public string Role { get; set; }
         public User User { get; set; }
     }
 }

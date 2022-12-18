@@ -57,7 +57,6 @@
     <Compile Include="Data\Models\TrenerDto.cs" />
     <Compile Include="Data\Models\SportPlaces.cs" />
     <Compile Include="Data\Models\Sport.cs" />
-    <Compile Include="Data\Models\ClubDto.cs" />
     <Compile Include="Data\Models\AuthInfo.cs" />
     <Compile Include="Data\PostForms\AthleteForm.cs">
       <SubType>Form</SubType>
