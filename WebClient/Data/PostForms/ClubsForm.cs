@@ -44,6 +44,7 @@ namespace WebClient.Data.PostForms
                 if (clubInfo.Name == "")
                 {
                     MessageBox.Show("Пожалуйста, заполните все поля");
+                    return;
                 }
 
                 var res = post.PostClub(clubInfo, _authInfo.access_token);

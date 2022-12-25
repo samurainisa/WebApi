@@ -92,7 +92,7 @@ namespace WebApplication.Controllers
                 return StatusCode(StatusCodes.Status403Forbidden);
             }
 
-            //проверка на такого ще существующего вида спорта
+            //проверка на такого ще существующее место
             var checksportPlace = await _context.SportPlaces.FirstOrDefaultAsync(x => x.Name == request.Name);
             if (checksportPlace != null)
             {
@@ -115,6 +115,42 @@ namespace WebApplication.Controllers
             return CreatedAtAction("GetSportPlace", new { id = sportPlace.Id }, sportPlace);
         }
 
+        //пост запрос для добавления массива спортивных мест 
+        [HttpPost("addSportPlaces")]
+        public async Task<ActionResult<SportPlace>> PostSportPlaces(CreateSportPlaceDto[] request)
+        {
+            var token = Request.Headers["Authorization"].ToString().Replace("Bearer ", "");
+            if (ValidateToken(token) == false)
+            {
+                return StatusCode(StatusCodes.Status403Forbidden);
+            }
+
+            foreach (var sportPlace in request)
+            {
+                //проверка на такого ще существующее место
+                var checksportPlace = await _context.SportPlaces.FirstOrDefaultAsync(x => x.Name == sportPlace.Name);
+                if (checksportPlace != null)
+                {
+                    return BadRequest("Такое спортивное сооружение уже существует");
+                }
+
+                var sportPlace1 = new SportPlace
+                {
+                    Name = sportPlace.Name,
+                    Address = sportPlace.Address,
+                    Capacity = sportPlace.Capacity,
+                    City = sportPlace.City,
+                    Country = sportPlace.Country,
+                    CoverType = sportPlace.CoverType
+                };
+
+                _context.SportPlaces.Add(sportPlace1);
+                await _context.SaveChangesAsync();
+            }
+
+            return Ok();
+        }
+
         [Authorize(Roles = "Admin")]
         [HttpDelete("{sportplacename}")]
         public async Task<ActionResult<SportPlace>> DeleteSportPlace(string sportplacename)
@@ -122,7 +158,7 @@ namespace WebApplication.Controllers
             var token = Request.Headers["Authorization"].ToString().Replace("Bearer ", "");
             if (ValidateToken(token) == false)
             {
-                return BadRequest("Token expired, please login again");
+                return StatusCode(StatusCodes.Status403Forbidden);
             }
 
             var sportPlace = await _context.SportPlaces.FirstOrDefaultAsync(x => x.Name == sportplacename);

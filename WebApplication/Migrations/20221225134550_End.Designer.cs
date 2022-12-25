@@ -11,8 +11,8 @@ using WebApplication.Data;
 namespace WebApplication.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20221209084830_add_hash_password")]
-    partial class add_hash_password
+    [Migration("20221225134550_End")]
+    partial class End
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

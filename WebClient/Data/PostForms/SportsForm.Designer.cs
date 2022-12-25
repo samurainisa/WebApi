@@ -78,9 +78,9 @@
             this.label1.Location = new System.Drawing.Point(13, 65);
             this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(216, 19);
+            this.label1.Size = new System.Drawing.Size(225, 19);
             this.label1.TabIndex = 11;
-            this.label1.Text = "Введите название клуба:";
+            this.label1.Text = "Введите название спорта:";
             // 
             // SportsForm
             // 

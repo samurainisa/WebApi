@@ -44,7 +44,11 @@ namespace WebClient.Data.PostForms
                 if (sportInfo.Name == "")
                 {
                     MessageBox.Show("Пожалуйста, заполните все поля");
+                    return;
                 }
+
+                var result = post.PostSport(sportInfo, _authInfo.access_token);
+                
 
             }
             catch (Exception exception)

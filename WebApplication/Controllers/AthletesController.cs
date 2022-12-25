@@ -145,7 +145,7 @@ public class AthletesController : Validating
         var token = Request.Headers["Authorization"].ToString().Replace("Bearer ", "");
         if (ValidateToken(token) == false)
         {
-            return BadRequest("Время сеанса вышло. Зайдите в аккаунт заново.");
+            return StatusCode(StatusCodes.Status403Forbidden);
         }
         if (id != request.Id)
         {

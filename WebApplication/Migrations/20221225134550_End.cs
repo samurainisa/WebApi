@@ -5,7 +5,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace WebApplication.Migrations
 {
-    public partial class add_hash_password : Migration
+    public partial class End : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

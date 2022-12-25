@@ -44,10 +44,14 @@ namespace WebClient.Data.PostForms
                     LastName = lastname,
                     sportname = sportname
                 };
+                if (trener.FirstName == "" || trener.LastName == "" || trener.sportname == "")
+                {
+                    MessageBox.Show("Заполните все поля");
+                    return;
+                }
+
 
                 var result = await post.PostTrenerDto(trener, _authInfo.access_token);
-
-
             }
             catch (Exception exception)
             {

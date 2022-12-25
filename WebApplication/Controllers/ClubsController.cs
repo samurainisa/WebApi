@@ -159,43 +159,7 @@ namespace WebApplication.Controllers
             return CreatedAtAction("GetClub", new { id = newClub.Id }, newClub);
         }
 
-        //запрос для отправки множества клубов в одном запросе
-        [HttpPost("PostClubs")]
-        public async Task<ActionResult<Club>> PostClubs(CreateClubDto[] request)
-        {
-            var token = Request.Headers["Authorization"].ToString().Replace("Bearer ", "");
-            if (ValidateToken(token) == false)
-            {
-                return StatusCode(StatusCodes.Status403Forbidden);
 
-            }
-
-            //проверка на существование такого же клуба
-            var clubs = await _context.Clubs.ToListAsync();
-            foreach (var club in clubs)
-            {
-                foreach (var item in request)
-                {
-                    if (club.Name == item.Name)
-                    {
-                        return BadRequest($"Клуб с именем {item.Name} уже существует");
-                    }
-                }
-            }
-
-            foreach (var club in request)
-            {
-                var newClub = new Club
-                {
-                    Name = club.Name
-                };
-
-                _context.Clubs.Add(newClub);
-                await _context.SaveChangesAsync();
-            }
-
-            return Ok();
-        }
         
         
 

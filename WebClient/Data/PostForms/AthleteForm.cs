@@ -47,9 +47,15 @@ namespace WebClient.Data.PostForms
                     SportPlaceName = sportplacename
                 };
 
+                if (athlete.FirstName == "" || athlete.LastName == "" || athlete.ClubName == "" ||
+                    athlete.SportName == "" || athlete.TrenerName == "" || athlete.SportPlaceName == "")
+                {
+                    MessageBox.Show("Заполните все поля");
+                    return;
+                }
+
+
                 var result = post.PostAthleteDto(athlete, _authInfo.access_token);
-
-
             }
             catch (Exception exception)
             {

@@ -24,8 +24,9 @@ namespace WebApplication.Controllers
             var token = Request.Headers["Authorization"].ToString().Replace("Bearer ", "");
             if (ValidateToken(token) == false)
             {
-                return BadRequest("Token expired, please login again");
+                return StatusCode(StatusCodes.Status403Forbidden);
             }
+
             return await _context.UserLogins.ToListAsync();
         }
 
@@ -36,8 +37,9 @@ namespace WebApplication.Controllers
             var token = Request.Headers["Authorization"].ToString().Replace("Bearer ", "");
             if (ValidateToken(token) == false)
             {
-                return BadRequest("Token expired, please login again");
+                return StatusCode(StatusCodes.Status403Forbidden);
             }
+
             var userLogin = await _context.UserLogins.FindAsync(id);
 
             if (userLogin == null)
@@ -56,8 +58,9 @@ namespace WebApplication.Controllers
             var token = Request.Headers["Authorization"].ToString().Replace("Bearer ", "");
             if (ValidateToken(token) == false)
             {
-                return BadRequest("Token expired, please login again");
+                return StatusCode(StatusCodes.Status403Forbidden);
             }
+
             if (id != userLogin.UserId)
             {
                 return BadRequest();
@@ -94,6 +97,7 @@ namespace WebApplication.Controllers
             {
                 return StatusCode(StatusCodes.Status403Forbidden);
             }
+
             _context.UserLogins.Add(userLogin);
             await _context.SaveChangesAsync();
 
@@ -105,7 +109,6 @@ namespace WebApplication.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteUserLogin(int id)
         {
-
             var userLogin = await _context.UserLogins.FindAsync(id);
             if (userLogin == null)
             {
