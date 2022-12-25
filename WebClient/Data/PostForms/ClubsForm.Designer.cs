@@ -32,8 +32,6 @@
             this.panel3 = new System.Windows.Forms.Panel();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.btnLogin = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // label1
@@ -65,7 +63,6 @@
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(220, 17);
             this.textBox1.TabIndex = 8;
-            this.textBox1.Text = "Какой то клуб";
             // 
             // btnLogin
             // 
@@ -74,9 +71,9 @@
             this.btnLogin.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnLogin.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.btnLogin.ForeColor = System.Drawing.Color.DarkTurquoise;
-            this.btnLogin.Location = new System.Drawing.Point(31, 113);
+            this.btnLogin.Location = new System.Drawing.Point(163, 122);
             this.btnLogin.Name = "btnLogin";
-            this.btnLogin.Size = new System.Drawing.Size(89, 42);
+            this.btnLogin.Size = new System.Drawing.Size(130, 42);
             this.btnLogin.TabIndex = 10;
             this.btnLogin.Text = "Принять";
             this.btnLogin.UseVisualStyleBackColor = true;
@@ -84,43 +81,12 @@
             this.btnLogin.MouseEnter += new System.EventHandler(this.btnLogin_MouseEnter);
             this.btnLogin.MouseLeave += new System.EventHandler(this.btnLogin_MouseLeave);
             // 
-            // button1
-            // 
-            this.button1.FlatAppearance.BorderSize = 2;
-            this.button1.FlatAppearance.MouseOverBackColor = System.Drawing.Color.DarkTurquoise;
-            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.button1.ForeColor = System.Drawing.Color.DarkTurquoise;
-            this.button1.Location = new System.Drawing.Point(158, 113);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(89, 42);
-            this.button1.TabIndex = 11;
-            this.button1.Text = "Удалить";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
-            // 
-            // button2
-            // 
-            this.button2.FlatAppearance.BorderSize = 2;
-            this.button2.FlatAppearance.MouseOverBackColor = System.Drawing.Color.DarkTurquoise;
-            this.button2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button2.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.button2.ForeColor = System.Drawing.Color.DarkTurquoise;
-            this.button2.Location = new System.Drawing.Point(289, 113);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(163, 42);
-            this.button2.TabIndex = 12;
-            this.button2.Text = "Редактировать";
-            this.button2.UseVisualStyleBackColor = true;
-            // 
             // ClubsForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 19F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
             this.ClientSize = new System.Drawing.Size(478, 176);
-            this.Controls.Add(this.button2);
-            this.Controls.Add(this.button1);
             this.Controls.Add(this.btnLogin);
             this.Controls.Add(this.panel3);
             this.Controls.Add(this.textBox1);
@@ -129,7 +95,7 @@
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "ClubsForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "ClubsForm";
+            this.Text = "Клуб";
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -141,7 +107,5 @@
         private System.Windows.Forms.Panel panel3;
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Button button2;
     }
 }

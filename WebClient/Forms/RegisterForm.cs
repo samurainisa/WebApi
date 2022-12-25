@@ -23,26 +23,63 @@ namespace WebClient.Forms
 
         private async void btnLogin_Click(object sender, EventArgs e)
         {
-            var email = tbUsername.Text;
-            var password = tbPassword.Text;
+            try
+            {
+                var email = tbUsername.Text;
+                var password = tbPassword.Text;
 
-            var res = await register.Register(email, password);
-            if (res == "ok")
-            {
-                MessageBox.Show("You have successfully registered");
-                AuthForm authForm = new AuthForm();
-                authForm.Show();
-                Hide();
+                var res = await register.Register(email, password);
+                
+                if (res == "Conflict")
+                {
+                    MessageBox.Show("Такой пользователь уже существует");
+                }
+                else
+                {
+                    MessageBox.Show("Вы успешно зарегистрировались");
+                    AuthForm authForm = new AuthForm();
+                    authForm.Show();
+                    Hide();
+                }
+
             }
-            else
+            catch (Exception exception)
             {
-                MessageBox.Show("Неверный формат логина");
+                MessageBox.Show(exception.Message);
             }
         }
 
         private void RegisterForm_Load(object sender, EventArgs e)
         {
             AcceptButton = btnLogin;
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            //вернуться на форму авторизации
+            AuthForm authForm = new AuthForm();
+            authForm.Show();
+            Hide();
+        }
+
+        private void btnLogin_MouseEnter(object sender, EventArgs e)
+        {
+            btnLogin.ForeColor = Color.Black;
+        }
+
+        private void btnLogin_MouseLeave(object sender, EventArgs e)
+        {
+            btnLogin.ForeColor = Color.DarkTurquoise;
+        }
+
+        private void button1_MouseEnter(object sender, EventArgs e)
+        {
+            btnLogin.ForeColor = Color.Black;
+        }
+
+        private void button1_MouseLeave(object sender, EventArgs e)
+        {
+            btnLogin.ForeColor = Color.DarkTurquoise;
         }
     }
 }

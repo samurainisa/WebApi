@@ -32,50 +32,18 @@
             this.UsersTab = new System.Windows.Forms.TabPage();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.ClubId = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ClubName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Button = new System.Windows.Forms.DataGridViewButtonColumn();
-            this.Column7 = new System.Windows.Forms.DataGridViewButtonColumn();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.dataGridView2 = new System.Windows.Forms.DataGridView();
-            this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewButtonColumn1 = new System.Windows.Forms.DataGridViewButtonColumn();
-            this.Column8 = new System.Windows.Forms.DataGridViewButtonColumn();
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.pictureBox4 = new System.Windows.Forms.PictureBox();
             this.dataGridView3 = new System.Windows.Forms.DataGridView();
-            this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewButtonColumn2 = new System.Windows.Forms.DataGridViewButtonColumn();
-            this.Column9 = new System.Windows.Forms.DataGridViewButtonColumn();
             this.tabPage4 = new System.Windows.Forms.TabPage();
             this.pictureBox3 = new System.Windows.Forms.PictureBox();
             this.dataGridView4 = new System.Windows.Forms.DataGridView();
-            this.dataGridViewTextBoxColumn5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column13 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column11 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewButtonColumn3 = new System.Windows.Forms.DataGridViewButtonColumn();
-            this.Column10 = new System.Windows.Forms.DataGridViewButtonColumn();
             this.tabPage5 = new System.Windows.Forms.TabPage();
             this.pictureBox5 = new System.Windows.Forms.PictureBox();
             this.dataGridView5 = new System.Windows.Forms.DataGridView();
-            this.dataGridViewTextBoxColumn12 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn13 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn14 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn15 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn16 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn17 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn18 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewButtonColumn4 = new System.Windows.Forms.DataGridViewButtonColumn();
-            this.Column6 = new System.Windows.Forms.DataGridViewButtonColumn();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.pictureBox6 = new System.Windows.Forms.PictureBox();
             this.dataGridView6 = new System.Windows.Forms.DataGridView();
@@ -105,6 +73,38 @@
             this.тренерToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
+            this.ClubId = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ClubName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dtg1btndelete = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.dtg1btnedit = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dtg2btndelete = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.dtg2btnedit = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dtg3btndelete = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.dtg3btnedit = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.dataGridViewTextBoxColumn5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column13 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column11 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dtg4btndelete = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.dtg4btnedit = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.dataGridViewTextBoxColumn12 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn13 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn14 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn15 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn16 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn17 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn18 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dtg5btndelete = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.dtg5btnedit = new System.Windows.Forms.DataGridViewButtonColumn();
             this.dataGridViewTextBoxColumn7 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn8 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column12 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -187,43 +187,13 @@
             this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.ClubId,
             this.ClubName,
-            this.Button,
-            this.Column7});
+            this.dtg1btndelete,
+            this.dtg1btnedit});
             this.dataGridView1.Location = new System.Drawing.Point(-7, -4);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.Size = new System.Drawing.Size(966, 336);
             this.dataGridView1.TabIndex = 6;
             this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
-            // 
-            // ClubId
-            // 
-            this.ClubId.HeaderText = "Id";
-            this.ClubId.Name = "ClubId";
-            this.ClubId.Width = 200;
-            // 
-            // ClubName
-            // 
-            this.ClubName.HeaderText = "Name";
-            this.ClubName.Name = "ClubName";
-            this.ClubName.Width = 350;
-            // 
-            // Button
-            // 
-            this.Button.HeaderText = "[Delete]";
-            this.Button.Name = "Button";
-            this.Button.Text = "Delete";
-            this.Button.ToolTipText = "Delete";
-            this.Button.UseColumnTextForButtonValue = true;
-            this.Button.Width = 150;
-            // 
-            // Column7
-            // 
-            this.Column7.HeaderText = "[Edit]";
-            this.Column7.Name = "Column7";
-            this.Column7.Text = "Edit";
-            this.Column7.ToolTipText = "Edit";
-            this.Column7.UseColumnTextForButtonValue = true;
-            this.Column7.Width = 150;
             // 
             // tabPage2
             // 
@@ -259,43 +229,13 @@
             this.dataGridView2.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.dataGridViewTextBoxColumn1,
             this.dataGridViewTextBoxColumn2,
-            this.dataGridViewButtonColumn1,
-            this.Column8});
+            this.dtg2btndelete,
+            this.dtg2btnedit});
             this.dataGridView2.Location = new System.Drawing.Point(-16, -4);
             this.dataGridView2.Name = "dataGridView2";
             this.dataGridView2.Size = new System.Drawing.Size(975, 336);
             this.dataGridView2.TabIndex = 7;
             this.dataGridView2.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView2_CellContentClick);
-            // 
-            // dataGridViewTextBoxColumn1
-            // 
-            this.dataGridViewTextBoxColumn1.HeaderText = "Id";
-            this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
-            this.dataGridViewTextBoxColumn1.Width = 200;
-            // 
-            // dataGridViewTextBoxColumn2
-            // 
-            this.dataGridViewTextBoxColumn2.HeaderText = "Name";
-            this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
-            this.dataGridViewTextBoxColumn2.Width = 350;
-            // 
-            // dataGridViewButtonColumn1
-            // 
-            this.dataGridViewButtonColumn1.HeaderText = "[Delete]";
-            this.dataGridViewButtonColumn1.Name = "dataGridViewButtonColumn1";
-            this.dataGridViewButtonColumn1.Text = "Delete";
-            this.dataGridViewButtonColumn1.ToolTipText = "Delete";
-            this.dataGridViewButtonColumn1.UseColumnTextForButtonValue = true;
-            this.dataGridViewButtonColumn1.Width = 150;
-            // 
-            // Column8
-            // 
-            this.Column8.HeaderText = "[Edit]";
-            this.Column8.Name = "Column8";
-            this.Column8.Text = "Edit";
-            this.Column8.ToolTipText = "Edit";
-            this.Column8.UseColumnTextForButtonValue = true;
-            this.Column8.Width = 150;
             // 
             // tabPage3
             // 
@@ -335,73 +275,13 @@
             this.Column3,
             this.Column4,
             this.Column5,
-            this.dataGridViewButtonColumn2,
-            this.Column9});
+            this.dtg3btndelete,
+            this.dtg3btnedit});
             this.dataGridView3.Location = new System.Drawing.Point(-5, -4);
             this.dataGridView3.Name = "dataGridView3";
             this.dataGridView3.Size = new System.Drawing.Size(964, 336);
             this.dataGridView3.TabIndex = 8;
             this.dataGridView3.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView3_CellContentClick);
-            // 
-            // dataGridViewTextBoxColumn3
-            // 
-            this.dataGridViewTextBoxColumn3.HeaderText = "Id";
-            this.dataGridViewTextBoxColumn3.Name = "dataGridViewTextBoxColumn3";
-            this.dataGridViewTextBoxColumn3.Width = 50;
-            // 
-            // dataGridViewTextBoxColumn4
-            // 
-            this.dataGridViewTextBoxColumn4.HeaderText = "Name";
-            this.dataGridViewTextBoxColumn4.Name = "dataGridViewTextBoxColumn4";
-            this.dataGridViewTextBoxColumn4.Width = 120;
-            // 
-            // Column1
-            // 
-            this.Column1.HeaderText = "Capacity";
-            this.Column1.Name = "Column1";
-            // 
-            // Column2
-            // 
-            this.Column2.HeaderText = "Address";
-            this.Column2.Name = "Column2";
-            this.Column2.Width = 120;
-            // 
-            // Column3
-            // 
-            this.Column3.HeaderText = "City";
-            this.Column3.Name = "Column3";
-            // 
-            // Column4
-            // 
-            this.Column4.HeaderText = "Country";
-            this.Column4.Name = "Column4";
-            this.Column4.Width = 110;
-            // 
-            // Column5
-            // 
-            this.Column5.HeaderText = "CoverType";
-            this.Column5.Name = "Column5";
-            this.Column5.Width = 110;
-            // 
-            // dataGridViewButtonColumn2
-            // 
-            this.dataGridViewButtonColumn2.HeaderText = "[Delete]";
-            this.dataGridViewButtonColumn2.Name = "dataGridViewButtonColumn2";
-            this.dataGridViewButtonColumn2.Text = "Delete";
-            this.dataGridViewButtonColumn2.ToolTipText = "Delete";
-            this.dataGridViewButtonColumn2.UseColumnTextForButtonValue = true;
-            this.dataGridViewButtonColumn2.Width = 70;
-            // 
-            // Column9
-            // 
-            this.Column9.HeaderText = "[Edit]";
-            this.Column9.Name = "Column9";
-            this.Column9.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.Column9.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            this.Column9.Text = "Edit";
-            this.Column9.ToolTipText = "Edit";
-            this.Column9.UseColumnTextForButtonValue = true;
-            this.Column9.Width = 70;
             // 
             // tabPage4
             // 
@@ -438,54 +318,13 @@
             this.dataGridViewTextBoxColumn6,
             this.Column13,
             this.Column11,
-            this.dataGridViewButtonColumn3,
-            this.Column10});
+            this.dtg4btndelete,
+            this.dtg4btnedit});
             this.dataGridView4.Location = new System.Drawing.Point(-5, -4);
             this.dataGridView4.Name = "dataGridView4";
             this.dataGridView4.Size = new System.Drawing.Size(960, 336);
             this.dataGridView4.TabIndex = 9;
             this.dataGridView4.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView4_CellContentClick);
-            // 
-            // dataGridViewTextBoxColumn5
-            // 
-            this.dataGridViewTextBoxColumn5.HeaderText = "Id";
-            this.dataGridViewTextBoxColumn5.Name = "dataGridViewTextBoxColumn5";
-            this.dataGridViewTextBoxColumn5.Width = 60;
-            // 
-            // dataGridViewTextBoxColumn6
-            // 
-            this.dataGridViewTextBoxColumn6.HeaderText = "Firstname";
-            this.dataGridViewTextBoxColumn6.Name = "dataGridViewTextBoxColumn6";
-            this.dataGridViewTextBoxColumn6.Width = 200;
-            // 
-            // Column13
-            // 
-            this.Column13.HeaderText = "Lastname";
-            this.Column13.Name = "Column13";
-            // 
-            // Column11
-            // 
-            this.Column11.HeaderText = "Sportname";
-            this.Column11.Name = "Column11";
-            this.Column11.Width = 200;
-            // 
-            // dataGridViewButtonColumn3
-            // 
-            this.dataGridViewButtonColumn3.HeaderText = "[Delete]";
-            this.dataGridViewButtonColumn3.Name = "dataGridViewButtonColumn3";
-            this.dataGridViewButtonColumn3.Text = "Delete";
-            this.dataGridViewButtonColumn3.ToolTipText = "Delete";
-            this.dataGridViewButtonColumn3.UseColumnTextForButtonValue = true;
-            this.dataGridViewButtonColumn3.Width = 150;
-            // 
-            // Column10
-            // 
-            this.Column10.HeaderText = "[Edit]";
-            this.Column10.Name = "Column10";
-            this.Column10.Text = "Edit";
-            this.Column10.ToolTipText = "Edit";
-            this.Column10.UseColumnTextForButtonValue = true;
-            this.Column10.Width = 150;
             // 
             // tabPage5
             // 
@@ -524,70 +363,13 @@
             this.dataGridViewTextBoxColumn16,
             this.dataGridViewTextBoxColumn17,
             this.dataGridViewTextBoxColumn18,
-            this.dataGridViewButtonColumn4,
-            this.Column6});
+            this.dtg5btndelete,
+            this.dtg5btnedit});
             this.dataGridView5.Location = new System.Drawing.Point(-5, -4);
             this.dataGridView5.Name = "dataGridView5";
             this.dataGridView5.Size = new System.Drawing.Size(960, 336);
             this.dataGridView5.TabIndex = 9;
             this.dataGridView5.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView5_CellContentClick);
-            // 
-            // dataGridViewTextBoxColumn12
-            // 
-            this.dataGridViewTextBoxColumn12.HeaderText = "Id";
-            this.dataGridViewTextBoxColumn12.Name = "dataGridViewTextBoxColumn12";
-            this.dataGridViewTextBoxColumn12.Width = 50;
-            // 
-            // dataGridViewTextBoxColumn13
-            // 
-            this.dataGridViewTextBoxColumn13.HeaderText = "Firstname";
-            this.dataGridViewTextBoxColumn13.Name = "dataGridViewTextBoxColumn13";
-            // 
-            // dataGridViewTextBoxColumn14
-            // 
-            this.dataGridViewTextBoxColumn14.HeaderText = "Lastname";
-            this.dataGridViewTextBoxColumn14.Name = "dataGridViewTextBoxColumn14";
-            // 
-            // dataGridViewTextBoxColumn15
-            // 
-            this.dataGridViewTextBoxColumn15.HeaderText = "Clubname";
-            this.dataGridViewTextBoxColumn15.Name = "dataGridViewTextBoxColumn15";
-            // 
-            // dataGridViewTextBoxColumn16
-            // 
-            this.dataGridViewTextBoxColumn16.HeaderText = "Sportname";
-            this.dataGridViewTextBoxColumn16.Name = "dataGridViewTextBoxColumn16";
-            // 
-            // dataGridViewTextBoxColumn17
-            // 
-            this.dataGridViewTextBoxColumn17.HeaderText = "Trener";
-            this.dataGridViewTextBoxColumn17.Name = "dataGridViewTextBoxColumn17";
-            // 
-            // dataGridViewTextBoxColumn18
-            // 
-            this.dataGridViewTextBoxColumn18.HeaderText = "Sportplace";
-            this.dataGridViewTextBoxColumn18.Name = "dataGridViewTextBoxColumn18";
-            this.dataGridViewTextBoxColumn18.Width = 150;
-            // 
-            // dataGridViewButtonColumn4
-            // 
-            this.dataGridViewButtonColumn4.HeaderText = "[Delete]";
-            this.dataGridViewButtonColumn4.Name = "dataGridViewButtonColumn4";
-            this.dataGridViewButtonColumn4.Text = "Delete";
-            this.dataGridViewButtonColumn4.ToolTipText = "Delete";
-            this.dataGridViewButtonColumn4.UseColumnTextForButtonValue = true;
-            this.dataGridViewButtonColumn4.Width = 70;
-            // 
-            // Column6
-            // 
-            this.Column6.HeaderText = "[Edit]";
-            this.Column6.Name = "Column6";
-            this.Column6.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.Column6.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            this.Column6.Text = "Edit";
-            this.Column6.ToolTipText = "Edit";
-            this.Column6.UseColumnTextForButtonValue = true;
-            this.Column6.Width = 70;
             // 
             // tabPage1
             // 
@@ -626,7 +408,7 @@
             this.Column14,
             this.dataGridViewButtonColumn5,
             this.dataGridViewButtonColumn6});
-            this.dataGridView6.Location = new System.Drawing.Point(-3, -2);
+            this.dataGridView6.Location = new System.Drawing.Point(11, -1);
             this.dataGridView6.Name = "dataGridView6";
             this.dataGridView6.Size = new System.Drawing.Size(960, 336);
             this.dataGridView6.TabIndex = 10;
@@ -849,6 +631,224 @@
             this.label2.TabIndex = 4;
             this.label2.Text = "Email:";
             // 
+            // ClubId
+            // 
+            this.ClubId.HeaderText = "Id";
+            this.ClubId.Name = "ClubId";
+            this.ClubId.Width = 200;
+            // 
+            // ClubName
+            // 
+            this.ClubName.HeaderText = "Name";
+            this.ClubName.Name = "ClubName";
+            this.ClubName.Width = 350;
+            // 
+            // dtg1btndelete
+            // 
+            this.dtg1btndelete.HeaderText = "[Delete]";
+            this.dtg1btndelete.Name = "dtg1btndelete";
+            this.dtg1btndelete.Text = "Delete";
+            this.dtg1btndelete.ToolTipText = "Delete";
+            this.dtg1btndelete.UseColumnTextForButtonValue = true;
+            this.dtg1btndelete.Width = 150;
+            // 
+            // dtg1btnedit
+            // 
+            this.dtg1btnedit.HeaderText = "[Edit]";
+            this.dtg1btnedit.Name = "dtg1btnedit";
+            this.dtg1btnedit.Text = "Edit";
+            this.dtg1btnedit.ToolTipText = "Edit";
+            this.dtg1btnedit.UseColumnTextForButtonValue = true;
+            this.dtg1btnedit.Width = 150;
+            // 
+            // dataGridViewTextBoxColumn1
+            // 
+            this.dataGridViewTextBoxColumn1.HeaderText = "Id";
+            this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
+            this.dataGridViewTextBoxColumn1.Width = 200;
+            // 
+            // dataGridViewTextBoxColumn2
+            // 
+            this.dataGridViewTextBoxColumn2.HeaderText = "Name";
+            this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
+            this.dataGridViewTextBoxColumn2.Width = 350;
+            // 
+            // dtg2btndelete
+            // 
+            this.dtg2btndelete.HeaderText = "[Delete]";
+            this.dtg2btndelete.Name = "dtg2btndelete";
+            this.dtg2btndelete.Text = "Delete";
+            this.dtg2btndelete.ToolTipText = "Delete";
+            this.dtg2btndelete.UseColumnTextForButtonValue = true;
+            this.dtg2btndelete.Width = 150;
+            // 
+            // dtg2btnedit
+            // 
+            this.dtg2btnedit.HeaderText = "[Edit]";
+            this.dtg2btnedit.Name = "dtg2btnedit";
+            this.dtg2btnedit.Text = "Edit";
+            this.dtg2btnedit.ToolTipText = "Edit";
+            this.dtg2btnedit.UseColumnTextForButtonValue = true;
+            this.dtg2btnedit.Width = 150;
+            // 
+            // dataGridViewTextBoxColumn3
+            // 
+            this.dataGridViewTextBoxColumn3.HeaderText = "Id";
+            this.dataGridViewTextBoxColumn3.Name = "dataGridViewTextBoxColumn3";
+            this.dataGridViewTextBoxColumn3.Width = 50;
+            // 
+            // dataGridViewTextBoxColumn4
+            // 
+            this.dataGridViewTextBoxColumn4.HeaderText = "Name";
+            this.dataGridViewTextBoxColumn4.Name = "dataGridViewTextBoxColumn4";
+            this.dataGridViewTextBoxColumn4.Width = 120;
+            // 
+            // Column1
+            // 
+            this.Column1.HeaderText = "Capacity";
+            this.Column1.Name = "Column1";
+            // 
+            // Column2
+            // 
+            this.Column2.HeaderText = "Address";
+            this.Column2.Name = "Column2";
+            this.Column2.Width = 120;
+            // 
+            // Column3
+            // 
+            this.Column3.HeaderText = "City";
+            this.Column3.Name = "Column3";
+            // 
+            // Column4
+            // 
+            this.Column4.HeaderText = "Country";
+            this.Column4.Name = "Column4";
+            this.Column4.Width = 110;
+            // 
+            // Column5
+            // 
+            this.Column5.HeaderText = "CoverType";
+            this.Column5.Name = "Column5";
+            this.Column5.Width = 110;
+            // 
+            // dtg3btndelete
+            // 
+            this.dtg3btndelete.HeaderText = "[Delete]";
+            this.dtg3btndelete.Name = "dtg3btndelete";
+            this.dtg3btndelete.Text = "Delete";
+            this.dtg3btndelete.ToolTipText = "Delete";
+            this.dtg3btndelete.UseColumnTextForButtonValue = true;
+            this.dtg3btndelete.Width = 70;
+            // 
+            // dtg3btnedit
+            // 
+            this.dtg3btnedit.HeaderText = "[Edit]";
+            this.dtg3btnedit.Name = "dtg3btnedit";
+            this.dtg3btnedit.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.dtg3btnedit.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.dtg3btnedit.Text = "Edit";
+            this.dtg3btnedit.ToolTipText = "Edit";
+            this.dtg3btnedit.UseColumnTextForButtonValue = true;
+            this.dtg3btnedit.Width = 70;
+            // 
+            // dataGridViewTextBoxColumn5
+            // 
+            this.dataGridViewTextBoxColumn5.HeaderText = "Id";
+            this.dataGridViewTextBoxColumn5.Name = "dataGridViewTextBoxColumn5";
+            this.dataGridViewTextBoxColumn5.Width = 60;
+            // 
+            // dataGridViewTextBoxColumn6
+            // 
+            this.dataGridViewTextBoxColumn6.HeaderText = "Firstname";
+            this.dataGridViewTextBoxColumn6.Name = "dataGridViewTextBoxColumn6";
+            this.dataGridViewTextBoxColumn6.Width = 200;
+            // 
+            // Column13
+            // 
+            this.Column13.HeaderText = "Lastname";
+            this.Column13.Name = "Column13";
+            // 
+            // Column11
+            // 
+            this.Column11.HeaderText = "Sportname";
+            this.Column11.Name = "Column11";
+            this.Column11.Width = 200;
+            // 
+            // dtg4btndelete
+            // 
+            this.dtg4btndelete.HeaderText = "[Delete]";
+            this.dtg4btndelete.Name = "dtg4btndelete";
+            this.dtg4btndelete.Text = "Delete";
+            this.dtg4btndelete.ToolTipText = "Delete";
+            this.dtg4btndelete.UseColumnTextForButtonValue = true;
+            this.dtg4btndelete.Width = 150;
+            // 
+            // dtg4btnedit
+            // 
+            this.dtg4btnedit.HeaderText = "[Edit]";
+            this.dtg4btnedit.Name = "dtg4btnedit";
+            this.dtg4btnedit.Text = "Edit";
+            this.dtg4btnedit.ToolTipText = "Edit";
+            this.dtg4btnedit.UseColumnTextForButtonValue = true;
+            this.dtg4btnedit.Width = 150;
+            // 
+            // dataGridViewTextBoxColumn12
+            // 
+            this.dataGridViewTextBoxColumn12.HeaderText = "Id";
+            this.dataGridViewTextBoxColumn12.Name = "dataGridViewTextBoxColumn12";
+            this.dataGridViewTextBoxColumn12.Width = 50;
+            // 
+            // dataGridViewTextBoxColumn13
+            // 
+            this.dataGridViewTextBoxColumn13.HeaderText = "Firstname";
+            this.dataGridViewTextBoxColumn13.Name = "dataGridViewTextBoxColumn13";
+            // 
+            // dataGridViewTextBoxColumn14
+            // 
+            this.dataGridViewTextBoxColumn14.HeaderText = "Lastname";
+            this.dataGridViewTextBoxColumn14.Name = "dataGridViewTextBoxColumn14";
+            // 
+            // dataGridViewTextBoxColumn15
+            // 
+            this.dataGridViewTextBoxColumn15.HeaderText = "Clubname";
+            this.dataGridViewTextBoxColumn15.Name = "dataGridViewTextBoxColumn15";
+            // 
+            // dataGridViewTextBoxColumn16
+            // 
+            this.dataGridViewTextBoxColumn16.HeaderText = "Sportname";
+            this.dataGridViewTextBoxColumn16.Name = "dataGridViewTextBoxColumn16";
+            // 
+            // dataGridViewTextBoxColumn17
+            // 
+            this.dataGridViewTextBoxColumn17.HeaderText = "Trener";
+            this.dataGridViewTextBoxColumn17.Name = "dataGridViewTextBoxColumn17";
+            // 
+            // dataGridViewTextBoxColumn18
+            // 
+            this.dataGridViewTextBoxColumn18.HeaderText = "Sportplace";
+            this.dataGridViewTextBoxColumn18.Name = "dataGridViewTextBoxColumn18";
+            this.dataGridViewTextBoxColumn18.Width = 150;
+            // 
+            // dtg5btndelete
+            // 
+            this.dtg5btndelete.HeaderText = "[Delete]";
+            this.dtg5btndelete.Name = "dtg5btndelete";
+            this.dtg5btndelete.Text = "Delete";
+            this.dtg5btndelete.ToolTipText = "Delete";
+            this.dtg5btndelete.UseColumnTextForButtonValue = true;
+            this.dtg5btndelete.Width = 70;
+            // 
+            // dtg5btnedit
+            // 
+            this.dtg5btnedit.HeaderText = "[Edit]";
+            this.dtg5btnedit.Name = "dtg5btnedit";
+            this.dtg5btnedit.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.dtg5btnedit.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.dtg5btnedit.Text = "Edit";
+            this.dtg5btnedit.ToolTipText = "Edit";
+            this.dtg5btnedit.UseColumnTextForButtonValue = true;
+            this.dtg5btnedit.Width = 70;
+            // 
             // dataGridViewTextBoxColumn7
             // 
             this.dataGridViewTextBoxColumn7.HeaderText = "Id";
@@ -865,7 +865,7 @@
             // 
             this.Column12.HeaderText = "Role";
             this.Column12.Name = "Column12";
-            this.Column12.Width = 200;
+            this.Column12.Width = 180;
             // 
             // dataGridViewTextBoxColumn9
             // 
@@ -988,12 +988,12 @@
         private System.Windows.Forms.DataGridView dataGridView6;
         private System.Windows.Forms.DataGridViewTextBoxColumn ClubId;
         private System.Windows.Forms.DataGridViewTextBoxColumn ClubName;
-        private System.Windows.Forms.DataGridViewButtonColumn Button;
-        private System.Windows.Forms.DataGridViewButtonColumn Column7;
+        private System.Windows.Forms.DataGridViewButtonColumn dtg1btndelete;
+        private System.Windows.Forms.DataGridViewButtonColumn dtg1btnedit;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
-        private System.Windows.Forms.DataGridViewButtonColumn dataGridViewButtonColumn1;
-        private System.Windows.Forms.DataGridViewButtonColumn Column8;
+        private System.Windows.Forms.DataGridViewButtonColumn dtg2btndelete;
+        private System.Windows.Forms.DataGridViewButtonColumn dtg2btnedit;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn3;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn4;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column1;
@@ -1001,8 +1001,14 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Column3;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column4;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column5;
-        private System.Windows.Forms.DataGridViewButtonColumn dataGridViewButtonColumn2;
-        private System.Windows.Forms.DataGridViewButtonColumn Column9;
+        private System.Windows.Forms.DataGridViewButtonColumn dtg3btndelete;
+        private System.Windows.Forms.DataGridViewButtonColumn dtg3btnedit;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn5;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn6;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column13;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column11;
+        private System.Windows.Forms.DataGridViewButtonColumn dtg4btndelete;
+        private System.Windows.Forms.DataGridViewButtonColumn dtg4btnedit;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn12;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn13;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn14;
@@ -1010,14 +1016,8 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn16;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn17;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn18;
-        private System.Windows.Forms.DataGridViewButtonColumn dataGridViewButtonColumn4;
-        private System.Windows.Forms.DataGridViewButtonColumn Column6;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn5;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn6;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column13;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column11;
-        private System.Windows.Forms.DataGridViewButtonColumn dataGridViewButtonColumn3;
-        private System.Windows.Forms.DataGridViewButtonColumn Column10;
+        private System.Windows.Forms.DataGridViewButtonColumn dtg5btndelete;
+        private System.Windows.Forms.DataGridViewButtonColumn dtg5btnedit;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn7;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn8;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column12;

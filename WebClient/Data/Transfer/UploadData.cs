@@ -79,7 +79,7 @@ namespace WebClient.Data.Transfer
             {
                 string data;
                 var baseAddress = new Uri("https://localhost:7059");
-
+                var message = "";
 
                 using (var client = new HttpClient(new HttpClientHandler()) { BaseAddress = baseAddress })
                 {
@@ -95,7 +95,7 @@ namespace WebClient.Data.Transfer
             }
             catch (Exception e)
             {
-                MessageBox.Show(e.Message);
+                Console.WriteLine(e.Message);
             }
 
             return null;
@@ -115,14 +115,30 @@ namespace WebClient.Data.Transfer
                     var result = await client.PostAsync(baseAddress + url,
                         new StringContent(JsonConvert.SerializeObject(data), Encoding.UTF8, "application/json"));
 
+                    if (result.StatusCode == HttpStatusCode.BadRequest)
+                    {
+                        MessageBox.Show("Invalid data");
+                    }
+
+                    if (result.StatusCode == HttpStatusCode.Forbidden)
+                    {
+                        MessageBox.Show("Invalid token");
+                    }
+
+                    if (result.StatusCode == HttpStatusCode.Unauthorized)
+                    {
+                        MessageBox.Show("Invalid token");
+                    }
+
                     if (result.IsSuccessStatusCode)
                     {
                         var bytes = await result.Content.ReadAsByteArrayAsync();
                         var dataString = Encoding.UTF8.GetString(bytes, 0, bytes.Length);
+                        MessageBox.Show("Данные добавлены");
                         return JsonConvert.DeserializeObject<T>(dataString);
                     }
 
-                    MessageBox.Show("Invalid data");
+
                     return default(T);
                 }
             }
@@ -360,12 +376,12 @@ namespace WebClient.Data.Transfer
             return DeleteData(user.UserId.ToString(), token, "api/UserLogins/");
         }
 
-        public async Task<UserData> EditUserLogins(UserData user, string token)
+        public async Task<string> EditUserLogins(UserData user, string token)
         {
-
+            try
+            {
                 var baseAddress = new Uri("https://localhost:7059");
                 var url = $"{baseAddress}api/UserLogins/{user.UserId}";
-
                 using (var client = new HttpClient(new HttpClientHandler()) { BaseAddress = baseAddress })
                 {
                     client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
@@ -378,14 +394,18 @@ namespace WebClient.Data.Transfer
                     {
                         var bytes = await result.Content.ReadAsByteArrayAsync();
                         var dataString = Encoding.UTF8.GetString(bytes, 0, bytes.Length);
-                        var data = JsonConvert.DeserializeObject<UserData>(dataString);
+                        var data = JsonConvert.DeserializeObject<string>(dataString);
                         return data;
                     }
 
-                    MessageBox.Show("Invalid data");
                     return default;
                 }
-
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                return default;
+            }
         }
     }
 }

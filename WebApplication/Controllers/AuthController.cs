@@ -39,11 +39,10 @@ namespace WebApplication.Controllers
                 audience: AuthOptions.AUDIENCE,
                 notBefore: now,
                 claims: identity.Claims,
-                expires: now.Add(TimeSpan.FromMinutes(AuthOptions.LIFETIME)),
+                expires: now.Add(TimeSpan.FromHours(3)),
                 signingCredentials: new SigningCredentials(AuthOptions.GetSymmetricSecurityKey(),
                     SecurityAlgorithms.HmacSha256));
 
-            //add secret to token response
             var encodedJwt = new JwtSecurityTokenHandler().WriteToken(jwt);
 
             var response = new AuthResponseDto
@@ -51,9 +50,9 @@ namespace WebApplication.Controllers
                 access_token = encodedJwt,
                 Email = identity.Name,
                 Role = identity.Claims.Where(c => c.Type == "Role")
-                    .Select(c => c.Value).FirstOrDefault(),
-                userID = identity.Claims.Where(c => c.Type == "Id")
                     .Select(c => c.Value).FirstOrDefault()
+                //userID = identity.Claims.Where(c => c.Type == "Id")
+                    //.Select(c => c.Value).FirstOrDefault()
             };
 
             return Ok(response);
@@ -75,6 +74,15 @@ namespace WebApplication.Controllers
         {
             CreatePasswordHash(request.Password, out var passwordHash, out var passwordSalt);
 
+            //проверка на такого ще существующего пользователя
+            var checkUser = await _context.Users.FirstOrDefaultAsync(x => x.Email == request.Email);
+
+            if (checkUser != null)
+            {
+                return StatusCode(409, new { errorText = "Такой логин уже занят другим пользователем." });
+            }
+
+
             var user = new User
             {
                 Email = request.Email,
@@ -83,14 +91,14 @@ namespace WebApplication.Controllers
             {
                 Email = user.Email,
                 Password = passwordHash,
-                Role = request.Role,
+                Role = "User",
                 Salt = passwordSalt,
                 User = user
             };
 
             var userlogindto = new CreateUserLoginDto
             {
-                Id = userLogin.UserId,
+                //Id = userLogin.UserId,
                 Email = userLogin.Email,
                 Password = userLogin.Password,
                 Role = userLogin.Role,

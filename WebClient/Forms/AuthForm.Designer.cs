@@ -52,11 +52,11 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label1.Location = new System.Drawing.Point(237, 52);
+            this.label1.Location = new System.Drawing.Point(179, 52);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(96, 37);
+            this.label1.Size = new System.Drawing.Size(237, 37);
             this.label1.TabIndex = 0;
-            this.label1.Text = "Login";
+            this.label1.Text = "Вход в систему";
             // 
             // label2
             // 
@@ -64,9 +64,9 @@
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.label2.Location = new System.Drawing.Point(55, 24);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(85, 18);
+            this.label2.Size = new System.Drawing.Size(50, 18);
             this.label2.TabIndex = 1;
-            this.label2.Text = "Username";
+            this.label2.Text = "Email";
             // 
             // tbUsername
             // 
@@ -185,7 +185,7 @@
             this.btnLogin.Name = "btnLogin";
             this.btnLogin.Size = new System.Drawing.Size(215, 41);
             this.btnLogin.TabIndex = 8;
-            this.btnLogin.Text = "Login";
+            this.btnLogin.Text = "Войти";
             this.btnLogin.UseVisualStyleBackColor = true;
             this.btnLogin.Click += new System.EventHandler(this.btnLogin_Click);
             this.btnLogin.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.btnLogin_KeyPress);
@@ -207,7 +207,7 @@
             this.ForeColor = System.Drawing.SystemColors.ButtonFace;
             this.Name = "AuthForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "AuthForm";
+            this.Text = "Авторизация";
             this.Load += new System.EventHandler(this.AuthForm_Load);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();

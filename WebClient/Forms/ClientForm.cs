@@ -20,8 +20,6 @@ namespace WebClient.Forms
         private static AuthInfo _authInfo = new AuthInfo();
         private IAdminUseCases getData = new UploadData();
 
-        //конструктор принимающий в себя параметр для настройки tabPage в зависимости от роли пользователя
-
         public ClientForm()
         {
             InitializeComponent();
@@ -39,6 +37,10 @@ namespace WebClient.Forms
         {
             try
             {
+
+
+
+
                 lblEmail.Text = _authInfo.Email;
                 lblRole.Text = _authInfo.Role;
 
@@ -53,13 +55,31 @@ namespace WebClient.Forms
 
                 if (_authInfo.Role == "User")
                 {
+                    //удалить во всех datagridview 2 последних столбца
+
+                    dtg1btndelete.Visible = false;
+                    dtg1btnedit.Visible = false;
+
+                    dtg2btndelete.Visible = false;
+                    dtg2btnedit.Visible = false;
+
+                    dtg3btndelete.Visible = false;
+                    dtg3btnedit.Visible = false;
+
+                    dtg4btndelete.Visible = false;
+                    dtg4btnedit.Visible = false;
+
+                    dtg5btndelete.Visible = false;
+                    dtg5btnedit.Visible = false;
+                    
+
                     dataControl.TabPages.Remove(tabPage1);
                 }
                 else
                 {
                     foreach (var user in users)
                     {
-                        dataGridView6.Rows.Add(user.UserId, user.Email, user.Role, user.Password,user.Salt);
+                        dataGridView6.Rows.Add(user.UserId, user.Email, user.Role, user.Password, user.Salt);
                     }
                 }
 
@@ -184,8 +204,8 @@ namespace WebClient.Forms
             }
             catch (Exception exception)
             {
-                MessageBox.Show(exception.Message);
-                throw;
+                Console.WriteLine(exception);
+
             }
         }
 
@@ -223,8 +243,8 @@ namespace WebClient.Forms
             }
             catch (Exception exception)
             {
-                MessageBox.Show(exception.Message);
-                throw;
+                Console.WriteLine(exception);
+
             }
         }
 
@@ -262,8 +282,8 @@ namespace WebClient.Forms
             }
             catch (Exception exception)
             {
-                MessageBox.Show(exception.Message);
-                throw;
+                Console.WriteLine(exception);
+
             }
         }
 
@@ -305,8 +325,8 @@ namespace WebClient.Forms
             }
             catch (Exception exception)
             {
-                MessageBox.Show(exception.Message);
-                throw;
+                Console.WriteLine(exception);
+
             }
         }
 
@@ -343,8 +363,8 @@ namespace WebClient.Forms
             }
             catch (Exception exception)
             {
-                MessageBox.Show(exception.Message);
-                throw;
+                Console.WriteLine(exception);
+
             }
         }
 
@@ -373,7 +393,7 @@ namespace WebClient.Forms
                     Name = name.ToString()
                 };
 
-                var result = MessageBox.Show($"Вы действительно хотите удалить клуб {name}?", "Удаление клуба",
+                var result = MessageBox.Show($"Вы действительно хотите удалить клуб: {name}?", "Удаление клуба",
                     MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                 if (result == DialogResult.Yes)
                 {
@@ -401,12 +421,11 @@ namespace WebClient.Forms
                     if (result == DialogResult.Yes)
                     {
                         await getData.EditClub(club, _authInfo.access_token);
-                        dataGridView1.Rows.RemoveAt(e.RowIndex);
                     }
                 }
                 catch (Exception exception)
                 {
-                    MessageBox.Show(exception.Message);
+                    Console.WriteLine(exception);
                 }
             }
         }
@@ -424,7 +443,7 @@ namespace WebClient.Forms
                     Name = name.ToString()
                 };
 
-                var result = MessageBox.Show($"Вы действительно хотите удалить вид спорта {name}?",
+                var result = MessageBox.Show($"Вы действительно хотите удалить вид спорта: {name}?",
                     "Удаление вида спорта",
                     MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                 if (result == DialogResult.Yes)
@@ -486,8 +505,8 @@ namespace WebClient.Forms
                     CoverType = covertype.ToString()
                 };
 
-                var result = MessageBox.Show($"Вы действительно хотите удалить спортивное сооружение {name}?",
-                    "Удаление вида спорта",
+                var result = MessageBox.Show($"Вы действительно хотите удалить спортивное сооружение: {name}?",
+                    "Удаление спортивного сооружения",
                     MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                 if (result == DialogResult.Yes)
                 {
@@ -532,6 +551,8 @@ namespace WebClient.Forms
                 catch (Exception exception)
                 {
                     MessageBox.Show(exception.Message);
+
+
                 }
             }
         }
@@ -557,7 +578,7 @@ namespace WebClient.Forms
 
                     var result = MessageBox.Show(
                         $"Вы действительно хотите удалить тренера {firstname}, + {lastname}?",
-                        "Удаление вида спорта",
+                        "Удаление тренера",
                         MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                     if (result == DialogResult.Yes)
                     {
@@ -569,6 +590,8 @@ namespace WebClient.Forms
             catch (Exception exception)
             {
                 MessageBox.Show(exception.Message);
+
+
             }
 
 
@@ -590,8 +613,8 @@ namespace WebClient.Forms
                         SportId = Convert.ToInt32(sportname)
                     };
 
-                    var result = MessageBox.Show("Подтвердите изменение спортивного сооружения?",
-                        "Изменение спортивного сооружения",
+                    var result = MessageBox.Show("Подтвердите изменение тренера?",
+                        "Изменение тренера",
                         MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                     if (result == DialogResult.Yes)
                     {
@@ -601,6 +624,8 @@ namespace WebClient.Forms
                 catch (Exception exception)
                 {
                     MessageBox.Show(exception.Message);
+
+
                 }
             }
         }
@@ -633,7 +658,7 @@ namespace WebClient.Forms
 
                     var result = MessageBox.Show(
                         $"Вы действительно хотите удалить спортсмена {firstname} {lastname}?",
-                        "Удаление вида спорта",
+                        "Удаление спортсмена",
                         MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                     if (result == DialogResult.Yes)
                     {
@@ -645,6 +670,8 @@ namespace WebClient.Forms
             catch (Exception exception)
             {
                 MessageBox.Show(exception.Message);
+
+
             }
 
 
@@ -684,6 +711,8 @@ namespace WebClient.Forms
                 catch (Exception exception)
                 {
                     MessageBox.Show(exception.Message);
+
+
                 }
             }
         }
@@ -723,6 +752,8 @@ namespace WebClient.Forms
             catch (Exception exception)
             {
                 MessageBox.Show(exception.Message);
+
+
             }
 
 
@@ -746,10 +777,18 @@ namespace WebClient.Forms
                         Password = password.ToString(),
                         Salt = salt.ToString()
                     };
+                    if (user.Role == null || user.Salt == null || user.Password == null || user.Email == null ||
+                        user.UserId == null)
+
+                    {
+                        MessageBox.Show("Заполните все поля");
+                        return;
+                    }
 
                     var result = MessageBox.Show("Подтвердите изменение пользователя?",
                         "Изменение пользователя",
                         MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                    
                     if (result == DialogResult.Yes)
                     {
                         await getData.EditUserLogins(user, _authInfo.access_token);
@@ -758,6 +797,7 @@ namespace WebClient.Forms
                 catch (Exception exception)
                 {
                     MessageBox.Show(exception.Message);
+
                 }
             }
         }
@@ -794,8 +834,7 @@ namespace WebClient.Forms
             }
             catch (Exception exception)
             {
-                MessageBox.Show(exception.Message);
-                throw;
+                Console.WriteLine(exception);
             }
         }
     }

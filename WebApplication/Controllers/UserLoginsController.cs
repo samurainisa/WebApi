@@ -8,7 +8,7 @@ namespace WebApplication.Controllers
     [Authorize(Roles = "Admin")]
     [Route("api/[controller]")]
     [ApiController]
-    public class UserLoginsController : ControllerBase
+    public class UserLoginsController : Validating
     {
         private readonly DataContext _context;
 
@@ -21,6 +21,11 @@ namespace WebApplication.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<UserLogin>>> GetUserLogins()
         {
+            var token = Request.Headers["Authorization"].ToString().Replace("Bearer ", "");
+            if (ValidateToken(token) == false)
+            {
+                return BadRequest("Token expired, please login again");
+            }
             return await _context.UserLogins.ToListAsync();
         }
 
@@ -28,6 +33,11 @@ namespace WebApplication.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<UserLogin>> GetUserLogin(int id)
         {
+            var token = Request.Headers["Authorization"].ToString().Replace("Bearer ", "");
+            if (ValidateToken(token) == false)
+            {
+                return BadRequest("Token expired, please login again");
+            }
             var userLogin = await _context.UserLogins.FindAsync(id);
 
             if (userLogin == null)
@@ -39,10 +49,15 @@ namespace WebApplication.Controllers
         }
 
         // PUT: api/UserLogins/5
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+        [Authorize(Roles = "Admin")]
         [HttpPut("{id}")]
         public async Task<IActionResult> PutUserLogin(int id, UserLogin userLogin)
         {
+            var token = Request.Headers["Authorization"].ToString().Replace("Bearer ", "");
+            if (ValidateToken(token) == false)
+            {
+                return BadRequest("Token expired, please login again");
+            }
             if (id != userLogin.UserId)
             {
                 return BadRequest();
@@ -74,6 +89,11 @@ namespace WebApplication.Controllers
         [HttpPost]
         public async Task<ActionResult<UserLogin>> PostUserLogin(UserLogin userLogin)
         {
+            var token = Request.Headers["Authorization"].ToString().Replace("Bearer ", "");
+            if (ValidateToken(token) == false)
+            {
+                return StatusCode(StatusCodes.Status403Forbidden);
+            }
             _context.UserLogins.Add(userLogin);
             await _context.SaveChangesAsync();
 
@@ -81,9 +101,11 @@ namespace WebApplication.Controllers
         }
 
         // DELETE: api/UserLogins/5
+        [Authorize(Roles = "Admin")]
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteUserLogin(int id)
         {
+
             var userLogin = await _context.UserLogins.FindAsync(id);
             if (userLogin == null)
             {

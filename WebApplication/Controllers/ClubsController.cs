@@ -36,6 +36,11 @@ namespace WebApplication.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<Club>> GetClub(int id)
         {
+            var token = Request.Headers["Authorization"].ToString().Replace("Bearer ", "");
+            if (ValidateToken(token) == false)
+            {
+                return StatusCode(StatusCodes.Status403Forbidden);
+            }
             var club = await _context.Clubs.FindAsync(id);
 
             if (club == null)
@@ -50,6 +55,11 @@ namespace WebApplication.Controllers
         [HttpPatch]
         public async Task<ActionResult<Club>> PatchClub(int id, CreateClubDto clubDto)
         {
+            var token = Request.Headers["Authorization"].ToString().Replace("Bearer ", "");
+            if (ValidateToken(token) == false)
+            {
+                return BadRequest("Token expired, please login again");
+            }
             var club = await _context.Clubs.FindAsync(id);
 
             if (club == null)
@@ -68,13 +78,23 @@ namespace WebApplication.Controllers
         [HttpHead]
         public async Task<ActionResult<IEnumerable<Club>>> HeadClubs()
         {
+            var token = Request.Headers["Authorization"].ToString().Replace("Bearer ", "");
+            if (ValidateToken(token) == false)
+            {
+                return BadRequest("Token expired, please login again");
+            }
             return await _context.Clubs.ToListAsync();
         }
 
-        // [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin")]
         [HttpDelete("{clubname}")]
         public async Task<ActionResult<string>> DeleteClub(string clubname)
         {
+            var token = Request.Headers["Authorization"].ToString().Replace("Bearer ", "");
+            if (ValidateToken(token) == false)
+            {
+                return BadRequest("Token expired, please login again");
+            }
             var club = await _context.Clubs.Where(c => c.Name == clubname).FirstOrDefaultAsync();
 
             if (club == null)
@@ -89,9 +109,15 @@ namespace WebApplication.Controllers
         }
 
         //Put: api/Clubs
+        [Authorize(Roles = "Admin")]
         [HttpPut("{id}")]
         public async Task<ActionResult<Club>> PutClub(int id, CreateClubDto clubDto)
         {
+            var token = Request.Headers["Authorization"].ToString().Replace("Bearer ", "");
+            if (ValidateToken(token) == false)
+            {
+                return BadRequest("Token expired, please login again");
+            }
             var club = await _context.Clubs.FindAsync(id);
 
             if (club == null)
@@ -113,7 +139,13 @@ namespace WebApplication.Controllers
             var token = Request.Headers["Authorization"].ToString().Replace("Bearer ", "");
             if (ValidateToken(token) == false)
             {
-                return BadRequest("Token expired, please login again");
+                return StatusCode(StatusCodes.Status403Forbidden);
+            }
+            //проверка на такого ще существующего клуба
+            var club = await _context.Clubs.Where(c => c.Name == request.Name).FirstOrDefaultAsync();
+            if (club != null)
+            {
+                return BadRequest("Такой клуб уже существует");
             }
 
             var newClub = new Club
@@ -127,6 +159,45 @@ namespace WebApplication.Controllers
             return CreatedAtAction("GetClub", new { id = newClub.Id }, newClub);
         }
 
+        //запрос для отправки множества клубов в одном запросе
+        [HttpPost("PostClubs")]
+        public async Task<ActionResult<Club>> PostClubs(CreateClubDto[] request)
+        {
+            var token = Request.Headers["Authorization"].ToString().Replace("Bearer ", "");
+            if (ValidateToken(token) == false)
+            {
+                return StatusCode(StatusCodes.Status403Forbidden);
+
+            }
+
+            //проверка на существование такого же клуба
+            var clubs = await _context.Clubs.ToListAsync();
+            foreach (var club in clubs)
+            {
+                foreach (var item in request)
+                {
+                    if (club.Name == item.Name)
+                    {
+                        return BadRequest($"Клуб с именем {item.Name} уже существует");
+                    }
+                }
+            }
+
+            foreach (var club in request)
+            {
+                var newClub = new Club
+                {
+                    Name = club.Name
+                };
+
+                _context.Clubs.Add(newClub);
+                await _context.SaveChangesAsync();
+            }
+
+            return Ok();
+        }
+        
+        
 
         private bool ClubExists(int id)
         {

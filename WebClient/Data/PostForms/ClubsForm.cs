@@ -45,25 +45,16 @@ namespace WebClient.Data.PostForms
                 {
                     MessageBox.Show("Пожалуйста, заполните все поля");
                 }
-                else
-                {
-                    var res = post.PostClub(clubInfo, _authInfo.access_token);
-                    if (res == null)
-                    {
-                        MessageBox.Show("Токен истек, пожалуйста, авторизуйтесь заново");
-                        Hide();
-                        AuthForm authForm = new AuthForm();
-                        authForm.Show();
-                    }
-                }
 
-                MessageBox.Show("Клуб успешно добавлен");
-                Hide();
+                var res = post.PostClub(clubInfo, _authInfo.access_token);
+
             }
             catch (Exception exception)
             {
                 MessageBox.Show(exception.Message);
-                throw;
+                Hide();
+                AuthForm authForm = new AuthForm();
+                authForm.Show();
             }
         }
 
@@ -77,42 +68,5 @@ namespace WebClient.Data.PostForms
             btnLogin.ForeColor = Color.DarkTurquoise;
         }
 
-        private void button1_Click(object sender, EventArgs e)
-        {
-            //удаление клуба
-            try
-            {
-                var club = textBox1.Text;
-
-                var clubInfo = new Club
-                {
-                    Name = club
-                };
-
-                if (clubInfo.Name == "")
-                {
-                    MessageBox.Show("Пожалуйста, заполните все поля");
-                }
-                else
-                {
-                    var res = post.DeleteClub(clubInfo, _authInfo.access_token);
-                    if (res == null)
-                    {
-                        MessageBox.Show("Токен истек, пожалуйста, авторизуйтесь заново");
-                        Hide();
-                        AuthForm authForm = new AuthForm();
-                        authForm.Show();
-                    }
-                }
-
-                MessageBox.Show("Клуб успешно удален");
-                Hide();
-            }
-            catch (Exception exception)
-            {
-                MessageBox.Show(exception.Message);
-                throw;
-            }
-        }
     }
 }

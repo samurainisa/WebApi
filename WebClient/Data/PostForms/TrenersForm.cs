@@ -47,10 +47,7 @@ namespace WebClient.Data.PostForms
 
                 var result = await post.PostTrenerDto(trener, _authInfo.access_token);
 
-                if (result != null)
-                {
-                    MessageBox.Show("Тренер добавлен");
-                }
+
             }
             catch (Exception exception)
             {

@@ -26,15 +26,22 @@ namespace WebApplication.Controllers
             var token = Request.Headers["Authorization"].ToString().Replace("Bearer ", "");
             if (ValidateToken(token) == false)
             {
-                return BadRequest("Token expired, please login again");
+                return StatusCode(StatusCodes.Status403Forbidden);
             }
 
             return await _context.Trener.ToListAsync();
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpPatch]
         public async Task<ActionResult<Trener>> PatchTrener(int id, CreateTrenerDto trenerDto)
         {
+            var token = Request.Headers["Authorization"].ToString().Replace("Bearer ", "");
+            if (ValidateToken(token) == false)
+            {
+                return StatusCode(StatusCodes.Status403Forbidden);
+            }
+
             var trener = await _context.Trener.FindAsync(id);
 
             if (trener == null)
@@ -55,6 +62,12 @@ namespace WebApplication.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<Trener>> GetTrener(int id)
         {
+            var token = Request.Headers["Authorization"].ToString().Replace("Bearer ", "");
+            if (ValidateToken(token) == false)
+            {
+                return StatusCode(StatusCodes.Status403Forbidden);
+            }
+
             var trener = await _context.Trener.FindAsync(id);
 
             if (trener == null)
@@ -65,11 +78,16 @@ namespace WebApplication.Controllers
             return trener;
         }
 
-        // PUT: api/Treners/5
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+        [Authorize(Roles = "Admin")]
         [HttpPut("{id}")]
         public async Task<IActionResult> PutTrener(int id, Trener trener)
         {
+            var token = Request.Headers["Authorization"].ToString().Replace("Bearer ", "");
+            if (ValidateToken(token) == false)
+            {
+                return StatusCode(StatusCodes.Status403Forbidden);
+            }
+
             if (id != trener.Id)
             {
                 return BadRequest();
@@ -96,8 +114,6 @@ namespace WebApplication.Controllers
             return NoContent();
         }
 
-        // POST: api/Treners
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
         public async Task<ActionResult<Trener>> PostTrener(CreateTrenerDto request)
         {
@@ -106,7 +122,7 @@ namespace WebApplication.Controllers
                 var token = Request.Headers["Authorization"].ToString().Replace("Bearer ", "");
                 if (ValidateToken(token) == false)
                 {
-                    return BadRequest("Token expired, please login again");
+                    return StatusCode(StatusCodes.Status403Forbidden);
                 }
 
                 var sport = await _context.Sports.FirstOrDefaultAsync(x => x.Name == request.sportname);
@@ -116,6 +132,14 @@ namespace WebApplication.Controllers
                     return BadRequest("Sport not found");
                 }
 
+                //проверка на такого ще существующего тренера
+                var trener = await _context.Trener.FirstOrDefaultAsync(x =>
+                    x.FirstName == request.FirstName && x.LastName == request.LastName && x.SportId == sport.Id);
+
+                if (trener != null)
+                {
+                    return BadRequest("Такой тренер уже существует");
+                }
 
                 var newTrener = new Trener
                 {
@@ -137,9 +161,16 @@ namespace WebApplication.Controllers
         }
 
         // DELETE: api/Treners/5
+        [Authorize(Roles = "Admin")]
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteTrener(int id)
         {
+            var token = Request.Headers["Authorization"].ToString().Replace("Bearer ", "");
+            if (ValidateToken(token) == false)
+            {
+                return StatusCode(StatusCodes.Status403Forbidden);
+            }
+
             var trener = await _context.Trener.FindAsync(id);
             if (trener == null)
             {

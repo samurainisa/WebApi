@@ -69,7 +69,6 @@
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(220, 17);
             this.textBox1.TabIndex = 12;
-            this.textBox1.Text = "Какой то клуб";
             // 
             // label1
             // 
@@ -95,7 +94,7 @@
             this.Controls.Add(this.label1);
             this.Name = "SportsForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "SportsForm";
+            this.Text = "Вид спорта";
             this.ResumeLayout(false);
             this.PerformLayout();
 

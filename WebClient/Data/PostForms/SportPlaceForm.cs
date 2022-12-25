@@ -67,29 +67,23 @@ namespace WebClient.Data.PostForms
                 {
                     MessageBox.Show("Пожалуйста, заполните все поля");
                 }
-                else
-                {
-                    var res = post.PostSportPlace(sportplaceinfo, _authInfo.access_token);
-                    if (res == null)
-                    {
-                        MessageBox.Show("Токен истек, пожалуйста, авторизуйтесь заново");
-                        Hide();
-                        AuthForm authForm = new AuthForm();
-                        authForm.Show();
-                    }
-                }
 
-                MessageBox.Show("Спортивное сооружение успешно добавлено");
-                Hide();
             }
             catch (Exception exception)
             {
                 MessageBox.Show(exception.Message);
-                throw;
+                Hide();
+                AuthForm authForm = new AuthForm();
+                authForm.Show();
             }
         }
 
         private void SportPlaceForm_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textBox6_TextChanged(object sender, EventArgs e)
         {
 
         }

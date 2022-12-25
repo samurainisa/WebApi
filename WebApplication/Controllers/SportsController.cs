@@ -25,7 +25,7 @@ namespace WebApplication.Controllers
             var token = Request.Headers["Authorization"].ToString().Replace("Bearer ", "");
             if (ValidateToken(token) == false)
             {
-                return BadRequest("Token expired, please login again");
+                return StatusCode(StatusCodes.Status403Forbidden);
             }
 
             return await _context.Sports.ToListAsync();
@@ -36,12 +36,23 @@ namespace WebApplication.Controllers
         [HttpGet("{name}")]
         public async Task<ActionResult<IEnumerable<Sport>>> GetSportByName(string name)
         {
+            var token = Request.Headers["Authorization"].ToString().Replace("Bearer ", "");
+            if (ValidateToken(token) == false)
+            {
+                return StatusCode(StatusCodes.Status403Forbidden);
+            }
             return await _context.Sports.Where(s => s.Name == name).ToListAsync();
         }
-
+        
+        [Authorize(Roles = "Admin")]
         [HttpPatch]
         public async Task<ActionResult<Sport>> PatchSport(int id, CreateSportDto sportDto)
         {
+            var token = Request.Headers["Authorization"].ToString().Replace("Bearer ", "");
+            if (ValidateToken(token) == false)
+            {
+                return StatusCode(StatusCodes.Status403Forbidden);
+            }
             var sport = await _context.Sports.FindAsync(id);
 
             if (sport == null)
@@ -55,10 +66,16 @@ namespace WebApplication.Controllers
 
             return sport;
         }
-
+        
+        [Authorize(Roles = "Admin")]
         [HttpDelete("{sportname}")]
         public async Task<ActionResult<string>> DeleteSport(string sportname)
         {
+            var token = Request.Headers["Authorization"].ToString().Replace("Bearer ", "");
+            if (ValidateToken(token) == false)
+            {
+                return StatusCode(StatusCodes.Status403Forbidden);
+            }
             var sport = await _context.Sports.Where(s => s.Name == sportname).FirstOrDefaultAsync();
             if (sport == null)
             {
@@ -75,6 +92,11 @@ namespace WebApplication.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<Sport>> GetSportById(int id)
         {
+            var token = Request.Headers["Authorization"].ToString().Replace("Bearer ", "");
+            if (ValidateToken(token) == false)
+            {
+                return StatusCode(StatusCodes.Status403Forbidden);
+            }
             var sport = await _context.Sports.FindAsync(id);
 
             if (sport == null)
@@ -85,9 +107,17 @@ namespace WebApplication.Controllers
             return sport;
         }
 
+
+
+        [Authorize(Roles = "Admin")]
         [HttpPut("{id}")]
         public async Task<ActionResult<Sport>> PutSport(int id, CreateSportDto sportdto)
         {
+            var token = Request.Headers["Authorization"].ToString().Replace("Bearer ", "");
+            if (ValidateToken(token) == false)
+            {
+                return StatusCode(StatusCodes.Status403Forbidden);
+            }
             var sport = await _context.Sports.FindAsync(id);
 
             if (sport == null)
@@ -109,7 +139,7 @@ namespace WebApplication.Controllers
             var token = Request.Headers["Authorization"].ToString().Replace("Bearer ", "");
             if (ValidateToken(token) == false)
             {
-                return BadRequest("Token expired, please login again");
+                return StatusCode(StatusCodes.Status403Forbidden);
             }
 
             var newSport = new Sport

@@ -78,7 +78,6 @@
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(285, 17);
             this.textBox1.TabIndex = 8;
-            this.textBox1.Text = "Какое то спортивное сооружение";
             // 
             // btnLogin
             // 
@@ -115,7 +114,6 @@
             this.textBox2.Name = "textBox2";
             this.textBox2.Size = new System.Drawing.Size(100, 17);
             this.textBox2.TabIndex = 12;
-            this.textBox2.Text = "100";
             // 
             // label2
             // 
@@ -146,7 +144,6 @@
             this.textBox3.Name = "textBox3";
             this.textBox3.Size = new System.Drawing.Size(200, 17);
             this.textBox3.TabIndex = 18;
-            this.textBox3.Text = "Город";
             // 
             // label3
             // 
@@ -177,7 +174,6 @@
             this.textBox4.Name = "textBox4";
             this.textBox4.Size = new System.Drawing.Size(224, 17);
             this.textBox4.TabIndex = 15;
-            this.textBox4.Text = "Адрес";
             // 
             // label4
             // 
@@ -208,7 +204,6 @@
             this.textBox5.Name = "textBox5";
             this.textBox5.Size = new System.Drawing.Size(315, 17);
             this.textBox5.TabIndex = 24;
-            this.textBox5.Text = "Покрытие";
             // 
             // label5
             // 
@@ -239,7 +234,7 @@
             this.textBox6.Name = "textBox6";
             this.textBox6.Size = new System.Drawing.Size(170, 17);
             this.textBox6.TabIndex = 21;
-            this.textBox6.Text = "Страна";
+            this.textBox6.TextChanged += new System.EventHandler(this.textBox6_TextChanged);
             // 
             // label6
             // 
@@ -281,7 +276,7 @@
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "SportPlaceForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "SportPlace";
+            this.Text = "Спортивное сооружение";
             this.Load += new System.EventHandler(this.SportPlaceForm_Load);
             this.ResumeLayout(false);
             this.PerformLayout();

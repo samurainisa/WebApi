@@ -40,7 +40,7 @@ namespace WebClient.Data.Transfer
             }
             else
             {
-                MessageBox.Show("Invalid login or password");
+                MessageBox.Show("Неверный пароль или логин");
                 return null;
             }
         }
@@ -50,7 +50,7 @@ namespace WebClient.Data.Transfer
             string data;
             var baseAddress = new Uri("https://localhost:7059");
             string url = "signin";
-            string message;
+            string message = "";
 
             var jsonObject = new
             {
@@ -63,20 +63,30 @@ namespace WebClient.Data.Transfer
                 "application/json");
 
             HttpClient client = new HttpClient();
-
-            HttpResponseMessage response = await client.PostAsync(baseAddress + url, content);
-
-            if (response.IsSuccessStatusCode)
+            try
             {
-                data = await response.Content.ReadAsStringAsync();
-                message = "ok";
-            }
-            else
-            {
-                message = "error";
-            }
+                HttpResponseMessage response = await client.PostAsync(baseAddress + url, content);
+                message = response.StatusCode.ToString();
+                response.EnsureSuccessStatusCode();
+                //перехватить bad request с сервера и вывести её
+                if (message == "Conflict")
+                {
+                    MessageBox.Show("Такой пользователь уже существует");
+                }
 
-            return message;
+                if (response.IsSuccessStatusCode)
+                {
+                    data = await response.Content.ReadAsStringAsync();
+                    var result = JsonConvert.DeserializeObject<string>(data);
+                    return result;
+                }
+
+                return message;
+            }
+            catch
+            {
+                return message;
+            }
         }
     }
 }

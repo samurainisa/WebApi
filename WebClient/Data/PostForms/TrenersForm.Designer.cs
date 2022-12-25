@@ -75,7 +75,6 @@
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(220, 17);
             this.textBox1.TabIndex = 12;
-            this.textBox1.Text = "Имя";
             // 
             // label1
             // 
@@ -107,7 +106,6 @@
             this.textBox2.Name = "textBox2";
             this.textBox2.Size = new System.Drawing.Size(220, 17);
             this.textBox2.TabIndex = 16;
-            this.textBox2.Text = "Фамилия";
             // 
             // label2
             // 
@@ -139,7 +137,6 @@
             this.textBox3.Name = "textBox3";
             this.textBox3.Size = new System.Drawing.Size(159, 17);
             this.textBox3.TabIndex = 19;
-            this.textBox3.Text = "футбол";
             // 
             // label3
             // 
@@ -171,7 +168,7 @@
             this.Controls.Add(this.label1);
             this.Name = "TrenersForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "SportsForm";
+            this.Text = "Тренер";
             this.ResumeLayout(false);
             this.PerformLayout();
 

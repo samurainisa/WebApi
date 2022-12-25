@@ -45,25 +45,15 @@ namespace WebClient.Data.PostForms
                 {
                     MessageBox.Show("Пожалуйста, заполните все поля");
                 }
-                else
-                {
-                    var res = post.PostSport(sportInfo, _authInfo.access_token);
-                    if (res == null)
-                    {
-                        MessageBox.Show("Токен истек, пожалуйста, авторизуйтесь заново");
-                        Hide();
-                        AuthForm authForm = new AuthForm();
-                        authForm.Show();
-                    }
-                }
 
-                MessageBox.Show("Вид спорта успешно добавлен");
-                Hide();
             }
             catch (Exception exception)
             {
                 MessageBox.Show(exception.Message);
-                throw;
+                Hide();
+                AuthForm authForm = new AuthForm();
+                authForm.Show();
+
             }
         }
 

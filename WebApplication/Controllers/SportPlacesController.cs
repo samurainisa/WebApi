@@ -35,6 +35,12 @@ namespace WebApplication.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<SportPlace>> GetSportPlace(int id)
         {
+            var token = Request.Headers["Authorization"].ToString().Replace("Bearer ", "");
+            if (ValidateToken(token) == false)
+            {
+                return BadRequest("Token expired, please login again");
+            }
+
             var sportPlace = await _context.SportPlaces.FindAsync(id);
 
             if (sportPlace == null)
@@ -46,10 +52,16 @@ namespace WebApplication.Controllers
         }
 
         // PUT: api/SportPlaces/5
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+        [Authorize(Roles = "Admin")]
         [HttpPut("{id}")]
         public async Task<ActionResult<SportPlace>> PutSportPlace(int id, SportPlace sportPlace)
         {
+            var token = Request.Headers["Authorization"].ToString().Replace("Bearer ", "");
+            if (ValidateToken(token) == false)
+            {
+                return BadRequest("Token expired, please login again");
+            }
+
             var sportplace = await _context.SportPlaces.FindAsync(id);
 
             if (sportplace == null)
@@ -77,7 +89,14 @@ namespace WebApplication.Controllers
             var token = Request.Headers["Authorization"].ToString().Replace("Bearer ", "");
             if (ValidateToken(token) == false)
             {
-                return BadRequest("Token expired, please login again");
+                return StatusCode(StatusCodes.Status403Forbidden);
+            }
+
+            //проверка на такого ще существующего вида спорта
+            var checksportPlace = await _context.SportPlaces.FirstOrDefaultAsync(x => x.Name == request.Name);
+            if (checksportPlace != null)
+            {
+                return BadRequest("Такой вид спорта уже существует");
             }
 
             var sportPlace = new SportPlace
@@ -96,9 +115,16 @@ namespace WebApplication.Controllers
             return CreatedAtAction("GetSportPlace", new { id = sportPlace.Id }, sportPlace);
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpDelete("{sportplacename}")]
         public async Task<ActionResult<SportPlace>> DeleteSportPlace(string sportplacename)
         {
+            var token = Request.Headers["Authorization"].ToString().Replace("Bearer ", "");
+            if (ValidateToken(token) == false)
+            {
+                return BadRequest("Token expired, please login again");
+            }
+
             var sportPlace = await _context.SportPlaces.FirstOrDefaultAsync(x => x.Name == sportplacename);
 
             if (sportPlace == null)
@@ -111,7 +137,6 @@ namespace WebApplication.Controllers
 
             return sportPlace;
         }
-
 
 
         private bool SportPlaceExists(int id)

@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.IdentityModel.Tokens;
 using WebApplication.Data;
 using WebApplication.DTOs;
 using WebApplication.Models;
@@ -23,16 +24,21 @@ public class AthletesController : Validating
         var token = Request.Headers["Authorization"].ToString().Replace("Bearer ", "");
         if (ValidateToken(token) == false)
         {
-            return BadRequest("Token expired, please login again");
+            // return BadRequest("Время сеанса вышло. Зайдите в аккаунт заново.");
+            return StatusCode(401, "Время сеанса вышло. Зайдите в аккаунт заново.");
         }
 
         return await _dataContext.Athletes.ToListAsync();
-
     }
 
     [HttpGet("{id}")]
     public async Task<ActionResult<Athlete>> Get(int id)
     {
+        var token = Request.Headers["Authorization"].ToString().Replace("Bearer ", "");
+        if (ValidateToken(token) == false)
+        {
+            return BadRequest("Время сеанса вышло. Зайдите в аккаунт заново.");
+        }
         var athlete = await _dataContext.Athletes.FindAsync(id);
 
         if (athlete == null)
@@ -46,6 +52,11 @@ public class AthletesController : Validating
     [HttpDelete("{id}")]
     public async Task<ActionResult<Athlete>> Delete(int id)
     {
+        var token = Request.Headers["Authorization"].ToString().Replace("Bearer ", "");
+        if (ValidateToken(token) == false)
+        {
+            return BadRequest("Время сеанса вышло. Зайдите в аккаунт заново.");
+        }
         var athlete = await _dataContext.Athletes.FindAsync(id);
 
         if (athlete == null)
@@ -62,11 +73,16 @@ public class AthletesController : Validating
     [HttpPatch]
     public async Task<ActionResult<Athlete>> PatchAthlete(int id, CreateAthleteDto athleteDto)
     {
+        var token = Request.Headers["Authorization"].ToString().Replace("Bearer ", "");
+        if (ValidateToken(token) == false)
+        {
+            return BadRequest("Время сеанса вышло. Зайдите в аккаунт заново.");
+        }
         var athlete = await _dataContext.Athletes.FindAsync(id);
 
         if (athlete == null)
         {
-            return BadRequest("Athlete not found");
+            return BadRequest("Атлет не найден");
         }
 
         athlete.FirstName = athleteDto.FirstName;
@@ -86,7 +102,7 @@ public class AthletesController : Validating
         var token = Request.Headers["Authorization"].ToString().Replace("Bearer ", "");
         if (ValidateToken(token) == false)
         {
-            return BadRequest("Token expired, please login again");
+            return StatusCode(StatusCodes.Status403Forbidden);
         }
 
         var clubname = await _dataContext.Clubs.FirstOrDefaultAsync(x => x.Name == request.ClubName);
@@ -97,6 +113,14 @@ public class AthletesController : Validating
         if (clubname == null || sportname == null || trenersname == null || sportplacename == null)
         {
             return BadRequest("Invalid data");
+        }
+
+        //проверка на такого ще существующего атлета
+        var athlete = await _dataContext.Athletes.FirstOrDefaultAsync(x => x.FirstName == request.FirstName && x.LastName == request.LastName && x.ClubId == clubname.Id && x.SportId == sportname.Id && x.TrenerId == trenersname.Id && x.SportPlaceId == sportplacename.Id);
+
+        if (athlete != null)
+        {
+            return BadRequest("Такой атлет уже существует");
         }
 
         var newAthlete = new Athlete
@@ -118,6 +142,11 @@ public class AthletesController : Validating
     [HttpPut("{id}")]
     public async Task<IActionResult> PutAthlete(int id, Athlete request)
     {
+        var token = Request.Headers["Authorization"].ToString().Replace("Bearer ", "");
+        if (ValidateToken(token) == false)
+        {
+            return BadRequest("Время сеанса вышло. Зайдите в аккаунт заново.");
+        }
         if (id != request.Id)
         {
             return BadRequest();
@@ -142,7 +171,6 @@ public class AthletesController : Validating
         }
 
         return NoContent();
-
     }
 
     private bool AthleteExists(int id)

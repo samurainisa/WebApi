@@ -13,6 +13,6 @@ namespace WebApplication.Models
         public string Password { get; set; }
         public string Salt { get; set; }
         public string Role { get; set; }
-        public User User { get; set; }
+        public User? User { get; set; }
     }
 }
